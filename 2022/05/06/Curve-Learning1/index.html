@@ -223,14 +223,11 @@
 <p>这里我们讨论elliptic curve</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/Elliptic%20Curves%20Number%20Theory%20And%20Cryptography%202n.pdf">参考材料</a></p>
 <h2 id="introduce"><a href="#introduce" class="headerlink" title="introduce"></a>introduce</h2><h3 id="def"><a href="#def" class="headerlink" title="def"></a>def</h3><p>我们称满足Weierstrass方程$Y^2&#x3D;X^3+AX+B$的点集为椭圆曲线(elliptic curve)</p>
-<p><img src="/pic1.png"></p>
 <p>上图为常见的几种ec的形式，其中后两种被称为Singular curves</p>
 <p>实际上到这里还是没有什么特别的，下面我们将在曲线上定义一种运算，为了让操作自洽，这里我们在集合中额外声明无穷远点O</p>
-<h3 id="add-operation"><a href="#add-operation" class="headerlink" title="add operation"></a>add operation</h3><p><img src="/pic2.png"></p>
-<p>我们定义ec上的点加运算，A+B&#x3D;C’，即相加两点的连线与曲线的另一交点关于x轴的对称点</p>
+<h3 id="add-operation"><a href="#add-operation" class="headerlink" title="add operation"></a>add operation</h3><p>我们定义ec上的点加运算，A+B&#x3D;C’，即相加两点的连线与曲线的另一交点关于x轴的对称点</p>
 <p>下面陈述点集和运算+形成的群结构</p>
 <p>1)associativity</p>
-<p><img src="/pic3.png"></p>
 <p>(A+B)+C&#x3D;A+(B+C)，不剥蒜的话需要一点射影几何的知识，证明的方式可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/385840962">proof</a></p>
 <p>2)identity</p>
 <p>集合中任意一点A，均有A+O&#x3D;A，O+A&#x3D;A</p>
@@ -247,7 +244,6 @@
 <p>E(p)&#x3D;{∞}∪{(x,y)∈p×p|y^2^&#x3D;x^3^+Ax+b}</p>
 <p>记r<del>i</del>为y^2^&#x3D;x^3^+Ax+b的根&#x3D;&gt;$((r_1-r_2)(r_2-r_3)^(r_3-r_1))^2&#x3D;-(4A^3+27B^2)$</p>
 <p>由此方程无重根&#x3D;&gt;$4A^3+27B^2≠0$，含有重根时我们称形成的ec是奇异的，此时取(r,0)和(r,0)相加使得我们的加法失效，于是我们在使用时避开判别式为0的情况</p>
-<p><img src="/pic4.png"></p>
 <p>伽罗瓦域下的点仍然关于x轴对称，那么在域下ec上点的个数是多少呢？</p>
 <p>这里需要用到Hasse定理</p>
 <h3 id="Hasse-theore"><a href="#Hasse-theore" class="headerlink" title="Hasse theore"></a>Hasse theore</h3><blockquote>
