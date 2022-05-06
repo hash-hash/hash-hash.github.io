@@ -13,7 +13,7 @@
 
 
 
-<title>hash_hash的博客</title>
+<title>Curve Learning1 | hash_hash的博客</title>
 
 
 
@@ -194,7 +194,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title"></h1>
+            <h1 class="post-title">Curve Learning1</h1>
             
                 <div class="post-meta">
                     
@@ -203,7 +203,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 6, 2022&nbsp;&nbsp;2:20:41</a>
+                        Date: <a href="#">May 6, 2022&nbsp;&nbsp;2:26:04</a>
                         </span>
                     
                     
@@ -215,6 +215,82 @@
             <h1 id="Curve-Learning"><a href="#Curve-Learning" class="headerlink" title="Curve Learning"></a>Curve Learning</h1><p>希望能够从数学上更深入地了解一些曲线的一些性质吧，之前遇到ECC只会调包属实有点难受了:cry:</p>
 <p>这里我们讨论elliptic curve</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/Elliptic%20Curves%20Number%20Theory%20And%20Cryptography%202n.pdf">参考材料</a></p>
+<h2 id="introduce"><a href="#introduce" class="headerlink" title="introduce"></a>introduce</h2><p><code>def</code></p>
+<p>我们称满足Weierstrass方程Y^2^&#x3D;X^3^+AX+B的点集为椭圆曲线(elliptic curve)</p>
+<p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191248404-2093825528.png" alt="image"></p>
+<p>上图为常见的几种ec的形式，其中后两种被称为Singular curves</p>
+<p>实际上到这里还是没有什么特别的，下面我们将在曲线上定义一种运算，为了让操作自洽，这里我们在集合中额外声明无穷远点O</p>
+<p><code>add operation</code></p>
+<p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191319748-586621280.png" alt="image"></p>
+<p>我们定义ec上的点加运算，A+B&#x3D;C’，即相加两点的连线与曲线的另一交点关于x轴的对称</p>
+<p>下面陈述点集和运算+形成的群结构</p>
+<p>1)associativity</p>
+<p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191327743-111968895.png" alt="image"></p>
+<p>(A+B)+C&#x3D;A+(B+C)，不剥蒜的话需要一点射影几何的知识，证明的方式可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/385840962">proof</a></p>
+<p>2)identity</p>
+<p>集合中任意一点A，均有A+O&#x3D;A，O+A&#x3D;A</p>
+<p>3)inverse</p>
+<p>对于任意一点A，其关于x轴的对称即为逆元，A+A’&#x3D;O</p>
+<p>4)commutativity</p>
+<p>对于集合中的两点A，B，AB与BA与ec的另一交点相同，故其对称后所得结果一致</p>
+<p>上述性质说明ec和定义在其上的点加运算构成Abelian group</p>
+<p><code>algebraic representation</code></p>
+<p>y^2^&#x3D;x^3^+ax+b</p>
+<p>A(x<del>1,</del>y<del>1</del>)，B(x<del>2</del>,y<del>2</del>)，C(x<del>3</del>,y<del>3</del>)，A+B&#x3D;C</p>
+<p>不考虑含O的平凡情况，记$λ&#x3D;\left{<br>\begin{matrix}<br> \frac{y_2-y_1}{x_2-x_1}，A≠B\<br>\frac{3x^2+a}{2y}， A&#x3D;B<br>\end{matrix}<br>\right.<br>$</p>
+<p>则x<del>3</del>&#x3D;λ^2^-x<del>1</del>-x<del>2</del>，y<del>3</del>&#x3D;λ(x<del>1</del>-x<del>3</del>)-y<del>1</del></p>
+<p><code>elliptic curve in Galois field</code></p>
+<p>在密码学上，希望使用离散的数学问题，则有了将ec放在有限域上的操作，相应的基于ecdlp产生了一系列的方案，如Elgamal，ecdas，ecdh等等，由于ecdlp相比数域上的dlp拥有更强的安全性(在同等长度密钥的情况下)由此得到了广泛的关注</p>
+<p>我们记在有限域p上的点集为</p>
+<p>E(p)&#x3D;{∞}∪{(x,y)∈p×p|y^2^&#x3D;x^3^+Ax+b}</p>
+<p>记r<del>i</del>为y^2^&#x3D;x^3^+Ax+b的根&#x3D;&gt;$((r_1-r_2)(r_2-r_3)^(r_3-r_1))^2&#x3D;-(4A^3+27B^2)$</p>
+<p>由此方程无重根&#x3D;&gt;$4A^3+27B^2≠0$，含有重根时我们称形成的ec是奇异的，此时取(r,0)和(r,0)相加使得我们的加法失效，于是我们在使用时避开判别式为0的情况</p>
+<p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191345022-1538369752.png" alt="image"></p>
+<p>伽罗瓦域下的点仍然关于x轴对称，那么在域下ec上点的个数是多少呢？</p>
+<p>这里需要用到Hasse定理</p>
+<p><code>Hasse theorem</code></p>
+<blockquote>
+<p>交换群E(F<del>p</del>)中的点的个数满足#E(F<del>p</del>)∈$[p+1-\sqrt{p},p+1+\sqrt{p}]$</p>
+</blockquote>
+<p>Hasse定理也称Hasse边界，说明了阶的取值范围，具有较大实用性，如我们需要得到一个2^128^个元素的曲线群，那么我们p的选择就在128比特</p>
+<h2 id="attack"><a href="#attack" class="headerlink" title="attack"></a>attack</h2><p>求解不同情况下椭圆曲线上的离散对数问题</p>
+<h3 id="general"><a href="#general" class="headerlink" title="general"></a>general</h3><p>离散对数问题有几个通用的基本解法</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/oyrd/articles/16147217.html">Pohlig-Hellman</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2780">Pollard-rho</a></p>
+<p>Baby step giant step</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bsgs</span>(<span class="params">g,y,bound,p</span>):</span><br><span class="line">    m=gmpy2.iroot(bound,<span class="number">2</span>)[<span class="number">0</span>]+<span class="number">1</span></span><br><span class="line">    dic=&#123;<span class="built_in">pow</span>(g,m*j,p):j <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m)&#125;</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">        t=<span class="built_in">pow</span>(g,-j,p)*y%p</span><br><span class="line">        <span class="keyword">if</span> t <span class="keyword">in</span> dic.keys():</span><br><span class="line">            <span class="keyword">return</span> dic[t]*m+j</span><br></pre></td></tr></table></figure>
+
+<p>下面主要讨论一些关于ec选择参数不当所带来的攻击</p>
+<h3 id="Singular-Curve"><a href="#Singular-Curve" class="headerlink" title="Singular Curve"></a>Singular Curve</h3><p>前面有提及奇异曲线的条件，即方程有重根的情况，ec在选取的时候会规避这种此类曲线，原因是存在奇点使定义的点加运算出现问题</p>
+<p>实际上即使我们额外补充定义使其自洽，此类曲线仍是脆弱的</p>
+<p>对于y^2^&#x3D;x^3^+ax+b</p>
+<p>若满足4a^3^+27b^2^&#x3D;0</p>
+<p>&#x3D;&gt;y^2^&#x3D;(x+r<del>1</del>)^2^(x+r<del>2</del>)</p>
+<p>若r<del>1</del>≠r<del>2</del></p>
+<p>做代换t&#x3D;x+r<del>1</del> &#x3D;&gt;y^2^&#x3D;t^3^+r×t^2^</p>
+<p>此类曲线可以通过映射φ将ecdlp问题转化到数域GF(p)上</p>
+<p>φ&#x3D;$\frac{y+αx}{y-αx}$(α^2^&#x3D;r mod p)</p>
+<p>证明过程可参考前文所给的参考资料2.10</p>
+<p>若r<del>1</del>&#x3D;r<del>2</del></p>
+<p>做代换t&#x3D;x+r<del>1</del> &#x3D;&gt;y^2^&#x3D;t^3^</p>
+<p>做映射φ&#x3D;$\frac{x}{y}$即可将ecdlp转化为数域上的dlp</p>
+<h3 id="Invalid-point"><a href="#Invalid-point" class="headerlink" title="Invalid point"></a>Invalid point</h3><p>对于一个对我们输入的点与私钥进行点加运算的Oracle，如果它不对输入点是否在曲线上进行检测，则我们可以进行Invalid point attack</p>
+<p>注意到我们之前所列出的代数表达式中，对于点加运算并未涉及到参数b，如果运算开始前未检测点是否在曲线上则会造成在非要求曲线上将k与我们输入的点进行运算，这个时候如果我们控制输入点在一阶光滑的曲线上则可利用Pholig-Hellman算法进行ecdlp的求解</p>
+<p>实际上不仅是椭圆曲线在其他曲线上都存在这样的攻击，所以在写曲线类时一定要记得<code>Test the rationality of the point</code></p>
+<h3 id="SSAS-attack"><a href="#SSAS-attack" class="headerlink" title="SSAS attack"></a>SSAS attack</h3><p>针对有理点群阶等于有限域大小的异常椭圆曲线，将ecdlp问题约化到有限域加法群的dlp，从而该类ecdlp问题存在多项式时间算法。通过构造映射将F<del>p</del>上的ec提升到p-进域上，再通过模p的约化获得E(F<del>p</del>)的离散对数解</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/Smart1999_Article_TheDiscreteLogarithmProblemOnE.pdf">references</a></p>
+<p>代码实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">SmartAttack</span>(<span class="params">P,Q,p</span>):</span><br><span class="line">    E = P.curve()</span><br><span class="line">    Eqp = EllipticCurve(Qp(p,<span class="number">2</span>),[ZZ(t)+randint(<span class="number">0</span>,p)*p <span class="keyword">for</span> t <span class="keyword">in</span> E.a_invariants() ])</span><br><span class="line"> </span><br><span class="line">    P_Qps = Eqp.lift_x(ZZ(P.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> P_Qp <span class="keyword">in</span> P_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(P_Qp.xy()[<span class="number">1</span>]) == P.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"> </span><br><span class="line">    Q_Qps = Eqp.lift_x(ZZ(Q.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> Q_Qp <span class="keyword">in</span> Q_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(Q_Qp.xy()[<span class="number">1</span>]) == Q.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"> </span><br><span class="line">    p_times_P = p*P_Qp</span><br><span class="line">    p_times_Q = p*Q_Qp</span><br><span class="line"> </span><br><span class="line">    x_P,y_P = p_times_P.xy()</span><br><span class="line">    x_Q,y_Q = p_times_Q.xy()</span><br><span class="line"> </span><br><span class="line">    phi_P = -(x_P/y_P)</span><br><span class="line">    phi_Q = -(x_Q/y_Q)</span><br><span class="line">    k = phi_Q/phi_P</span><br><span class="line">    <span class="keyword">return</span> ZZ(k)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Mov-attack"><a href="#Mov-attack" class="headerlink" title="Mov attack"></a>Mov attack</h3><p>利用椭圆曲线上的双线性对映射将定义在有限域F<del>p</del>上的ecdlp规约到有限域乘法群$F_{p^k}$上的离散对数问题，此方法在嵌入度k较小是有效。</p>
+<p>补充嵌入度的定义</p>
+<blockquote>
+<p>嵌入度是满足k≥2且椭圆曲线的阶，n|q^k^-1的最小k</p>
+</blockquote>
+<hr>
+<p>More attacks are waiting to be updated:runner:</p>
 
         </div>
 
