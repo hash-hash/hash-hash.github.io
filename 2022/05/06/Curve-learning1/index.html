@@ -40,7 +40,44 @@
 
     
     
-        
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
     
 
 
@@ -223,7 +260,9 @@
 <p>这里我们讨论elliptic curve</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/Elliptic%20Curves%20Number%20Theory%20And%20Cryptography%202n.pdf">参考材料</a></p>
 <h2 id="introduce"><a href="#introduce" class="headerlink" title="introduce"></a>introduce</h2><h3 id="def"><a href="#def" class="headerlink" title="def"></a>def</h3><p>我们称满足Weierstrass方程$Y^2&#x3D;X^3+AX+B$的点集为椭圆曲线(elliptic curve)</p>
-<p><img src="/" alt="pic1"></p>
+<img src="/2022/05/06/Curve-learning1/pic1.png" class>
+
+
 <p>上图为常见的几种ec的形式，其中后两种被称为Singular curves</p>
 <p>实际上到这里还是没有什么特别的，下面我们将在曲线上定义一种运算，为了让操作自洽，这里我们在集合中额外声明无穷远点O</p>
 <h3 id="add-operation"><a href="#add-operation" class="headerlink" title="add operation"></a>add operation</h3><p>我们定义ec上的点加运算，A+B&#x3D;C’，即相加两点的连线与曲线的另一交点关于x轴的对称点</p>
@@ -239,11 +278,13 @@
 <p>上述性质说明ec和定义在其上的点加运算构成Abelian group</p>
 <h3 id="algebraic-representation"><a href="#algebraic-representation" class="headerlink" title="algebraic representation"></a>algebraic representation</h3><p>$y^2&#x3D;x^3+ax+b$</p>
 <p>$A(x_1,y_1)，B(x_2,y_2)，C(x_3,y_3)，A+B&#x3D;C$</p>
-<p>不考虑含O的平凡情况，记<br>$$<br>λ&#x3D;\left{<br>\begin{matrix}<br> \frac{y_2-y_1}{x_2-x_1}，A≠B\<br>\frac{3x^2+a}{2y}， A&#x3D;B<br>\end{matrix}<br>\right.<br>$$<br>则x<del>3</del>&#x3D;λ^2^-x<del>1</del>-x<del>2</del>，y<del>3</del>&#x3D;λ(x<del>1</del>-x<del>3</del>)-y<del>1</del></p>
+<p>不考虑含O的平凡情况，记</p>
+<p>$λ&#x3D;\left{<br>\begin{matrix}<br> \frac{y_2-y_1}{x_2-x_1}，A≠B\<br>\frac{3x^2+a}{2y}， A&#x3D;B<br>\end{matrix}<br>\right.$</p>
+<p>则$x_3&#x3D;λ^2-x_1-x_2，y_3&#x3D;λ(x_1-x_3)-y_1$</p>
 <h3 id="elliptic-curve-in-Galois-field"><a href="#elliptic-curve-in-Galois-field" class="headerlink" title="elliptic curve in Galois field"></a>elliptic curve in Galois field</h3><p>在密码学上，希望使用离散的数学问题，则有了将ec放在有限域上的操作，相应的基于ecdlp产生了一系列的方案，如Elgamal，ecdas，ecdh等等，由于ecdlp相比数域上的dlp拥有更强的安全性(在同等长度密钥的情况下)由此得到了广泛的关注</p>
 <p>我们记在有限域p上的点集为</p>
-<p>E(p)&#x3D;{∞}∪{(x,y)∈p×p|y^2^&#x3D;x^3^+Ax+b}</p>
-<p>记r<del>i</del>为y^2^&#x3D;x^3^+Ax+b的根&#x3D;&gt;$((r_1-r_2)(r_2-r_3)^(r_3-r_1))^2&#x3D;-(4A^3+27B^2)$</p>
+<p>$E(p)&#x3D;\lbrace ∞}∪\lbrace (x,y)∈p×p|y^2&#x3D;x^3+Ax+b}$</p>
+<p>记$r_i$为$y^2&#x3D;x^3+Ax+b$的根&#x3D;&gt;$((r_1-r_2)(r_2-r_3)^(r_3-r_1))^2&#x3D;-(4A^3+27B^2)$</p>
 <p>由此方程无重根&#x3D;&gt;$4A^3+27B^2≠0$，含有重根时我们称形成的ec是奇异的，此时取(r,0)和(r,0)相加使得我们的加法失效，于是我们在使用时避开判别式为0的情况</p>
 <p>伽罗瓦域下的点仍然关于x轴对称，那么在域下ec上点的个数是多少呢？</p>
 <p>这里需要用到Hasse定理</p>
@@ -261,16 +302,16 @@
 <p>下面主要讨论一些关于ec选择参数不当所带来的攻击</p>
 <h3 id="Singular-Curve"><a href="#Singular-Curve" class="headerlink" title="Singular Curve"></a>Singular Curve</h3><p>前面有提及奇异曲线的条件，即方程有重根的情况，ec在选取的时候会规避这种此类曲线，原因是存在奇点使定义的点加运算出现问题</p>
 <p>实际上即使我们额外补充定义使其自洽，此类曲线仍是脆弱的</p>
-<p>对于y^2^&#x3D;x^3^+ax+b</p>
-<p>若满足4a^3^+27b^2^&#x3D;0</p>
-<p>&#x3D;&gt;y^2^&#x3D;(x+r<del>1</del>)^2^(x+r<del>2</del>)</p>
-<p>若r<del>1</del>≠r<del>2</del></p>
-<p>做代换t&#x3D;x+r<del>1</del> &#x3D;&gt;y^2^&#x3D;t^3^+r×t^2^</p>
+<p>对于$y^2&#x3D;x^3+ax+b$</p>
+<p>若满足$4a^3+27b^2&#x3D;0$</p>
+<p>$&#x3D;&gt;y^2&#x3D;(x+r_1)^2(x+r_2)$</p>
+<p>若$r_1≠r_2$</p>
+<p>做代换$t&#x3D;x+r_1 &#x3D;&gt;y^2&#x3D;t^3+r×t^2$</p>
 <p>此类曲线可以通过映射φ将ecdlp问题转化到数域GF(p)上</p>
-<p>φ&#x3D;$\frac{y+αx}{y-αx}$(α^2^&#x3D;r mod p)</p>
+<p>$φ&#x3D;\frac{y+αx}{y-αx}(α^2&#x3D;r~mod p)$</p>
 <p>证明过程可参考前文所给的参考资料2.10</p>
-<p>若r<del>1</del>&#x3D;r<del>2</del></p>
-<p>做代换t&#x3D;x+r<del>1</del> &#x3D;&gt;y^2^&#x3D;t^3^</p>
+<p>若$r_1&#x3D;r_2$</p>
+<p>做代换$t&#x3D;x+r_1 &#x3D;&gt;y^2&#x3D;t^3$</p>
 <p>做映射φ&#x3D;$\frac{x}{y}$即可将ecdlp转化为数域上的dlp</p>
 <h3 id="Invalid-point"><a href="#Invalid-point" class="headerlink" title="Invalid point"></a>Invalid point</h3><p>对于一个对我们输入的点与私钥进行点加运算的Oracle，如果它不对输入点是否在曲线上进行检测，则我们可以进行Invalid point attack</p>
 <p>注意到我们之前所列出的代数表达式中，对于点加运算并未涉及到参数b，如果运算开始前未检测点是否在曲线上则会造成在非要求曲线上将k与我们输入的点进行运算，这个时候如果我们控制输入点在一阶光滑的曲线上则可利用Pholig-Hellman算法进行ecdlp的求解</p>
@@ -285,7 +326,7 @@
 <h3 id="Mov-attack"><a href="#Mov-attack" class="headerlink" title="Mov attack"></a>Mov attack</h3><p>利用椭圆曲线上的双线性对映射将定义在有限域F<del>p</del>上的ecdlp规约到有限域乘法群$F_{p^k}$上的离散对数问题，此方法在嵌入度k较小是有效。</p>
 <p>补充嵌入度的定义</p>
 <blockquote>
-<p>嵌入度是满足k≥2且椭圆曲线的阶，n|q^k^-1的最小k</p>
+<p>嵌入度是满足k≥2且椭圆曲线的阶，$n|q^k-1$的最小k</p>
 </blockquote>
 <hr>
 <p>More attacks are waiting to be updated:runner:</p>
