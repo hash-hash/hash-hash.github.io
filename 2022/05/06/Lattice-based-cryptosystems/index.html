@@ -260,7 +260,7 @@
 <h2 id="NTRU"><a href="#NTRU" class="headerlink" title="NTRU"></a>NTRU</h2><p>之前就有了解过，只不过是在数域上的，理解起来较为简单，这里介绍的是环上的NTRU及其实现</p>
 <p>加密前需选择公共参数N，p，q，d满足gcd(N,p,q)&#x3D;1，q&gt;(6d+1)p</p>
 <p>其中N一般在250到2500之间</p>
-<p>记R为商环$\frac{Z[x]}{x^N-1}$，$R_q$为$\frac{(Z&#x2F;q<del>Z)[x]}{x^N-1}$，$R_p$为$\frac{(Z&#x2F;p</del>Z)[x]}{x^N-1}$</p>
+<p>记R为商环$\frac{Z[x]}{x^N-1}$，$R_q$为$\frac{(Z&#x2F;q)[x]}{x^N-1}$，$R_p$为$\frac{(Z&#x2F;p)[x]}{x^N-1}$</p>
 <p>定义三值多项式$:d_1,d_2∈Z^+$</p>
 <p>$T(d_1,d_2)&#x3D;${$a(x)∈R:a(x)的系数存在d_1个1,d_2个-1,其余均为0$}</p>
 <h4 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h4><p>随机选取多项式f(x)∈T(d+1,d)，g(x)∈T(d,d)</p>
@@ -285,7 +285,7 @@
 <p>设h(x)的系数为$h_0$到$h_{N-1}$</p>
 <p>构造格</p>
 <p>$L&#x3D;\left[\begin{matrix}1&amp;&amp;&amp;&amp;&amp;h_0&amp;h_1&amp;…&amp;h_{N-1}\\&amp;1&amp;&amp;&amp;&amp;h_{N-1}&amp;h_0&amp;…&amp;h_{N-2}\\&amp;&amp;&amp;&amp;…\\&amp;&amp;&amp;&amp;1&amp;h_1&amp;h_2&amp;…&amp;h_0\\&amp;&amp;&amp;&amp;&amp;q\\&amp;&amp;&amp;&amp;&amp;&amp;q\\&amp;&amp;&amp;&amp;&amp;&amp;&amp;…\\&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;q\end{matrix}\right]$</p>
-<p>∵$(f(x)<del>-u(x))*L&#x3D;(f(x)</del>g(x))$</p>
+<p>∵$(f(x),-u(x))*L&#x3D;(f(x),g(x))$</p>
 <p>可知向量$v&#x3D;(f(x)~~g(x))$在格L上</p>
 <p>下面估计v的范围</p>
 <p>||v||&#x3D;$\sqrt{4d+1}≈2\sqrt{\frac{N}{3}}$</p>
@@ -396,7 +396,7 @@
 </ul>
 <p>密文即为$(c_0,c_1)$</p>
 <h4 id="解密过程-2"><a href="#解密过程-2" class="headerlink" title="解密过程"></a>解密过程</h4><p>$c_0+c_1s&#x3D;(p_1+sp_2)u+e_1+\omega*m+e_2s$</p>
-<p>$&#x3D;\omega<em>m+(e_1+e_2s-eu)&#x3D;\omega</em>m+e_3$</p>
+<p>$&#x3D;\omega<em>m+(e_1+e_2s-eu)$&#x3D;$\omega</em>m+e_3$</p>
 <p>只需$\omega&lt;e_3$即可正常解密，此处应该与其编码规则有关，有兴趣可以读一下原始的paper</p>
 
         </div>
