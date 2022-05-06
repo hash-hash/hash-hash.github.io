@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>Lattice based cryptosystems | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Lattice based cryptosystems</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 6, 2022&nbsp;&nbsp;21:39:38</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cryptography/">Cryptography</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Lattice-based-cryptosystems"><a href="#Lattice-based-cryptosystems" class="headerlink" title="Lattice based cryptosystems"></a>Lattice based cryptosystems</h1><h2 id="LLL-algorithm"><a href="#LLL-algorithm" class="headerlink" title="LLL algorithm"></a>LLL algorithm</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/oyrd/articles/16103053.html">算法细节</a></p>
+<h2 id="NTRU"><a href="#NTRU" class="headerlink" title="NTRU"></a>NTRU</h2><p>之前就有了解过，只不过是在数域上的，理解起来较为简单，这里介绍的是环上的NTRU及其实现</p>
+<p>加密前需选择公共参数N，p，q，d满足gcd(N,p,q)&#x3D;1，q&gt;(6d+1)p</p>
+<p>其中N一般在250到2500之间</p>
+<p>记R为商环$\frac{Z[x]}{x^N-1}$，R<del>q</del>为$\frac{(Z&#x2F;q<del>Z)[x]}{x^N-1}$，$R_p$为$\frac{(Z&#x2F;p</del>Z)[x]}{x^N-1}$</p>
+<p>定义三值多项式$:d_1,d_2∈Z^+$</p>
+<p>$T(d_1,d_2)&#x3D;${$a(x)∈R:a(x)的系数存在d_1个1,d_2个-1,其余均为0$}</p>
+<h4 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h4><p>随机选取多项式f(x)∈T(d+1,d)，g(x)∈T(d,d)</p>
+<p>$F_p(x)&#x3D;f(x)^{-1}∈R_p$</p>
+<p>$F_q(x)&#x3D;f(x)^{-1}∈R_q$</p>
+<p>$h(x)&#x3D;F_q(x)·g(x)∈R_q$</p>
+<p>h(x)为公钥，$(f(x),F_p(x))$为私钥</p>
+<p>随机选择r(x)∈T(d,d)</p>
+<p>明文多项式m(x)∈R，且其系数均在-p&#x2F;2到p&#x2F;2之间</p>
+<p>密文c(x)&#x3D;ph(x)·r(x)+m(x)∈R<del>q</del></p>
+<h4 id="解密过程"><a href="#解密过程" class="headerlink" title="解密过程"></a>解密过程</h4><p>$s(x)&#x3D;f(x)·c(x)&#x3D;pg(x)·r(x)+f(x)·m(x)∈R_q$</p>
+<p>考虑pg(x)·r(x)+f(x)·m(x)的各项系数最大不会超过(3d+1&#x2F;2)p&lt;q&#x2F;2</p>
+<p>故计算s(x)模q后提升至R上得到的是pg(x)·r(x)+f(x)·m(x)的未约化的值</p>
+<p>&#x3D;&gt;s(x)&#x3D;pg(x)·r(x)+f(x)·m(x)</p>
+<p>计算$a(x)&#x3D;F<del>p</del>(x)·s(x)∈R_p$</p>
+<p>$&#x3D;&gt;a(x)&#x3D;m(x)∈R_p$</p>
+<p>注意到开始对m(x)系数的约束，故我们最后能得到明文多项式m(x)</p>
+<h4 id="Lattice-based-attacks"><a href="#Lattice-based-attacks" class="headerlink" title="Lattice-based attacks"></a>Lattice-based attacks</h4><p>为了保证穷举密钥时的密钥空间，d取值约为N&#x2F;3</p>
+<p>希望通过公钥导出私钥或私钥的循环位移结果</p>
+<p>根据h(x)&#x3D;F<del>q</del>(x)·g(x)∈R<del>q</del></p>
+<p>&#x3D;&gt;f(x)·h(x)&#x3D;g(x)+qu(x)</p>
+<p>设h(x)的系数为h<del>0</del>到h<del>N-1</del></p>
+<p>构造格</p>
+<p>$L&#x3D;\left[\begin{matrix}1&amp;&amp;&amp;&amp;&amp;h_0&amp;h_1&amp;…&amp;h_{N-1}\&amp;1&amp;&amp;&amp;&amp;h_{N-1}&amp;h_0&amp;…&amp;h_{N-2}\&amp;&amp;&amp;&amp;…\&amp;&amp;&amp;&amp;1&amp;h_1&amp;h_2&amp;…&amp;h_0\&amp;&amp;&amp;&amp;&amp;q\&amp;&amp;&amp;&amp;&amp;&amp;q\&amp;&amp;&amp;&amp;&amp;&amp;&amp;…\&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;q\end{matrix}\right]$</p>
+<p>∵$(f(x)<del>-u(x))*L&#x3D;(f(x)</del>g(x))$</p>
+<p>可知向量$v&#x3D;(f(x)~~g(x))$在格L上</p>
+<p>下面估计v的范围</p>
+<p>||v||&#x3D;$\sqrt{4d+1}≈2\sqrt{\frac{N}{3}}$</p>
+<p>λ(L)的高斯期望为$\sqrt{\frac{n}{2Πe}}det(L)^{\frac{1}{n}}≈0.5N$</p>
+<p>可以看出在N较大时||v||有较大几率为最短向量</p>
+<p>于是我们可以采用LLL或BKZ算法对NTRU的公钥进行攻击来恢复私钥</p>
+<p>具体攻击的实现在低维度的情况下直接按上述构造LLL约化即可，高维可能需要BKZ算法才能解决</p>
+<p>算法实现可以看看这篇<a target="_blank" rel="noopener" href="https://tearsjin.github.io/2021/03/28/Translation-of-LatticeHacks/#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%94%BB%E5%87%BB">文章</a>，讲的很详细</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>充分利用sage打包好的玩意</p>
+<p><code>Poly</code></p>
+<blockquote>
+<p>Zx.<x>表示以x为自变量的多项式</x></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">f=Zx([<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line"><span class="comment">#x^2 + 2*x + 3</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Cyclic convolution</code></p>
+<blockquote>
+<p>就是上述说的模$x^N-1$的商环</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">convolution</span>(<span class="params">f,g</span>):</span><br><span class="line">    <span class="keyword">return</span> f*g%(x^n-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">n=<span class="number">5</span></span><br><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">f=Zx([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">g=Zx([<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>])</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line"><span class="built_in">print</span>(g)</span><br><span class="line"><span class="built_in">print</span>(convolution(f,g))</span><br><span class="line"><span class="comment">#3*x^2 + 2*x + 1</span></span><br><span class="line"><span class="comment">#8*x^3 + 6*x^2 + 4*x + 2</span></span><br><span class="line"><span class="comment">#34*x^4 + 32*x^3 + 20*x^2 + 8*x + 26</span></span><br></pre></td></tr></table></figure>
+
+<p>ps:Sage可以直接使用<code>R=Zx.quotient(x^n-1)</code>生成运算都在商环内的类</p>
+<p><code>Modular Reduction</code></p>
+<blockquote>
+<p>∵对系数的限制，在计算s(x)和a(x)后都做了模约计算，一般采用的是最小正剩余系，但这里使用的最小剩余系</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">balancedmod</span>(<span class="params">f,q</span>):</span><br><span class="line">    g=<span class="built_in">list</span>((f[i]+q//<span class="number">2</span>)%q-q//<span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n))</span><br><span class="line">    <span class="keyword">return</span> Zx(g)</span><br><span class="line">    </span><br><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">f=Zx([<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">6</span>])</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line">blancedmod(f,<span class="number">3</span>)</span><br><span class="line"><span class="comment">#6*x^4 + 7*x^3 + 3*x^2 + 5*x + 1</span></span><br><span class="line"><span class="comment">#x^3 - x + 1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Random polynomials with d1+d2 nonzero coefficients</code></p>
+<blockquote>
+<p>即上述d1个系数为1和d2个系数为-1其余系数为0的三值多项式</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">randompoly</span>(<span class="params">d1,d2</span>):</span><br><span class="line">    <span class="keyword">assert</span> d1+d2&lt;=n</span><br><span class="line">    ans=n*[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(d1):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            r=randrange(n)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> ans[r]:<span class="keyword">break</span></span><br><span class="line">        ans[r]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(d2):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            r=randrange(n)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> ans[r]:<span class="keyword">break</span></span><br><span class="line">        ans[r]=-<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> Zx(ans)</span><br><span class="line"></span><br><span class="line">n=<span class="number">7</span></span><br><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">randompoly(<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#-x^4 + x^3 - x^2 + x + 1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Polynomial inversion</code></p>
+<blockquote>
+<p>在商环$\frac{(Z&#x2F;q~~Z)[x]}{x^N-1}$下求逆</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">invertmodprime</span>(<span class="params">f,p</span>):</span><br><span class="line">    T=Zx.change_ring(Integers(p)).quotient(x^n-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> Zx(lift(<span class="number">1</span>/T(f)))</span><br><span class="line"></span><br><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">n=<span class="number">5</span></span><br><span class="line">f=x^<span class="number">3</span>+<span class="number">3</span>*x+<span class="number">2</span></span><br><span class="line">invertmodprime(f,<span class="number">11</span>)</span><br><span class="line"><span class="comment">#6*x^4 + 3*x^3 + x^2 + x + 2</span></span><br></pre></td></tr></table></figure>
+
+<p>ps:q不一定为素数为2的幂次也可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">invertmodpowerof2</span>(<span class="params">f,q</span>):</span><br><span class="line">     <span class="keyword">assert</span> q.is_power_of(<span class="number">2</span>)</span><br><span class="line">     g = invertmodprime(f,<span class="number">2</span>)</span><br><span class="line">     <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">       r = balancedmod(convolution(g,f),q)</span><br><span class="line">       <span class="keyword">if</span> r == <span class="number">1</span>: <span class="keyword">return</span> g</span><br><span class="line">       g = balancedmod(convolution(g,<span class="number">2</span> - r),q)</span><br></pre></td></tr></table></figure>
+
+<p><code>NTRU密钥生成</code></p>
+<blockquote>
+<p>p一般为3，d大约为N&#x2F;3</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">keypair</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            f=randompoly(d+<span class="number">1</span>,d)</span><br><span class="line">            fp=invertmodprime(f,p)</span><br><span class="line">            fq=invertmodprime(f,q)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    g=randompoly(d,d)</span><br><span class="line">    pk=balancedmod(p*convolution(fq,g),q)</span><br><span class="line">    sk=f,fp</span><br><span class="line">    <span class="keyword">return</span> pk,sk</span><br><span class="line"></span><br><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">n=<span class="number">11</span></span><br><span class="line">p=<span class="number">3</span></span><br><span class="line">q=<span class="number">13</span></span><br><span class="line">d=<span class="number">4</span></span><br><span class="line">keypair()</span><br><span class="line"><span class="comment">#(4*x^9 + 5*x^8 - 2*x^7 - x^6 - 4*x^5 - x^4 - 3*x^3 - x^2 + x + 2,(-x^10 - x^8 + x^7 + x^6 + x^5 + x^4 - x^3 - x^2 + 1,2*x^8 + 2*x^7 + 2*x^5 + x^4 + x + 2))</span></span><br></pre></td></tr></table></figure>
+
+<p><code>encrypt</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">m,pk</span>):</span><br><span class="line">    r=randompoly(d,d)</span><br><span class="line">    <span class="keyword">return</span> balancedmod(convolution(pk,r)+m,q)</span><br><span class="line"></span><br><span class="line">Zx.&lt;x&gt;=ZZ[]</span><br><span class="line">n=<span class="number">13</span></span><br><span class="line">q=<span class="number">11</span></span><br><span class="line">p=<span class="number">3</span></span><br><span class="line">m=Zx([<span class="number">1</span>,-<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">pk,sk=keypair()</span><br><span class="line">encrypt(m,pk)</span><br></pre></td></tr></table></figure>
+
+<p><code>decrypt</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">c,sk</span>):</span><br><span class="line">     f,fp = sk</span><br><span class="line">     a = balancedmod(convolution(c,f),q)</span><br><span class="line">     <span class="keyword">return</span> balancedmod(convolution(a,fp),p)</span><br></pre></td></tr></table></figure>
+
+<p><code>attack</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">pk</span>):</span><br><span class="line">    inverse_p=inverse(p,q)</span><br><span class="line">    pk=balancedmod(inverse_p*pk,q)</span><br><span class="line">    L=Matrix(<span class="number">2</span>*n,<span class="number">2</span>*n)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        L[i,i]=<span class="number">1</span></span><br><span class="line">        L[i+n,i+n]=q</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            h=convolution(x^i,pk)</span><br><span class="line">            L[i,n+j]=h[j]</span><br><span class="line">    L=L.LLL()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>*n):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            f=Zx(<span class="built_in">list</span>(L[i][:n]))</span><br><span class="line">            fp=invertmodprime(f,p)</span><br><span class="line">            <span class="keyword">return</span> (f,fp)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> (f,f)</span><br></pre></td></tr></table></figure>
+
+<p>ps:这里我实验了一下发现n≥90时无法通过上述算法恢复私钥，需要采用其他的格约减算法</p>
+<h2 id="GGH"><a href="#GGH" class="headerlink" title="GGH"></a>GGH</h2><p>相比NTRU这个公钥系统好理解多了，实现起来也很方便</p>
+<p>GGH是基于CVP的一个密码学方案，但是在1999年被发现在算法设计中有很大缺陷，可以泄露部分明文信息，且可将原CVP转化为一个更为简单的CVP，最终被认定是broken的</p>
+<p>接收者选定一个优质基L，通过乘幺模矩阵转化为坏基B，将B作为公钥</p>
+<h4 id="加密过程-1"><a href="#加密过程-1" class="headerlink" title="加密过程"></a>加密过程</h4><p>c&#x3D;m×B+e</p>
+<p>其中</p>
+<ul>
+<li>m:明文组成的1×n向量</li>
+<li>e:扰动向量(这个地方最初好像设定的是3或-3，Nguyen’s Attack可以根据这一点降低CVP难度)</li>
+<li>c:密文向量</li>
+</ul>
+<h4 id="解密过程-1"><a href="#解密过程-1" class="headerlink" title="解密过程"></a>解密过程</h4><p>接收者利用优质基L采用babai算法找c的最近向量v&#x3D;m×B</p>
+<p>$m&#x3D;v×B^{-1}$</p>
+<h4 id="Lattice-based-attacks-1"><a href="#Lattice-based-attacks-1" class="headerlink" title="Lattice-based attacks"></a>Lattice-based attacks</h4><p>通过对公钥B进行约化，找到一组优质基，再采用babai算法找c的最近向量</p>
+<p>这里通过Nguyen’s Attack可以降低CVP的难度</p>
+<p>可以参考这篇<a target="_blank" rel="noopener" href="https://blog.soreatu.com/posts/intended-solution-to-ggh-in-gyctf-2020/">文章</a>，对攻击方式做了详细推导</p>
+<p>ps:</p>
+<p>embeded technique也是一种有效的攻击方式，可以将CVP转化为高一个维度的SVP</p>
+<p>具体参考这篇<a target="_blank" rel="noopener" href="https://hxp.io/blog/26/VolgaCTF-2016-Quals-crypto300-XXY-writeup/">文章</a></p>
+<h2 id="LBH"><a href="#LBH" class="headerlink" title="LBH"></a>LBH</h2><p>基于格中的困难问题SIS构造的杂凑函数</p>
+<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><p>单输入LBH</p>
+<p>函数h<del>A</del>(x)&#x3D;A×x(mod q)</p>
+<p>将需要进行摘要的信息转为向量x(坐标只能为0或1)，求出的h<del>A</del>(x)即为x的哈希值</p>
+<p>基于格的实现满足了哈希算法的高效性，不可逆的性质在同余下是容易实现的</p>
+<p>所以我们更多地关注其抗碰撞性</p>
+<p><code>抗碰撞性</code></p>
+<p>希望能将其归约到困难问题上，即如果我们能获得高效的碰撞算法，相当于我们解决了困难问题</p>
+<p>若存在h<del>A</del>(x)&#x3D;h<del>A</del>(y) (mod q)</p>
+<p>&#x3D;&gt;A×(x-y)&#x3D;0 (mod q) (※)</p>
+<p>∵x，y两个向量的分量取值均只能为0或1</p>
+<p>∴x-y的分量只能为0，-1，1</p>
+<p>这就转化为了我们熟知的SIS问题的形式</p>
+<p>故我们能找到一组碰撞&lt;&#x3D;&gt;找到了SIS问题的一组解</p>
+<p>又SIS可以归约到SIVP问题上，且SIVP是困难的</p>
+<p>至此我们就证明了LBH的抗碰撞性</p>
+<p>关于SIS问题的更多应用可以参考这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/175946045">文章</a></p>
+<p>基于格的哈希算法这的确是个很有意思的问题，但是由于很多的前置知识没学明白就只能浅显地描述该算法了，等我学会了再来补充</p>
+<h2 id="BFV"><a href="#BFV" class="headerlink" title="BFV"></a>BFV</h2><p>一个基于RLWE的全同态加密方案</p>
+<h4 id="加密过程-2"><a href="#加密过程-2" class="headerlink" title="加密过程"></a>加密过程</h4><p>首先选取一分圆多项式$\phi_m(x)$，常选$f&#x3D;x^n+1(n&#x3D;2^t)$</p>
+<p>构建密文空间的商环$R_1&#x3D;\frac{(Z&#x2F;q~Z)[x]}{x^n+1}$</p>
+<p>明文空间的商环$R_2&#x3D;\frac{(Z&#x2F;p~Z)[x]}{x^n+1}$</p>
+<p>$\omega&#x3D;\lfloor\frac{q}{p}\rfloor$</p>
+<p>通过私钥采样生成私钥s，往往选择离散高斯分布</p>
+<p>随机分布中采样得$p_2$，噪声分布中采样e，计算$p_1&#x3D;-(p_2*s+e)$，公钥为$(p_1,p_2)$</p>
+<p>对于明文M，先将其编码到$R_2$记为m，从私钥分布中采样u，从噪声分布中采样$e_1,e_2$</p>
+<p>计算</p>
+<ul>
+<li>$c_0&#x3D;u<em>p_1+e_1+\omega</em>m$</li>
+<li>$c_1&#x3D;u*p_2+e_2$</li>
+</ul>
+<p>密文即为$(c_0,c_1)$</p>
+<h4 id="解密过程-2"><a href="#解密过程-2" class="headerlink" title="解密过程"></a>解密过程</h4><p>$c_0+c_1<em>s&#x3D;(p_1+s</em>p_2)u+e_1+\omega<em>m+e_2</em>s$</p>
+<p>$&#x3D;\omega<em>m+(e_1+e_2</em>s-e<em>u)&#x3D;\omega</em>m+e_3$</p>
+<p>只需$\omega&lt;e_3$即可正常解密，此处应该与其编码规则有关，有兴趣可以读一下原始的paper</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/05/06/Lattice-based-cryptosystems/">https://hash-hash.github.io/2022/05/06/Lattice-based-cryptosystems/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/lattice/"># lattice</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/06/hello-world/">Hello World</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
