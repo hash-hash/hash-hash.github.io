@@ -222,13 +222,11 @@
             <h1 id="Curve-Learning"><a href="#Curve-Learning" class="headerlink" title="Curve Learning"></a>Curve Learning</h1><p>希望能够从数学上更深入地了解一些曲线的一些性质吧，之前遇到ECC只会调包属实有点难受了:cry:</p>
 <p>这里我们讨论elliptic curve</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/Elliptic%20Curves%20Number%20Theory%20And%20Cryptography%202n.pdf">参考材料</a></p>
-<h2 id="introduce"><a href="#introduce" class="headerlink" title="introduce"></a>introduce</h2><p><code>def</code></p>
-<p>我们称满足Weierstrass方程$Y^2&#x3D;X^3+AX+B$的点集为椭圆曲线(elliptic curve)</p>
+<h2 id="introduce"><a href="#introduce" class="headerlink" title="introduce"></a>introduce</h2><h3 id="def"><a href="#def" class="headerlink" title="def"></a>def</h3><p>我们称满足Weierstrass方程$Y^2&#x3D;X^3+AX+B$的点集为椭圆曲线(elliptic curve)</p>
 <p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191248404-2093825528.png" alt="image"></p>
 <p>上图为常见的几种ec的形式，其中后两种被称为Singular curves</p>
 <p>实际上到这里还是没有什么特别的，下面我们将在曲线上定义一种运算，为了让操作自洽，这里我们在集合中额外声明无穷远点O</p>
-<p><code>add operation</code></p>
-<p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191319748-586621280.png" alt="image"></p>
+<h3 id="add-operation"><a href="#add-operation" class="headerlink" title="add operation"></a>add operation</h3><p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191319748-586621280.png" alt="image"></p>
 <p>我们定义ec上的点加运算，A+B&#x3D;C’，即相加两点的连线与曲线的另一交点关于x轴的对称点</p>
 <p>下面陈述点集和运算+形成的群结构</p>
 <p>1)associativity</p>
@@ -241,12 +239,10 @@
 <p>4)commutativity</p>
 <p>对于集合中的两点A，B，AB与BA与ec的另一交点相同，故其对称后所得结果一致</p>
 <p>上述性质说明ec和定义在其上的点加运算构成Abelian group</p>
-<p><code>algebraic representation</code></p>
-<p>$y^2&#x3D;x^3+ax+b$</p>
+<h3 id="algebraic-representation"><a href="#algebraic-representation" class="headerlink" title="algebraic representation"></a>algebraic representation</h3><p>$y^2&#x3D;x^3+ax+b$</p>
 <p>$A(x_1,y_1)，B(x_2,y_2)，C(x_3,y_3)，A+B&#x3D;C$</p>
 <p>不考虑含O的平凡情况，记<br>$$<br>λ&#x3D;\left{<br>\begin{matrix}<br> \frac{y_2-y_1}{x_2-x_1}，A≠B\<br>\frac{3x^2+a}{2y}， A&#x3D;B<br>\end{matrix}<br>\right.<br>$$<br>则x<del>3</del>&#x3D;λ^2^-x<del>1</del>-x<del>2</del>，y<del>3</del>&#x3D;λ(x<del>1</del>-x<del>3</del>)-y<del>1</del></p>
-<p><code>elliptic curve in Galois field</code></p>
-<p>在密码学上，希望使用离散的数学问题，则有了将ec放在有限域上的操作，相应的基于ecdlp产生了一系列的方案，如Elgamal，ecdas，ecdh等等，由于ecdlp相比数域上的dlp拥有更强的安全性(在同等长度密钥的情况下)由此得到了广泛的关注</p>
+<h3 id="elliptic-curve-in-Galois-field"><a href="#elliptic-curve-in-Galois-field" class="headerlink" title="elliptic curve in Galois field"></a>elliptic curve in Galois field</h3><p>在密码学上，希望使用离散的数学问题，则有了将ec放在有限域上的操作，相应的基于ecdlp产生了一系列的方案，如Elgamal，ecdas，ecdh等等，由于ecdlp相比数域上的dlp拥有更强的安全性(在同等长度密钥的情况下)由此得到了广泛的关注</p>
 <p>我们记在有限域p上的点集为</p>
 <p>E(p)&#x3D;{∞}∪{(x,y)∈p×p|y^2^&#x3D;x^3^+Ax+b}</p>
 <p>记r<del>i</del>为y^2^&#x3D;x^3^+Ax+b的根&#x3D;&gt;$((r_1-r_2)(r_2-r_3)^(r_3-r_1))^2&#x3D;-(4A^3+27B^2)$</p>
@@ -254,8 +250,7 @@
 <p><img src="https://img2022.cnblogs.com/blog/2635856/202205/2635856-20220502191345022-1538369752.png" alt="image"></p>
 <p>伽罗瓦域下的点仍然关于x轴对称，那么在域下ec上点的个数是多少呢？</p>
 <p>这里需要用到Hasse定理</p>
-<p><code>Hasse theorem</code></p>
-<blockquote>
+<h3 id="Hasse-theore"><a href="#Hasse-theore" class="headerlink" title="Hasse theore"></a>Hasse theore</h3><blockquote>
 <p>交换群E(F<del>p</del>)中的点的个数满足#E(F<del>p</del>)∈$[p+1-\sqrt{p},p+1+\sqrt{p}]$</p>
 </blockquote>
 <p>Hasse定理也称Hasse边界，说明了阶的取值范围，具有较大实用性，如我们需要得到一个2^128^个元素的曲线群，那么我们p的选择就在128比特</p>
