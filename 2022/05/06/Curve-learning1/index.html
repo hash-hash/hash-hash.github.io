@@ -283,7 +283,7 @@
 <p>则$x_3&#x3D;λ^2-x_1-x_2，y_3&#x3D;λ(x_1-x_3)-y_1$</p>
 <h3 id="elliptic-curve-in-Galois-field"><a href="#elliptic-curve-in-Galois-field" class="headerlink" title="elliptic curve in Galois field"></a>elliptic curve in Galois field</h3><p>在密码学上，希望使用离散的数学问题，则有了将ec放在有限域上的操作，相应的基于ecdlp产生了一系列的方案，如Elgamal，ecdas，ecdh等等，由于ecdlp相比数域上的dlp拥有更强的安全性(在同等长度密钥的情况下)由此得到了广泛的关注</p>
 <p>我们记在有限域p上的点集为</p>
-<p>$E(p)&#x3D;\lbrace ∞}∪\lbrace (x,y)∈p×p|y^2&#x3D;x^3+Ax+b}$</p>
+<p>$E(p)&#x3D;{∞}∪{(x,y)∈p×p|y^2&#x3D;x^3+Ax+b}$</p>
 <p>记$r_i$为$y^2&#x3D;x^3+Ax+b$的根&#x3D;&gt;$((r_1-r_2)(r_2-r_3)^(r_3-r_1))^2&#x3D;-(4A^3+27B^2)$</p>
 <p>由此方程无重根&#x3D;&gt;$4A^3+27B^2≠0$，含有重根时我们称形成的ec是奇异的，此时取(r,0)和(r,0)相加使得我们的加法失效，于是我们在使用时避开判别式为0的情况</p>
 <p>伽罗瓦域下的点仍然关于x轴对称，那么在域下ec上点的个数是多少呢？</p>
