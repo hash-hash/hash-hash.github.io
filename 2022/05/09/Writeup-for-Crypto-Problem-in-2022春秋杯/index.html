@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>Writeup for Crypto Problem in 2022春秋杯 | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Writeup for Crypto Problem in 2022春秋杯</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 9, 2022&nbsp;&nbsp;18:44:47</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cryptography/">Cryptography</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>抽时间打了一波i春秋的比赛，赛题出的都挺不错的，两组都有一道比较难的题，把wp写一下也算是学习一波了</p>
+<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/i%E6%98%A5%E7%A7%8B2022/Train">附件</a></p>
+<p>题目本意是找到自定义哈希函数的一个碰撞，但是出题人忘了过滤相同字符的情况，hhh</p>
+<p>hash</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">TrainHash</span>(<span class="params">msg</span>):</span><br><span class="line">    n = n0</span><br><span class="line">    msg = <span class="built_in">map</span>(<span class="built_in">ord</span>,msg)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> msg :</span><br><span class="line">        n = g * (n+i)</span><br><span class="line">        n = n &amp; (<span class="number">1</span>&lt;&lt;<span class="number">383</span>)</span><br><span class="line">    <span class="keyword">return</span> n - <span class="number">0xf5e33dabb114514</span></span><br></pre></td></tr></table></figure>
+
+<p>collision</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> TrainHash(string1) == TrainHash(string2):</span><br><span class="line">    self.send(<span class="string">b&#x27;\nJust do it!~ You can do more!&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> string2.encode()[-<span class="number">50</span>:] == string1.encode()[-<span class="number">50</span>:]:</span><br><span class="line">        self.send(flag)</span><br></pre></td></tr></table></figure>
+
+<p>我们考虑将hash函数展开，设碰撞明文ascii码序列为$t_i$及$s_i$</p>
+<p>最简单的想法肯定是明文长度一致设为l</p>
+<p>只需满足$\sum_{k&#x3D;1}^lg^{l-k}t_k&#x3D;\sum_{k&#x3D;1}^lg^{l-k}s_k(mod~2^{383})$</p>
+<p>$&#x3D;&gt;\sum_{k&#x3D;1}^lg^{l-k}(t_k-s_k)&#x3D;0(mod~2^{383})$</p>
+<p>还需使得最后50位的t和s相同</p>
+<p>$L&#x3D;\left[\begin{matrix}1&amp;&amp;&amp;&amp;&amp;&amp;g^{100}\\&amp;1&amp;&amp;&amp;&amp;&amp;g^{99}\\&amp;&amp;.&amp;.&amp;.&amp;&amp;\\&amp;&amp;&amp;&amp;&amp;1&amp;g^{50}\\&amp;&amp;&amp;&amp;&amp;&amp;2^{383}\end{matrix}\right]$</p>
+<p>最后一列把权重加上优先规约即可</p>
+<p>找LLL规约后前50各分量绝对值不大于80的就差不多够了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">n0 = <span class="number">30798082519452208630254982405300548841337042015746308462162479889627080155514391987610153873334549377764946092629701</span></span><br><span class="line">g = <span class="number">64146569863628228208271069055817252751116365290967978172021890038925428672043</span></span><br><span class="line">mod=<span class="number">2</span>^<span class="number">383</span></span><br><span class="line">A=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">    A.append(<span class="built_in">pow</span>(g,<span class="number">50</span>+i,mod))</span><br><span class="line"></span><br><span class="line">L=Matrix(<span class="number">51</span>,<span class="number">51</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">    L[i,<span class="number">50</span>]=<span class="number">2</span>^<span class="number">50</span>*A[i]</span><br><span class="line">    L[i,i]=<span class="number">1</span></span><br><span class="line">L[<span class="number">50</span>,<span class="number">50</span>]=<span class="number">2</span>^<span class="number">50</span>*<span class="number">2</span>^<span class="number">383</span></span><br><span class="line">L=L.LLL()</span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ascii码范围搜索碰撞对</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">deta=(-<span class="number">62</span>, -<span class="number">28</span>, <span class="number">6</span>, <span class="number">54</span>, <span class="number">62</span>, <span class="number">65</span>, <span class="number">8</span>, <span class="number">15</span>, -<span class="number">27</span>, -<span class="number">13</span>, -<span class="number">55</span>, -<span class="number">15</span>, <span class="number">34</span>, <span class="number">34</span>, -<span class="number">46</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">33</span>, -<span class="number">4</span>, -<span class="number">70</span>, -<span class="number">30</span>, <span class="number">54</span>, -<span class="number">10</span>, -<span class="number">50</span>, <span class="number">33</span>, -<span class="number">55</span>, -<span class="number">73</span>, <span class="number">76</span>, -<span class="number">5</span>, -<span class="number">31</span>, <span class="number">17</span>, <span class="number">36</span>, <span class="number">77</span>, -<span class="number">37</span>, -<span class="number">35</span>, -<span class="number">9</span>, <span class="number">53</span>, -<span class="number">27</span>, -<span class="number">42</span>, <span class="number">26</span>, <span class="number">24</span>, <span class="number">18</span>, -<span class="number">55</span>, -<span class="number">5</span>, -<span class="number">17</span>, <span class="number">55</span>, -<span class="number">42</span>, <span class="number">14</span>, <span class="number">17</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">s1=<span class="string">&#x27;&#x27;</span></span><br><span class="line">s2=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(deta)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">40</span>,<span class="number">126</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="number">40</span>&lt;(j+deta[i])&lt;<span class="number">126</span>:</span><br><span class="line">            s1+=<span class="built_in">chr</span>(j)</span><br><span class="line">            s2+=<span class="built_in">chr</span>(j+deta[i])</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">t1=s1+<span class="string">&#x27;a&#x27;</span>*<span class="number">50</span></span><br><span class="line">t2=s2+<span class="string">&#x27;a&#x27;</span>*<span class="number">50</span></span><br><span class="line"><span class="built_in">print</span>(t1)</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="bob’s-enc"><a href="#bob’s-enc" class="headerlink" title="bob’s enc"></a>bob’s enc</h2><p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/i%E6%98%A5%E7%A7%8B2022/bob's%20enc">附件</a></p>
+<p>简单求解矩阵和简单lwe</p>
+<p>虽然网上脚本一堆，赛后还是自己写了一个，这里稍微说一下格的构造，实际上和求解GGH的时候差不多只是最后带了个模p</p>
+<p>对于$B&#x3D;Ax+e(mod~p)$</p>
+<p>A为m×n矩阵，构造P为n×n对角阵(对角元素为p)</p>
+<p>对$L&#x3D;\left[\begin{matrix}A\\P\end{matrix}\right]$进行规约</p>
+<p>再对L求gram正交基，调babai算法即可</p>
+<ul>
+<li>解矩阵方程</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">key = </span><br><span class="line">q=</span><br><span class="line">c1=</span><br><span class="line">A=Matrix(Zmod(q),key)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>(<span class="built_in">list</span>(A.solve_right(c1))))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>求解lwe</p>
+<blockquote>
+<p>由于系数都比较小我直接用的最朴素的babai算法，更糟糕的情况下可以考虑使用最近平面算法</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="number">64</span></span><br><span class="line">n = <span class="number">21</span></span><br><span class="line">q = <span class="number">2141</span></span><br><span class="line"></span><br><span class="line">A = </span><br><span class="line">A=Matrix(GF(q),A)</span><br><span class="line">c2 = </span><br><span class="line"></span><br><span class="line">L=Matrix(ZZ,m+n,m)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        L[j,i]=A[i][j]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    L[n+i,i]=q</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">babai</span>(<span class="params">A, w</span>):</span><br><span class="line">    A = A.LLL()[<span class="number">21</span>:]</span><br><span class="line">    G = A.gram_schmidt()[<span class="number">0</span>]</span><br><span class="line">    t = w</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">reversed</span>(<span class="built_in">range</span>(A.ncols())):</span><br><span class="line">        c = ((t * G[i]) / (G[i] * G[i])).<span class="built_in">round</span>()</span><br><span class="line">        t -= A[i] * c</span><br><span class="line">    <span class="keyword">return</span> w - t</span><br><span class="line"></span><br><span class="line">v_e=vector(ZZ,c2)</span><br><span class="line">v=babai(L,v_e)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>(<span class="built_in">list</span>(A.solve_right(v))))</span><br></pre></td></tr></table></figure>
+
+<h2 id="notKnapsack"><a href="#notKnapsack" class="headerlink" title="notKnapsack"></a>notKnapsack</h2><p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/i%E6%98%A5%E7%A7%8B2022/notknapsack">附件</a></p>
+<p>比赛的时候想偏了，因为之前记得RCTF2019也出过一个乘法背包通过转到乘法群上解加法背包进行解决</p>
+<p>实际上不能原封不动地按照之前乘法背包的想法进行解决，因为此处题目给了多组利用同一私钥的加密结果，但是我们可以利用rctf那题取生成元的想法，只不过我们取的生成元生成的乘法群的阶不需要太大因为我们有足够的方程组约束出正确的解</p>
+<p>赛后询问Hermes最简单的方式是直接采用勒让德符号也就是找二阶的乘法群即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,p</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">pow</span>(a,(p-<span class="number">1</span>)//<span class="number">2</span>,p)==<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;output.txt&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">q = <span class="number">210767327475911131359308665806489575328083</span></span><br><span class="line">out=<span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line">A=Matrix(GF(<span class="number">2</span>),<span class="built_in">len</span>(out))</span><br><span class="line">v=vector(GF(<span class="number">2</span>),<span class="built_in">len</span>(out))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(out)):</span><br><span class="line">    t1,t2=out[i]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(t1)):</span><br><span class="line">        A[i,j]=add(t1[j],q)</span><br><span class="line">        v[i]=add(t2,q)+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">m=A.solve_right(v)</span><br><span class="line">m=<span class="string">&#x27;&#x27;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>,m))</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(m,<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+
+<h2 id="TrainPlus"><a href="#TrainPlus" class="headerlink" title="TrainPlus"></a>TrainPlus</h2><p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/i%E6%98%A5%E7%A7%8B2022/TrainPlus">附件</a></p>
+<p>魔改了md5过程的哈希拓展攻击，之前CCTF也有一道只不过那个就是用的md5和sha1，直接扔<a target="_blank" rel="noopener" href="https://github.com/iagox86/hash_extender">hash_extender</a>里解了，这里还得审计代码，比赛的时候以为只是改了md5幻数，结果dbt出题目的时候把padding也改了</p>
+<p>原本md5在padding成512k+448是10…00式的padding现在是11…11式padding，┭┮﹏┭┮</p>
+<p>在具有MD结构的散列函数上都会存在长度扩展攻击</p>
+<p>举个例子就是在已知md5(key)以及key长度的情况下计算md5(key||message)，这里message可控</p>
+<p>这似乎一眼看上去是不太可能实现的，因为我们知道md5目前仍是具有单向性也就是我们没法还原key的，那如何得到md5(key||message)，那就得利用md5的padding过程以及它的md结构实现在已经计算好key+padding+len的基础上接着计算我们的message</p>
+<p>因为本人太懒了就不自己实现了<del>太菜了写不好</del></p>
+<p>最后贴上dbt的代码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/i%E6%98%A5%E7%A7%8B2022/trainplus-exp">exp</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/05/09/Writeup-for-Crypto-Problem-in-2022%E6%98%A5%E7%A7%8B%E6%9D%AF/">https://hash-hash.github.io/2022/05/09/Writeup-for-Crypto-Problem-in-2022%E6%98%A5%E7%A7%8B%E6%9D%AF/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/wp/"># wp</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/07/Curve-learning1/%E6%98%A5%E7%A7%8BGAME/"></a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
