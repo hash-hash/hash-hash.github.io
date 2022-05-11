@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>Heap learning | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Heap learning</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 11, 2022&nbsp;&nbsp;8:07:01</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Pwn/">Pwn</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>属于是国赛前的临时抱佛脚了</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在程序运行过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。堆其实就是程序虚拟地址空间的一块连续的线性区域，它由低地址向高地址方向增长。我们一般称管理堆的那部分程序为堆管理器。</p>
+<p>其主要功能如下</p>
+<ol>
+<li><p>响应用户的申请内存请求，向操作系统申请内存，然后将其返回给用户程序。同时为了保持内存管理的高效性，内核一般会预先分配一块很大的连续内存，然后让堆管理器通过某种算法进行管理，只有出现堆空间不足的情况时，堆管理器才会再次与操作系统进行交互</p>
+</li>
+<li><p>管理用户释放的内存。一般来说用户释放的内存并不是直接返还给操作系统，而是由堆管理器进行管理。</p>
+</li>
+</ol>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><h3 id="malloc-chunk"><a href="#malloc-chunk" class="headerlink" title="malloc_chunk"></a>malloc_chunk</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>在程序执行过程中，我们称由malloc申请的内存为chunk。这块内存在ptmalloc内部用malloc_chunk结构体表示，当申请的chunk被free后会加入到相应的空闲管理列表中</p>
+<p>值得注意的是不管处于何种状态malloc_chunk均使用的统一的结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  This struct declaration is misleading (but accurate and necessary).</span></span><br><span class="line"><span class="comment">  It declares a &quot;view&quot; into memory allowing access to necessary</span></span><br><span class="line"><span class="comment">  fields at known offsets from a given base. See explanation below.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  INTERNAL_SIZE_T      prev_size;  <span class="comment">/* Size of previous chunk (if free).  */</span></span><br><span class="line">  INTERNAL_SIZE_T      size;       <span class="comment">/* Size in bytes, including overhead. */</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Only used for large blocks: pointer to next larger size.  */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="字段解释"><a href="#字段解释" class="headerlink" title="字段解释"></a>字段解释</h4><p><code>prev_size</code>:如果该chunk的物理相邻的前一个chunk空闲则记录前一个chunk的size(包括chunk头)。否则用来储存前一个chunk的数据</p>
+<p><code>size</code>:记录该chunk的大小，低三比特对chunk大小无影响</p>
+<ul>
+<li>A:NON_MAIN_ARENA:记录是否属于主线程</li>
+<li>M:IS_MAPPED:记录该chunk是否由mmap分配</li>
+<li>P:PREV_INUSE:记录前一个chunk是否被分配</li>
+</ul>
+<p><code>fd,bk</code>:chunk处于分配状态时，从fd开始是用户的数据区。空闲时则被添加到相应空闲管理链表中，通过fd和bk将空闲chunk块加入到链表进行统一管理</p>
+<p><code>fd_nextsize,bk_nextsize</code>:只有chunk空闲且该chunk为large chunk时使用</p>
+<ul>
+<li>fd_nestsize:指向前一个与当前chunk大小不同的空闲块(不包含bin头指针)</li>
+<li>bk_nestsize:指向后一个与当前chunk大小不同的空闲块(不包含bin头指针)</li>
+</ul>
+<h3 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p>用户释放掉的chunk不会马上归还系统，ptmalloc会统一管理heap和mmap映射区域空闲的chunk，以避免频繁的系统调用，降低内存分配开销</p>
+<p>ptmalloc根据chunk的大小及状态将chunk初步分为4类:fast bins，small bins，large bins，unsorted bins</p>
+<p>除了fast bins其他类型bin中的排布都遵循任意两物理相邻的空闲chunk不能再一起</p>
+<ul>
+<li>fastbin: 大小范围在0x20-0x80</li>
+<li>smallbin: 大小范围在0x90-0x400</li>
+<li>largebin: 大小范围在0x410以上</li>
+<li>unsortedbin: 未被归类的bin用于临时储存，存放大小不定</li>
+</ul>
+<blockquote>
+<p>堆块合并:当free掉一个chunk时可能会触发向前合并和向后合并</p>
+</blockquote>
+<ul>
+<li><p>fisrtbin</p>
+<p>管理fastbin free chunk，单链表结构，FILO策略</p>
+<p>共十个fastbin链表，每个链表fastbin的size从0x20-0x80以0x10递增</p>
+</li>
+<li><p>unsortedbin</p>
+<p>管理unsorted chunk，只有一个双向链表，所以大小大于fastbin的chunk都先被暂时存入unsortedbin中，链表中chunk大小不一</p>
+</li>
+<li><p>smallbin</p>
+<p>管理small chunk由62个双向链表组成，每个链表的chunk大小一致以0x10递增</p>
+</li>
+<li><p>largebin</p>
+<p>管理large chunk，由63个双向链表组成，FIFO策略，同一双向链表中的chunk大小可不一致但在一定范围内，bins大小从小到大排列</p>
+</li>
+</ul>
+<h3 id="top-chunk"><a href="#top-chunk" class="headerlink" title="top chunk"></a>top chunk</h3><p>glibc中对top chunk的描述</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   Top</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    The top-most available chunk (i.e., the one bordering the end of</span></span><br><span class="line"><span class="comment">    available memory) is treated specially. It is never included in</span></span><br><span class="line"><span class="comment">    any bin, is used only if no other chunk is available, and is</span></span><br><span class="line"><span class="comment">    released back to the system if it is very large (see</span></span><br><span class="line"><span class="comment">    M_TRIM_THRESHOLD).  Because top initially</span></span><br><span class="line"><span class="comment">    points to its own bin with initial zero size, thus forcing</span></span><br><span class="line"><span class="comment">    extension on the first malloc request, we avoid having any special</span></span><br><span class="line"><span class="comment">    code in malloc to check whether it even exists yet. But we still</span></span><br><span class="line"><span class="comment">    need to do so when getting memory from system, so we make</span></span><br><span class="line"><span class="comment">    initial_top treat the bin as a legal but unusable chunk during the</span></span><br><span class="line"><span class="comment">    interval between initialization and the first call to</span></span><br><span class="line"><span class="comment">    sysmalloc. (This is somewhat delicate, since it relies on</span></span><br><span class="line"><span class="comment">    the 2 preceding words to be zero during this interval as well.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Conveniently, the unsorted bin can be used as dummy top on first call */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> initial_top(M) (unsorted_chunks(M))</span></span><br></pre></td></tr></table></figure>
+
+<p>top chunk就是处于当前堆物理地址最高的chunk，其作用是在当所有bin都无法满足用户请求的大小时，如果其大小不满足指定大小就进行分配，并将剩余部分作为新top chunk。否则先对heap进行扩展再进行分配</p>
+<h2 id="ptmalloc2"><a href="#ptmalloc2" class="headerlink" title="ptmalloc2"></a>ptmalloc2</h2><h3 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h3><h4 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h4><p>用于将一个双向链表中的一个元素取出，和数据结构中的链表元素的删除一样，在malloc，free时都有使用</p>
+<img src="/2022/05/11/Heap-learning/pic1.png" class>
+
+<p>wiki上说因为P的指针最后未变化所以会导致地址的泄露，以后遇到了再了解吧</p>
+<h3 id="tcache机制"><a href="#tcache机制" class="headerlink" title="tcache机制"></a>tcache机制</h3><p>tcache是glibc2.26之后引入的技术，目的是提升堆管理的性能，同时为了性能的提升也放弃了很多的安全检查，因此具有很多新的利用方式</p>
+<h4 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h4><p>当chunk被free时若size小于small bin的size时会被放置在对应的tcache中直到被填满(7个)，填满后再free则和之前一致</p>
+<p>在malloc时若size在tcache范围内先从tcache取chunk，直到tcache为空，之后再从bin中找</p>
+<p><strong>summary:确实还是挺难的但是理解起来比以前清楚多了，之后再实践一些常用的漏洞和和利用吧</strong></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/05/11/Heap-learning/">https://hash-hash.github.io/2022/05/11/Heap-learning/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/heap/"># heap</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/10/HFCTF-babygame/">HFCTF babygame</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
