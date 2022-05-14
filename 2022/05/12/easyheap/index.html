@@ -215,7 +215,7 @@
 <p>相对tcache而言fastbin有对chunk头的size部分的检查，每次malloc时，如果是在fastbin中取chunk会先验证这个chunk的size是否在所在fastbin链的大小尺寸内，同时还会检查prev_inuse位是否为1，为1则通过检查(libc-2.23无)</p>
 <p>所以我们这里只能进行chunk头的伪造，百度了一下发现最好申请0x60-0x70的chunk因为这样得到的chunk的size位在0x70-0x80，因为libc函数或栈的地址都在虚拟地址最高的部分，所以在64位下一般以0x7f开头(此处0x7f还能绕过inuse位的检查)</p>
 <blockquote>
-<p>tip:此处的后门函数并不能拿到flag，相对地址是有问题的，其作用只是为了引出system，可以进行got表的改写</p>
+<p>tip:此处的后门函数并不能拿到flag，相对路径是有问题的，其作用只是为了引出system，可以进行got表的改写</p>
 </blockquote>
 <p>具体伪造chunk头需要自己用gdb去调试，这里可以考虑直接在bss段构造</p>
 <img src="/2022/05/12/easyheap/pic4.png" class>
@@ -272,6 +272,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/14/SCTF2019easy-heap/">SCTF2019easy_heap</a>
             
             
             <a class="next" rel="next" href="/2022/05/11/Heap-learning/">Heap learning</a>

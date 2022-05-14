@@ -300,7 +300,7 @@
 <p>共十个fastbin链表，每个链表fastbin的size从0x20-0x80以0x10递增</p>
 </li>
 <li><p>unsortedbin</p>
-<p>管理unsorted chunk，只有一个双向链表，所以大小大于fastbin的chunk都先被暂时存入unsortedbin中，链表中chunk大小不一</p>
+<p>管理unsorted chunk，只有一个双向链表，所有大小大于fastbin的chunk都先被暂时存入unsortedbin中，链表中chunk大小不一</p>
 </li>
 <li><p>smallbin</p>
 <p>管理small chunk由62个双向链表组成，每个链表的chunk大小一致以0x10递增</p>
@@ -320,7 +320,7 @@
 <h3 id="tcache机制"><a href="#tcache机制" class="headerlink" title="tcache机制"></a>tcache机制</h3><p>tcache是glibc2.26之后引入的技术，目的是提升堆管理的性能，同时为了性能的提升也放弃了很多的安全检查，因此具有很多新的利用方式</p>
 <h4 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h4><p>当chunk被free时若size小于small bin的size时会被放置在对应的tcache中直到被填满(7个)，填满后再free则和之前一致</p>
 <p>在malloc时若size在tcache范围内先从tcache取chunk，直到tcache为空，之后再从bin中找</p>
-<p><strong>summary:确实还是挺难的但是理解起来比以前清楚多了，之后再实践一些常用的漏洞和和利用吧</strong></p>
+<p><strong>summary:确实还是挺难的但是理解起来比以前清楚多了，之后再实践一些常用的漏洞和利用吧</strong></p>
 
         </div>
 
