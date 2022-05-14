@@ -227,7 +227,7 @@
 <p>最后看fill</p>
 <img src="/2022/05/14/SCTF2019easy-heap/pic3.png" class>
 
-<p>跟进edit很容易发现问题，虽然对输入进行了控制但是最后会在结尾补一个\x00，这就导致了off by null漏洞，利用此漏洞实现chunk overlap，有一个需要留意的是在函数刚开始内存映射了一段可读可写可执行的区域，并打印了地址，后面就利用fastbin attack在这段区域写shellcode即可</p>
+<p>跟进edit很容易发现问题，虽然对输入进行了控制但是最后会在结尾补一个\x00，这就导致了off by null漏洞，利用此漏洞实现chunk overlap，有一个需要留意的是在main函数刚开始时内存映射了一段可读可写可执行的区域，并打印了地址，后面就利用fastbin attack在这段区域写shellcode即可</p>
 <blockquote>
 <p>想法是先malloc四块chunk，A-B-C-D，然后将Afree掉在C处利用off by null漏洞改写D的prev_size指针的同时修改inuse位，在Dfree的同时触发向前合并机制，注意首先需要freeA否则会报错，所以为了触发合并需要使A不在fastbin或tcache内，所以malloc一个较大size的A，再利用unsortedbin里chunk的分割机制把AB部分分割出来再分割CD(为了使C中带main_arena地址)，也就是对于B，C而言均有两指针指向，后面就fastbin attack就行(这里libc版本是2.27用的tcache机制更容易利用)</p>
 </blockquote>
