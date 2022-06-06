@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>Writeup for Crypto Problem in 2022SEETF | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Writeup for Crypto Problem in 2022SEETF</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 6, 2022&nbsp;&nbsp;19:54:26</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cryptography/">Cryptography</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>考前抽时间打了打，本来打算就看看题目发现质量还可以，就都做了做，确实有几个令我感到惊艳的题，出题人tql，还剩两个题目没来得及看下次一定复现hh</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/SEETF">题目附件</a></p>
+<h3 id="Lost-Modulus"><a href="#Lost-Modulus" class="headerlink" title="Lost Modulus"></a>Lost Modulus</h3><p>发送m和$m^3$</p>
+<p>$c_1&#x3D;m^e(mod~n)$</p>
+<p>$c_2&#x3D;m^{3e}(mod~n)$</p>
+<p>$&#x3D;&gt;c_2-c_1^3&#x3D;kn$</p>
+<p>由于n是flag的幂次为一固定值，多次交互将所得的kn取gcd即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">m=<span class="string">b&#x27;SEE&#123;&#x27;</span>+os.urandom(<span class="number">197</span>)</span><br><span class="line">m=bytes_to_long(m)</span><br><span class="line">tmp=gmpy2.iroot(m,<span class="number">3</span>)[<span class="number">0</span>]</span><br><span class="line">m=tmp**<span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br><span class="line"><span class="built_in">print</span>(tmp)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line"></span><br><span class="line">c=[[<span class="number">27343113690167869889082281763579063812441230571491435900989489917259741026376172599973613464900519123787913995558473555648618185135586273694395640824337481745839003881334179915337812952822377853560427735890447221068978776184902345364302144589683722780176309784656374337562124340956360417914407361154607338138704758251578823951978264524184984311201111449111567645128877409326661985312970975475240067525380994419109162107920288176991667170554783319632549979855999839237413071516949917808487692915144647788560661749512674425075044525660077680116567574045502307811371980056961214551408729880972014779646702718108791376376238368026892552676985573798278297148785546237379708823728492400658535448273791573631812997175432519032644964354035079158901377397829717822299519354372892968337365850001091375869114093678740489721015545671546325657899983123248322968996363213836339656836135503930061498571691126197898991722058748281960368661183281386331591144392842113185119584703847873111507247286280539299138040557788765547001509654811610470466220499066</span>, <span class="number">6203681673074864673371623744812928765228733411343970459404210393892439117301343450594442897167902293423628021058501570889162876868271292764894494815022600118650445918459685488440918584889797864826374226968887504588350160439364773117114988470600213906935526342217799744417676404111495775894528046857656299671408159313936782391786920089223859800587250316688142133355129471029328393059432156515922898083933114487460110479486775565874402869437247822487033518994879691417961595436376543695893389024430041650906720289526128016225097639935641481429698311545588149751098912942186395437489255739507820520440026879559230839869577875009300613619556498161771591517306887238227969984935564303698215299547417155230173014989011123114993596969747378071164477974645399226584613492640246336591168163935180574429629994362690332083364536290898613169576272857899357417948804255271224681549812591933059655915774009885109130253353874871281737915748095862332684862167715000902333102223868699123835453569712851221613234217353181672395796181251004767411685187831</span>],[<span class="number">24971010039434599885547984645431376877874022160934866114333007746524866475037755116680561262438689100165054001788062795817349773909339973349363171060862776476641872375343702360729354522160068160182869609978276903849003244878426574465095541970391849245414371692929333347209821204934035499140550528851183541505828836181765050169580611461855361243389489042488371641092579219547053122599505546441346434635029102230238041707958440085214544274433908819752989736975465842648180344082712094432358942851390149610822441998970760454662265386242920884344705733982682965208327710858179413922680956804528246807061243463601904673193071685895913281402083084151920677606635676075862287775991377294313624426282382795996307607931440920144388958669611686283865447485301207968732043885526763958332338412829446398621079863747449277861002195488704899196613544643627147534406222942215614355504375345866363280170164081204854033884055841608976128751610533497799254253165046930175950777724490758058831272049256203886977813569151259295447397386181412784340347694791</span>, <span class="number">25199027163148897603054278313202158255467707753531933846991970170543387866972619424093164496362745751559280902678613369756675121563221467402561410400628593783230913221459720023605909444204226105953453527178990541803243503843336392493615319928368609334315149163650507902166335593848273334169042430201913018029299269748047582581028078201423311583963846820092128718917884988905106533540402341184081964938034633910988109093191078713349721113421592616668772484736104283107133556727238234783313691833612402455967947199220333611699333879731514578207623578579841267512190708701157087294381756230777422489072923807238781676265371298696888771848841422091011097540311093092108180154817883338991735995293392404784070114754293567425855044033280306245614116570378920510474860795334107932680472575295986393175554313430766241614278717950360165879072221700424391690288873908124272986820653989007790433260991872968399219460924572606096078779706855255838992412799690114090670433048093901820039553235059344265417610903918163456127881415360950083948059630031</span>]]</span><br><span class="line"></span><br><span class="line">t1=c[<span class="number">0</span>][<span class="number">1</span>]**<span class="number">3</span>-c[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">t2=c[<span class="number">1</span>][<span class="number">1</span>]**<span class="number">3</span>-c[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">M=GCD(t1,t2)</span><br><span class="line">M=gmpy2.iroot(M,<span class="number">8</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(M))</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="UniveRSAlity"><a href="#UniveRSAlity" class="headerlink" title="UniveRSAlity"></a>UniveRSAlity</h3><p>一开始给的p，q的约束限制了p和q的高位，遍历跑一下使得p-1,q-1光滑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">q=<span class="number">2718281828459045</span>*<span class="number">10</span>**<span class="number">23</span></span><br><span class="line">p=<span class="number">3141592653589793</span>*<span class="number">10</span>**<span class="number">23</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>**<span class="number">20</span>):</span><br><span class="line">    tmp=p+i</span><br><span class="line">    <span class="keyword">if</span> gmpy2.is_prime(tmp):</span><br><span class="line">        fac=factor(tmp-<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> pp, alpha <span class="keyword">in</span> fac:</span><br><span class="line">            <span class="keyword">if</span> (pp ** alpha &gt; <span class="number">10</span> ** <span class="number">10</span>):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(tmp)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>**<span class="number">20</span>):</span><br><span class="line">    tmp=q+i</span><br><span class="line">    <span class="keyword">if</span> gmpy2.is_prime(tmp):</span><br><span class="line">        fac=factor(tmp-<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> pp, alpha <span class="keyword">in</span> fac:</span><br><span class="line">            <span class="keyword">if</span> (pp ** alpha &gt; <span class="number">10</span> ** <span class="number">10</span>):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(tmp)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>为了使得最后明文解出来含flag我们需要伪造出含flag的token，由于长度的限制我们压缩一下原token的空格字符，刚好够我们再填一个flag</p>
+<p>只需构造合适的d使得$c^d&#x3D;M’(mod~n)$，M’为我们所构造的明文</p>
+<p>分别在p，q域下进行pholig_hellman算法即可，这里d不一定存在得多跑几组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=<span class="number">314159265358979300000000000000000007329</span></span><br><span class="line">q=<span class="number">271828182845904500000000000000000004481</span></span><br><span class="line">n=p*q</span><br><span class="line">Gp=GF(p)</span><br><span class="line">Gq=GF(q)</span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"> oi=remote(<span class="string">&#x27;fun.chall.seetf.sg&#x27;</span>,<span class="number">30002</span>)</span><br><span class="line"> <span class="comment">#oi=process(&#x27;./see.py&#x27;)</span></span><br><span class="line"> oi.recvuntil(<span class="string">&#x27;token is &quot;&#x27;</span>)</span><br><span class="line"> re=oi.recvuntil(<span class="string">&#x27;&quot;.&#x27;</span>)[:-<span class="number">2</span>].decode()</span><br><span class="line"> g=<span class="string">&#x27;&#123;&quot;token&quot;: &quot;&#x27;</span>+re+<span class="string">&#x27;&quot;&#125;&#x27;</span></span><br><span class="line"> h=<span class="string">&#x27;&#123;&quot;token&quot;:&quot;&#x27;</span>+re+<span class="string">&#x27;&quot;,&quot;flag&quot;:1&#125;&#x27;</span></span><br><span class="line"> g=<span class="built_in">int</span>(<span class="built_in">pow</span>(bytes_to_long(g.encode()),e,n))</span><br><span class="line"> h=bytes_to_long(h.encode())</span><br><span class="line"> <span class="keyword">try</span>:</span><br><span class="line">  dp=discrete_log(Gp(h),Gp(g))</span><br><span class="line">  dq=discrete_log(Gq(h),Gq(g))</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;begin&#x27;</span>)</span><br><span class="line">  d=crt([dp,dq],[p-<span class="number">1</span>,q-<span class="number">1</span>])</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;ok&#x27;</span>)</span><br><span class="line">  <span class="built_in">print</span>(d)</span><br><span class="line">  oi.sendline(<span class="built_in">str</span>(p))</span><br><span class="line">  sleep(<span class="number">0.01</span>)</span><br><span class="line">  oi.sendline(<span class="built_in">str</span>(q))</span><br><span class="line">  sleep(<span class="number">0.01</span>)</span><br><span class="line">  oi.sendline(<span class="built_in">str</span>(d))</span><br><span class="line">  oi.interactive()</span><br><span class="line">  <span class="keyword">break</span></span><br><span class="line"> <span class="keyword">except</span>:</span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="The-True-ECC"><a href="#The-True-ECC" class="headerlink" title="The True ECC"></a>The True ECC</h3><p>基于椭圆的加密，发现p&#x3D;$2^{521}-1$，盲猜阶是$2^{521}$，确实是的，后面找了下文献</p>
+<p>对于形如$x^2+ay^2&#x3D;1(mod~p)$的曲线，对于点加运算所构成的群的阶满足<br>$$<br>\begin{cases}<br> ord|p-1,(\frac{a}{p})&#x3D;-1\\<br> ord|p,(\frac{a}{p})&#x3D;0\\<br> ord|p+1,(\frac{a}{p})&#x3D;1\<br>\end{cases}<br>$$<br>这里刚好是第三种情况，实际上对于前面两种情况都可以通过解特征方程构造同构关系，从而实现曲线群到数域的映射</p>
+<p>所以这里就相当于处理一个阶为$2^{521}$的曲线，改改p-h算法就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad, unpad</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Ellipse</span>:</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Represents the curve x^2 + ay^2 = 1 mod p&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a: <span class="built_in">int</span>, p: <span class="built_in">int</span></span>):</span><br><span class="line"></span><br><span class="line">        self.a = a</span><br><span class="line">        self.p = p</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__repr__</span>(<span class="params">self</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;x^2 + <span class="subst">&#123;self.a&#125;</span>y^2 = 1 mod <span class="subst">&#123;self.p&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__eq__</span>(<span class="params">self, other: <span class="string">&#x27;Ellipse&#x27;</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">return</span> self.a == other.a <span class="keyword">and</span> self.p == other.p</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_on_curve</span>(<span class="params">self, pt: <span class="string">&#x27;Point&#x27;</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line"></span><br><span class="line">        x, y = pt.x, pt.y</span><br><span class="line">        a, p = self.a, self.p</span><br><span class="line">        <span class="keyword">return</span> (x*x + a * y*y) % p == <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Represents a point on curve&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, curve: Ellipse, x: <span class="built_in">int</span>, y: <span class="built_in">int</span></span>):</span><br><span class="line"></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line">        self.curve = curve</span><br><span class="line">        <span class="keyword">assert</span> self.curve.is_on_curve(self)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__repr__</span>(<span class="params">self</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;(<span class="subst">&#123;self.x&#125;</span>, <span class="subst">&#123;self.y&#125;</span>)&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__add__</span>(<span class="params">self, other: <span class="string">&#x27;Point&#x27;</span></span>) -&gt; <span class="string">&#x27;Point&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        x, y = self.x, self.y</span><br><span class="line">        w, z = other.x, other.y</span><br><span class="line">        a, p = self.curve.a, self.curve.p</span><br><span class="line"></span><br><span class="line">        nx = (x*w - a*y*z) % p</span><br><span class="line">        ny = (x*z + y*w) % p</span><br><span class="line">        <span class="keyword">return</span> Point(self.curve, nx, ny)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__mul__</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="string">&#x27;Point&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> n &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        Q = Point(self.curve, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> n &amp; <span class="number">1</span> == <span class="number">1</span>:</span><br><span class="line">                Q += self</span><br><span class="line">            self += self</span><br><span class="line">            n = n//<span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> Q</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__eq__</span>(<span class="params">self, other: <span class="string">&#x27;Point&#x27;</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">return</span> self.x == other.x <span class="keyword">and</span> self.y == other.y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen_secret</span>(<span class="params">G: Point</span>) -&gt; <span class="type">Tuple</span>[Point, <span class="built_in">int</span>]:</span><br><span class="line"></span><br><span class="line">    priv = randint(<span class="number">1</span>, p)</span><br><span class="line">    pub = G*priv</span><br><span class="line">    <span class="keyword">return</span> pub, priv</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">shared: Point, pt: <span class="built_in">bytes</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line"></span><br><span class="line">    key = sha1(<span class="built_in">str</span>(shared).encode()).digest()[:<span class="number">16</span>]</span><br><span class="line">    iv = urandom(<span class="number">16</span>)</span><br><span class="line">    cipher = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    ct = cipher.encrypt(pad(pt, <span class="number">16</span>))</span><br><span class="line">    <span class="keyword">return</span> iv + ct</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">shared: Point, ct: <span class="built_in">bytes</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line"></span><br><span class="line">    iv, ct = ct[:<span class="number">16</span>], ct[<span class="number">16</span>:]</span><br><span class="line">    key = sha1(<span class="built_in">str</span>(shared).encode()).digest()[:<span class="number">16</span>]</span><br><span class="line">    cipher = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    pt = cipher.decrypt(ct)</span><br><span class="line">    <span class="keyword">return</span> unpad(pt, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alice_pub = (<span class="number">2138196312148079184382240325330500803425686967483863166176111074666553873369606997586883533252879522314508512610120185663459330505669976143538280185135503158</span>, <span class="number">1350098408534349199229781714086607605984656432458083815306756044307591092126215092360795039519565477039721903019874871683998662788499599535946383133093677646</span>)</span><br><span class="line">blake_pub = (<span class="number">4568773897927114993549462717422746966489956811871132275386853917467440322628373530720948282919382453518184702625364310911519327021756484938266990998628406420</span>, <span class="number">3649097172525610846241260554130988388479998230434661435854337888813320693155483292808012277418005770847521067027991154263171652473498536483631820529350606213</span>)</span><br><span class="line">ct = <span class="string">b&#x27;q\xfa\xf2\xe5\xe3\xba.H\xa5\x07az\xc0;\xc4%\xdf\xfe\xa0MI&gt;o8\x96M\xb0\xfe]\xb2\xfdi\x8e\x9e\xea\x9f\xca\x98\xf9\x95\xe6&amp;\x1fB\xd5\x0b\xf2\xeb\xac\x18\x82\xdcu\xd5\xd5\x8e&lt;\xb3\xe4\x85e\xddX\xca0;\xe2G\xef7\\uM\x8d0A\xde+\x9fu&#x27;</span></span><br><span class="line">a, p = <span class="number">376014</span>, (<span class="number">1</span> &lt;&lt; <span class="number">521</span>) - <span class="number">1</span></span><br><span class="line">curve = Ellipse(a, p)</span><br><span class="line">gx = <span class="number">0x1bcfc82fca1e29598bd932fc4b8c573265e055795ba7d68ca3985a78bb57237b9ca042ab545a66b352655a10b4f60785ba308b060d9b7df2a651ca94eeb63b86fdb</span></span><br><span class="line">gy = <span class="number">0xca00d73e3d1570e6c63b506520c4fcc0151130a7f655b0d15ae3227423f304e1f7ffa73198f306d67a24c142b23f72adac5f166da5df68b669bbfda9fb4ef15f8e</span></span><br><span class="line">G = Point(curve, gx, gy)</span><br><span class="line">Q=Point(curve,blake_pub[<span class="number">0</span>],blake_pub[<span class="number">1</span>])</span><br><span class="line">A=Point(curve,alice_pub[<span class="number">0</span>],alice_pub[<span class="number">1</span>])</span><br><span class="line">e=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">521</span>):</span><br><span class="line">    t=(<span class="number">2</span>^<span class="number">520</span>)//(<span class="number">2</span>^i)</span><br><span class="line">    GG=G*t</span><br><span class="line">    QQ=Q*t</span><br><span class="line">    tmp=e+<span class="number">2</span>^(i-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> GG*tmp==QQ:</span><br><span class="line">        e=tmp</span><br><span class="line">        </span><br><span class="line">shared = A * e</span><br><span class="line"><span class="built_in">print</span>(decrypt(shared, ct))</span><br></pre></td></tr></table></figure>
+
+<h3 id="DLP"><a href="#DLP" class="headerlink" title="DLP"></a>DLP</h3><p>一道不错的数论练习题，一开始还挺奇怪一个阶是大素数的乘法群上的dlp居然能解</p>
+<p>后面拿着式子推了推倒是发现了一些问题</p>
+<p>首先$g&#x3D;k\prod p_i+1$</p>
+<p>我们考虑n的一个素因子不妨设为p，幂次为w，则$g&#x3D;ap+1$，我们的目的就是要求出x使得$g^x&#x3D;g_m(mod~p^w)$</p>
+<p>把g的形式带入$(ap+1)^x&#x3D;\sum_{i&#x3D;0}^{w-1}C_x^i(ap)^i&#x3D;g_m(mod~p^w)$</p>
+<p>根据等式$p^jC_x^i&#x3D;p^jC_{x(modp^{s-j})}^i(mod~p^s)$</p>
+<p>对于上式先将模数转到$p^2$下能求出$x(mod~p)$</p>
+<p>再逐次升幂求得$x(mod~p^{w-1})$</p>
+<p>最后crt把x组起来即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">C</span>(<span class="params">m,n</span>):</span><br><span class="line">    tmp=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        tmp*=m-i</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">        tmp//=i</span><br><span class="line">    <span class="keyword">return</span> tmp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">g = <span class="number">2015396303001729919228156288393303410061051071865788063380037014090425897729493301829934320750474906145633828841231002303814710345847310021499418592443013756285611643590907347178916293244009158428575031862799028094052154358394991651127332451946240293096173870291124070860340181726783938312770776902984900707372260990431246556075600016092089059477730941418801648299639472281439654617735586813602605590782694833777780843600454836827573205623691681680188413206506901196900146133037179659891566121919123865651572846221529209296867123045118161459300419926127703774745299845934528954823427540895502038196976111028912486328751406898819264072534513759550203355683729816898693681598530957059516070392144963879555346340054068363300419156055200023224885976239057690078347855332895813006326276802850246846794881345712131532475682758203622865258340391113591326511997631151930498983881828856729505419696832385136782487636845963055215713049675709476193302048649324036528676389669721155782165296156708163254833584113482968962258924909005164983048344470708848412799522634441776220531830132040782943603340200379221167847540106704126832019797908169656003014470867537389105926856305787044079830826554451843231924185876771606232988706442003467991827686121533791845350245803700543831829500169370690631867978914744376182469845696117314335370128334363076839700937425681875466936633036285042309070905199660569154398849880821117710615660504693882327380971062131553816362286804830872333845538064633117690870721356411191354915419928018832543020466917890022329695624476000191997270646694217801119459666148713901999128660841219224799785134977965763896783292777647781831890663669437269817227258905316583689914561124913960786573437534477866915021945690300165893667445013360119396899913485190453607849687550843663588936232428715000367111456046544024076467949318638893489483068040705152903727328328454880401551834428858220323288748427915171955494358594729469808577378565781215959656982110746730343752120579665668962310270984046306065506741557809542509099240099473351110753074890791988783640493133775318350202615335832405328467271368374915424318325686739703602667566114446785541797624023231082505644445415047271803760625638473416373977010895332865388965873039585354375263517654237514845676532022465847675942929254196325990231971232878508717372663225101001029310445590957490603941938062478450767228300538323152964267878176244538401187237659320575491124563833873281327046957365848262600210899016412928027072284155788146261180924947021067764905768669775105118295213164791074920336090648184195565570122202962365339841731273705812159145336200780833232165655827934549246549048826221948393660238321231065286637637639873313567345564391430229407896139906470906740432842741355372748975589797703333674882389139764981712071054312058305076357614840550677324560457488034509935135097038481348479678094274844537903997185135296860822825509896487540906078486407844339061663399214658213188834265699993704615759548052813383603536678315921242534037551356641859748950823862097430373913207042187986348460270848015831806365657603678301973228107645106132920069910894728026916163801655741079110879112939095401392242717459407375300002940053059636185871882964243089799304033112398276127536409694144424833379992360993658884345369579443862421665872835703773735588777835891940729322648541805870885398441552281514566534916437782364090976593318036304932840694983010581295972056969087274836652086727758867137308854520994399540762127093089543169809427077837109146715814601492684983885537557859850538983108024543398551512439768840349583051523456396057494301487896533588013347497234884687587308802977017329202197095394586879495448187466233784245833371732739241515081119501135636800817611336937579707841553327293699922059477249257799820163942953538839670795302461485311711023667084192735864798401018334445945636980087657043485637180389674301734419819935530405263683239428002115462412142998661658358931725292898357896225638065197478304010224497932449242573332777113180036103179125376622183092770493014769622042987308664362718169660220317370473260654859536471392026217505834030051910001591258604302619254746880569677745084332626324610460619679878250060915826880666253469389790855929848872178373191570064988397769147331049597816843509166291709458180085131352327555612229787781999949506637808370569604294294948920870285008457756132778904861475497075901375245482700788679209060650785593427934811918977629638680496498785109016328197263629516907469998981247649106261464729820708494457297984740776769487243311007897607929308981945976266305779144783416149541129382160362359600143345797014303675976148641657468276026442474028772421547086431311151262518248668882403348002860702080329363868873861310508606354351793455177784465074659966086198744873544560745594001918634418078713368513725794649092278877442179874966606081756279673178393760939980736138611904232852830165668249421969106663907122559622133764016434835703019994415627823095161055945406033871038411652043916477424549354089768447121507464626771217235866075275491323754166686175454466530446561499614047711957909805686614075062406729226409579321468303441094761477497338808759003986241119163650469727818516049680074833159035125272891544302357749451134095922058669778219419915295680101821803586127249647877164589335664745776656915967375036210597520026247704398137181383531541551320044640439359347596874818757897823360207478567645945520021278389755131491699445615357760551028530970804320019319049552554431429942904871421107534638360510520588361786481824168607943561141497173414621166645597768809118016604438805321591005318869436551957978897746017468624237798438756988488050840746316420592214643947170624732210340041544819512432228329681249009644682917125209192059049167626627022584640787710833878166924490790653580011997052768071598839559807833183086337837779614168659386409804622250471466259335146561489927495474302148734372721526090220641689040636271667735441058631094540027195726813561316314338627236355976920113549817964041897449883404772742605309405988436612275345060963285066341523531568882501623794074541805085243066662697390588802475789319256227845840710671255486474260823463428206848492412895679772262605530262623193773079077418162951751371203453999416191843292737448345197628392556793987099959929049482558550949011910984684892735771203216310695724935544215183085635053653452307838213041852615276821164681514239625346846465734131251268173343621427921222174792329776227383142720718639977822282091778636856499110733396279081850687070675268323453176403515599444182512004883596132122427910511689240974476229993414939654665805534530333074089475910240067169652862917642106188953029246822175529081039458239565433197129967882091306992667879638493112381751345254359377933870254556621254780151918830783134894028448817702597623369044571623491484658633387477592830702757865570350460578115676735751883467594658485901339025155891428882164712823835586606929253865005428718643843380744898722603331158560534127675239701527755603769012249501144437231141706097507047399266150836496297515646972888688228550570679578704423636608810481992243968256916695812924744864498161925329327054367821601607526716467518168900743196894781940239450403301764718390512668255025968124221371284747999827674411800717734062270930985774815657558046704927648091035270293586891700263356903694660125802974127261017965918917815237729747583812694398545618241</span></span><br><span class="line">gm = <span class="number">27119606681824995256527987265529024067710654631894351185958774717516460477667815018266405648998381221658822740064226744856698327648212406379730546719515641715155807273214381619894036510768564682733516340944533658984805729269461251839368948257177664473144329811342687747146910280201874840432336228010607991271700165072094711208391327901606793572060694747708731089059220935255425668164307525212490481326553618209273900808904676294826765248930158579318802701844136726420912785476658642967467118403350541033857507608658939376840053935315649844988485257111636700636315176846979089742723396751799790255924062847955722557500206953626670634981337019864708243926265581152327472504985887826574659862137906638388105528341539860094227775661899324205929939775867367356557989771384368260738422118727315731750100772871443549044311420183275115655197792712418697554627819430767503818746399871781530794677476716591107520751509124661993265096538069731098884368645286945675506910769027328227901385271922725709387260464019054890084063201722195150992522167440259916038660030855763279903564776922566894552394386571387707540599159911356630623611867155018562039552215214372892765121932935539018949519193505552433431785023833791304305738913921867741225757792841970787325138757080661836933191103916792087550055834684279318961999930411503330599613897947971820053688739682600302815364270080902157234682766878070330799909930007453997522098533507560365584305031760275399925948013336387029592405042221584188113290942704014105972295609403881994709420848904003889582239366256649412676954277976306246446462091419196873592642745720712938598775685608175087883893205452558268517554239226282601254042786748903947971835733907960897102906899786028605106535705155202069861980707292285757402224878079357578720689978707041797217008519262771793988340709170182881333118499881752348312001439299833976635636877447907572973433181871131565768803176652159825703246426538682019070878249462094065184208615779918742113973076311411354662891924406001034320619076810183539377137334520616889559276151573047763204815409589204997350723756403658236265106028820057015300324676417757555361454592323438434812496417103219399962119953303185017988733340476505815413063350326614815114350307755829497960466963104544326907126585085442817222019154256903173175102165594314156583972948995563490414235103058479102605487123737377372084941334605936773203811832488754136319005599682449955481854374872190526677934900185515387054829555904938958185722193954934617740415113417245718502634447404605558909395339851770452624948269489592888938413519504868030443184557188121475079673502302025886201180788759871604092184466644047760615211933939232421645266995034755575250530389145459765947480632123960601454062022399819871661044974442699451188572198455703876938429967149254866647586178785756577762411883766811794422442732958085973354831136045633087884634386597510713719026662472736016731654996794084509013305271291375092746820601015128165735225780168848726036344837539595106440724716238256264146962376701392832152061874039491087529296708694846395279770458249447751338808814389743212331823557947678005914223655602065835286797846249944465074996096564636597795672256066744035863685622440084140348899644365503203628573878998660418367429861049757123913044222112394098192521110472189209912444912185548395777028440304524476309567330856209424110312962742242870215546024337020267827825643655705824647738014419937785672696801662006824876258387886919692823717153450851408133771277502337306957591075083848980104669937585317602098307286207262668877037193649729142365232802349537175589100202609468095969253635184885439559829444035504770564406581338654239349288630170464336567140117581431624894621921646908532764213404059102445938490026077198582672869221978752402257380971487335509231109991081693269471781350083637057044476078790077997312022249460411926205361086484128273148223170391633468496477073739447762799634530049235501387062886895512336701431549313097589762120659813120030081980323334736000653197488102135616101535658238857933218723007546890795603455469387302374832330754396396682530878788258250087759810575088563263969519429229483314112816745088071258658948160376709350142034616187188882277007714098177443880080084898586435580399449626497123694019358572280344759181566546578288829980822906375429929868934749689467078484586550515931496829663402885589831958887544680809125286160517260337337230292842158645914769287249151915739568876593163672102944788114342627641153257600286875453261486296675725052756434899914916580497371568105451125753709475800699109815662682064670900794978097169174198710833173997213185263212004247721095291640080772435309140850621085439120451002634585601688198676981239896910447385597522040598803477644248195683373238652069594602217012834113883603490590272718687186210485556005992212628354455636060065958001376674091056253283081296003256773570000127349538510464997744649908648734877628723688737853911844766531520700644555839250714192205197804154468315837069498956478249392846561656376625224798134235783403384065897559139940880449380244679967481359100626385219652111443256241311296288272825851254434301012792756049354108589548316130352263972059386160125607774791541969724458366173652763412098499939555817124367495794453105693126504253291400149672975994307414416625237890434626332257100812304471029263267768786241748276821821100811765599030379673988519722231238950538858949940594196032350432993832000219180845309425875141128212849591651340056975657660396438867651804863507607946539813373300380504138653568853278617267091887554186660385422394348508521672133643442644145705321824034812217857604551978967497655773990035849590143696411502048514285424067132915016612227125610994982704309822571927381016951529671451272068911782050568528394410430063092706361120698799304906815801687035281901171827771913252442638898549100262745110900343529268154996189539606163450294196708325690271239608120494506321460746631791795821839612817226726561633524351767775392622421691212178467821323227028834878713656744215333208862869633786431043700922911137727002045106888543009827505547272937261878730332860241556868950837213791163653318046686179009923810650907018494971646008367395405312158913620295170208491788412196641393194280484026164956367219435906696158089618364469693029419444663964672637565511350200067180315897532161352055934211933695199408655851241147528960527449736895533013771766685326835033675299700811805652572944802540223786995689802313012957044697232194482901627290235970912899953390347907891595388391457451974515111723905823721779860469446928568809357998307245451016013398824723645842744466497757068408443089670029109298521178611864304831760276609141052804447440385964904726777771068552006988295415340973101646233610852691306814733770734107558725248725701229433548012886780502206571583297110012495526885458564264455737758789504749468751853228993451783009307898225308213887053792976678101374923010720463420460995669019588916730271847227138716995573307560740020917338947274990411894832277628526309974961885332978193063278753341058955027111747772569817096265790548897261705903338681545413827627430956985852911733389242924088272381536756366970883413727674386275809533354910646609687468851876335443044910424176747616789755147815569180075163688054780351287446392004785548798627548202253640558999921834451879210206100946221245416356107602000299748813752139180836543279955405582810</span></span><br><span class="line">n = ([<span class="number">108851989682725349554689669128603992794422584115189365634843610633353350984177</span>, <span class="number">108494325597901567333847826936626671139511665627933673312771131459657523147659</span>, <span class="number">82883439953140875605735573696794554944065142381374052670778352032916049186817</span>, <span class="number">115489246044591845680641785786093475992483832086244363115929997874127264343253</span>, <span class="number">102183814270580135669127449788686760733338404261191675852191850563872719446249</span>, <span class="number">64040200332870499924825635753624592983233758350051374640202619776008376616789</span>, <span class="number">115670438971363168203297539488966519963167896268650777474696688742368137533297</span>, <span class="number">100781718687711859424723316245842771953544543896251167915978884326075043842747</span>, <span class="number">92824772089115490491542606661230907041925997375626295551286023663151927544297</span>, <span class="number">72769819859505635259382985450219970417533109019550269256343044124450921361541</span>, <span class="number">87085572195299466548808947084231958634819010426091761358697427184638180542951</span>, <span class="number">99152078787413750212103754970232336911268489654375094579004387360383186080771</span>, <span class="number">71041718108336498944061889389060216957226387363141774431333546891579295631037</span>, <span class="number">96481285854246585504814138990212517393942392293773296290529545079440525298043</span>, <span class="number">70075973413540138610070176747956784536801020982722937176752512072899432461879</span>, <span class="number">94764449949399565607378619612250283206646950163004989633901533278105802439179</span>], [<span class="number">3</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">8</span>])</span><br><span class="line">N = product(p**w <span class="keyword">for</span> p, w <span class="keyword">in</span> <span class="built_in">zip</span>(n[<span class="number">0</span>], n[<span class="number">1</span>]))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">p_h</span>(<span class="params">g,y,p,w</span>):</span><br><span class="line">    a=(g-<span class="number">1</span>)//p</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(w-<span class="number">1</span>):</span><br><span class="line">        tmp=y</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i):</span><br><span class="line">            tmp=<span class="built_in">int</span>((tmp-<span class="built_in">pow</span>(a*p,j+<span class="number">2</span>,p^(i+<span class="number">2</span>))*C(x,j+<span class="number">2</span>))%p^(i+<span class="number">2</span>))</span><br><span class="line">        x=(tmp-<span class="number">1</span>)//p*gmpy2.invert(a,p^(i+<span class="number">1</span>))%p^(i+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">ord_=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(n[<span class="number">0</span>])):</span><br><span class="line">    ord_.append(n[<span class="number">0</span>][i]^(n[<span class="number">1</span>][i]-<span class="number">1</span>))</span><br><span class="line">d=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(n[<span class="number">0</span>])):</span><br><span class="line">    d.append(p_h(g,gm,n[<span class="number">0</span>][i],n[<span class="number">1</span>][i]))</span><br><span class="line">m=<span class="built_in">int</span>(crt(d,ord_))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;SEE&#123;%s&#125;&quot;</span> % sha256(m.to_bytes((m.bit_length()+<span class="number">7</span>)//<span class="number">8</span>, <span class="string">&quot;little&quot;</span>)).hexdigest())</span><br></pre></td></tr></table></figure>
+
+<h3 id="Probability"><a href="#Probability" class="headerlink" title="Probability"></a>Probability</h3><p>hhh，这个题玩了好久，一开始企图通过枚举阈值看看能不能找到一个满足题目要求的界，后面发现是做不到的，看大佬们用蒙特卡洛模拟算出来0.57是最佳的一个stand位置，胜率是42%。和我直接增量枚举出的结果差不多</p>
+<p>最后看官方wp是采取的前后两种策略，前半部分在尽可能多得到一些随机数的情况下保证一定的胜率，后半部分根据收集到的足够的随机数进行mt19937的预测，最后用dp或dfs进行最佳策略选取尽可能拿到更多的胜场，如果偷懒用贪心的话似乎是不大好达到他的要求</p>
+<p>这里贴一下<a target="_blank" rel="noopener" href="https://github.com/Neobeo/SEETF2022/blob/main/crypto-probability.ipynb">官方wp</a>，希望多出点这种题，涨知识了（￣▽￣）</p>
+<h3 id="Neutrality"><a href="#Neutrality" class="headerlink" title="Neutrality"></a>Neutrality</h3><p>一道究极好题，在进行OTP时如果对一个明文使用01等长密钥进行多次加密会造成明文的泄露</p>
+<p>首先是构建一个映射</p>
+<p>对于01序列将0-&gt;-1，则对于c&#x3D;m^k(k是01等长序列)&#x3D;&gt;m·c&#x3D;0</p>
+<p>上式是易证的，因为c是在m的基础上进行一半比特位的翻转，可知相同比特位点乘后贡献1，不同比特位贡献-1，于是最后累加为0</p>
+<p>在这个基础上我们的明文m即满足mA&#x3D;(0 0  …  0 0)的解，A为以密文为列向量构成的矩阵</p>
+<p>注意到这里如果提供的密文数是够的话，A的左核的搜索范围是较小的，直接匹配相应的明文即可</p>
+<p>但是这个地方200组A所对应的左核搜索空间还是较大，我们考虑BKZ进行规约找短向量进行求解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;output.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">to_vec</span>(<span class="params">num</span>):</span><br><span class="line">    tmp=[]</span><br><span class="line">    s=<span class="built_in">bin</span>(num)[<span class="number">2</span>:].rjust(<span class="number">320</span>,<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">        <span class="keyword">if</span> s[i]==<span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">            tmp+=[-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            tmp+=[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> tmp</span><br><span class="line"></span><br><span class="line">vec=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">    vec.append(to_vec(<span class="built_in">int</span>(f.readline())))</span><br><span class="line"></span><br><span class="line">L=Matrix(ZZ,<span class="number">320</span>,<span class="number">200</span>+<span class="number">320</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">320</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">        L[i,j]=<span class="number">2</span>^<span class="number">50</span>*vec[j][i]</span><br><span class="line">    L[i,i+<span class="number">200</span>]=<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">m=[]</span><br><span class="line">L=L.BKZ(block_size=<span class="number">10</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">320</span>):</span><br><span class="line">    tmp=<span class="built_in">list</span>(L[i])</span><br><span class="line">    <span class="keyword">if</span> tmp[:<span class="number">200</span>].count(<span class="number">0</span>)==<span class="number">200</span> <span class="keyword">and</span> tmp[<span class="number">200</span>:].count(-<span class="number">1</span>)+tmp[<span class="number">200</span>:].count(<span class="number">1</span>)==<span class="number">320</span>:</span><br><span class="line">        m=tmp[<span class="number">200</span>:]</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">mm=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)):</span><br><span class="line">    <span class="keyword">if</span> m[i]==-<span class="number">1</span>:</span><br><span class="line">        mm+=<span class="string">&#x27;0&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mm+=<span class="string">&#x27;1&#x27;</span></span><br><span class="line">        </span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(mm,<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>还是学到了不少，感觉国外的比赛能带给我更多的一些新鲜感hh</p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/06/06/Writeup-for-Crypto-Problem-in-2022SEETF/">https://hash-hash.github.io/2022/06/06/Writeup-for-Crypto-Problem-in-2022SEETF/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/wp/"># wp</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/06/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
