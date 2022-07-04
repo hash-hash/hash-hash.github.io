@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>汇编语言 | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编语言</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 1, 2022&nbsp;&nbsp;23:24:59</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/notes/">notes</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>对王爽老师《汇编语言》一书所做的相关记录，学长说8086还是有点老了，以后遇到其他汇编会进行补充</p>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>一个典型的CPU由运算器、控制器、寄存器等器件构成，这些器件靠内部总线相连</p>
+<ul>
+<li>运算器进行信息处理</li>
+<li>寄存器进行信息存储</li>
+<li>控制器控制器件工作</li>
+<li>内部总线连接各种期间利用，在他们之间进行信息传输</li>
+</ul>
+<blockquote>
+<p>对于一个汇编程序员来说，CPU中的主要部件是寄存器。寄存器是CPU中可以用指令读写的部件。程序员通过改变各种寄存器的内容实现对CPU的控制</p>
+</blockquote>
+<p>不同CPU寄存器的个数和结构是不相同的</p>
+<h4 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h4><p>8086CPU的寄存器都是16位，其中AX、BX、CX、DX通常用于存放一般性数据，被称为通用寄存器</p>
+<p>8086CPU为了兼容上一代8位结构的CPU，上述四种寄存器均可分为两独立8位寄存器使用</p>
+<p>如AX可以分为AH和AL</p>
+<h4 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h4><p>8086CPU给出的寻址方式是物理地址&#x3D;段地址×16+偏移地址，是“基础地址+偏移地址&#x3D;物理地址”的一种具体实现</p>
+<h4 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h4><p>8086CPU有四个段寄存器CS、DS、SS、ES</p>
+<p>其中CS和IP是8086CPU两关键寄存器，CS为代码段寄存器，IP为指令指针寄存器</p>
+<p>在8086机中任意时刻CPU将CS:IP指向的内容当作指令执行</p>
+<p>DS用于存放数据段的段地址再用相关指令访问指定内存单元([0]是访问数据段上偏移为0的内存单元)</p>
+<p>SS和SP分别用于存放栈的段地址和偏移地址，任何时刻SS:SP指向栈顶元素</p>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><blockquote>
+<p>一个汇编语言程序从写出到最终执行的过程可分为文本编辑、编译连接、执行</p>
+</blockquote>
+<h4 id="源程序"><a href="#源程序" class="headerlink" title="源程序"></a>源程序</h4><p>在汇编语言源程序中包含两种指令，一种是汇编指令，一种是伪指令。汇编指令由CPU执行，而伪指令没有对应的机器指令，由编译器来执行</p>
+<h4 id="程序返回"><a href="#程序返回" class="headerlink" title="程序返回"></a>程序返回</h4><p>一个程序结束后会将CPU的控制权交还给使它得以运行的程序，我们称这个过程为程序返回。</p>
+<p>汇编指令如下</p>
+<blockquote>
+<p>mov ax,4c00h</p>
+<p>int  21h</p>
+</blockquote>
+<h4 id="程序的加载过程"><a href="#程序的加载过程" class="headerlink" title="程序的加载过程"></a>程序的加载过程</h4><p>分配一段足够大的空间地址，前256B为PSP区段，用以与DOS交互，之后为程序区段。两区段连续但段地址不同</p>
+<h2 id="转移指令"><a href="#转移指令" class="headerlink" title="转移指令"></a>转移指令</h2><p>无条件跳转指令jmp</p>
+<ul>
+<li>jmp short 短转移对IP修改范围为-128~127</li>
+<li>jmp far ptr × 远转移</li>
+<li>jmp word ptr × 修改IP</li>
+<li>jmp dword ptr × 修改CS和IP</li>
+</ul>
+<p>条件转移指令jcxz</p>
+<ul>
+<li>cx&#x3D;0时转移到标号处执行</li>
+</ul>
+<p>循环指令loop</p>
+<ul>
+<li>cx&#x3D;cx-1，若cx≠0，转移到标号处执行</li>
+</ul>
+<h2 id="CALL和RET指令"><a href="#CALL和RET指令" class="headerlink" title="CALL和RET指令"></a>CALL和RET指令</h2><h4 id="ret"><a href="#ret" class="headerlink" title="ret"></a>ret</h4><p>ret指令用栈中的数据修改IP的内容实现近转移</p>
+<p>retf指令用栈中的数据修改CS和IP的内容实现远转移</p>
+<p>ret&lt;&#x3D;&gt;pop IP</p>
+<p>retf&lt;&#x3D;&gt;pop IP ; pop CS</p>
+<h4 id="call"><a href="#call" class="headerlink" title="call"></a>call</h4><p>CPU执行call指令时进行两步操作，将IP或CS和IP压栈后进行转移</p>
+<p>根据位移转移</p>
+<p>call × &lt;&#x3D;&gt;push IP ; jmp near ptr ×</p>
+<p>进行段间转移</p>
+<p>call far ptr × &lt;&#x3D;&gt;push CS ; push IP ; jmp far ptr ×</p>
+<p>转移地址在寄存器</p>
+<p>call 16位reg &lt;&#x3D;&gt;push IP ; jmp 16位reg</p>
+<p>更多的还有call word ptr 以及call dword ptr</p>
+<h2 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h2><p>8086CPU的标志寄存器有16位，结构如下</p>
+<table>
+<thead>
+<tr>
+<th>15</th>
+<th>14</th>
+<th>13</th>
+<th>12</th>
+<th>11</th>
+<th>10</th>
+<th>9</th>
+<th>8</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>OF</td>
+<td>DF</td>
+<td>IF</td>
+<td>TF</td>
+<td>SF</td>
+<td>ZF</td>
+<td></td>
+<td>AF</td>
+<td></td>
+<td>PF</td>
+<td></td>
+<td>CF</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>影响标志寄存器大多为运算指令，如add、sub、mul、mul、div、inc、or、and等</p>
+</li>
+<li><p>不影响标志寄存器大多为传送指令，如mov、push、pop等</p>
+</li>
+</ul>
+<p>ZF：零标志位，记录相关指令执行后结果是否为0。若结果为0则zf&#x3D;1，否则zf&#x3D;0</p>
+<p>PF：奇偶标志位，记录相关指令执行后，其结果所有bit位中1的个数是否为偶数。如果1的个数为偶数，pf&#x3D;1，否则pf&#x3D;0</p>
+<p>SF：符号标志位，记录相关指令执行后结果是否为负，若为负，SF&#x3D;1，否则SF&#x3D;0</p>
+<p>CF：进位标志位，记录无符号运算的借位值</p>
+<p>OF：溢出标志位，记录有符号运算的结果是否溢出，若溢出OF&#x3D;1，否则OF&#x3D;0</p>
+<h2 id="条件转移指令"><a href="#条件转移指令" class="headerlink" title="条件转移指令"></a>条件转移指令</h2><p>je、jb、ja、jne、jnb、jna配合cmp指令实现条件转移的效果</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>1.查找pc主板的生产日期</p>
+<img src="/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/pic1.png" class>
+
+<p>发现了个奇怪的生产日期，想了想大概是因为这个环境不是本机而是虚拟环境的原因</p>
+<p>2.Debug查看PSP的内容</p>
+<img src="/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/pic2.png" class>
+
+<p>3.向内存0:200-0:23F依次传输数据0-3Fh，只能使用九条指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">   mov bx,20h</span><br><span class="line">   mov ds,bx</span><br><span class="line">   mov cx,40h</span><br><span class="line">   sub bx,bx</span><br><span class="line">s: mov [bx],bx</span><br><span class="line">   inc bx</span><br><span class="line">   loop s</span><br><span class="line">   </span><br><span class="line">   mov ax,4c00h</span><br><span class="line">   int 21h</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>4.将data段数据导入table段并计算人均收入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"> db &#x27;1975&#x27;,&#x27;1976&#x27;,&#x27;1977&#x27;,&#x27;1978&#x27;,&#x27;1979&#x27;,&#x27;1980&#x27;,&#x27;1981&#x27;,&#x27;1982&#x27;,&#x27;1983&#x27;</span><br><span class="line"> db &#x27;1984&#x27;,&#x27;1985&#x27;,&#x27;1986&#x27;,&#x27;1987&#x27;,&#x27;1988&#x27;,&#x27;1989&#x27;,&#x27;1990&#x27;,&#x27;1991&#x27;,&#x27;1992&#x27;</span><br><span class="line"> db &#x27;1993&#x27;,&#x27;1994&#x27;,&#x27;1995&#x27;</span><br><span class="line"></span><br><span class="line"> dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514</span><br><span class="line"> dd 345980,590827,803530,1183000,1843000,2759000,3753000,4649000,5937000</span><br><span class="line"></span><br><span class="line"> dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226</span><br><span class="line"> dw 11542,14430,15257,17800</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">table segment</span><br><span class="line"> db 21 dup(&#x27;                &#x27;)</span><br><span class="line">table ends</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line"> dw 21 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start: mov cx,21</span><br><span class="line">       mov ax,stack</span><br><span class="line">       mov ss,ax</span><br><span class="line">       mov sp,21</span><br><span class="line">       mov ax,data</span><br><span class="line">       mov ds,ax</span><br><span class="line">       mov ax,table</span><br><span class="line">       mov es,ax</span><br><span class="line">       mov di,0</span><br><span class="line">       mov si,0</span><br><span class="line">       mov bp,0</span><br><span class="line">       mov bx,0</span><br><span class="line">    s: mov ax,[di]</span><br><span class="line">       mov es:[bx],ax</span><br><span class="line">       add di,2</span><br><span class="line">       add bx,2</span><br><span class="line">       mov ax,[di]</span><br><span class="line">       mov es:[bx],ax</span><br><span class="line">       add di,2</span><br><span class="line">       add bx,3</span><br><span class="line">       sub di,4</span><br><span class="line">       mov ax,[84+di]</span><br><span class="line">       mov es:[bx],ax</span><br><span class="line">       add di,2</span><br><span class="line">       add bx,2</span><br><span class="line">       mov ax,[84+di]</span><br><span class="line">       mov es:[bx],ax</span><br><span class="line">       add di,2</span><br><span class="line">       add bx,3</span><br><span class="line">       mov ax,ds:[168+bp]</span><br><span class="line">       mov es:[bx],ax</span><br><span class="line">       add bp,2</span><br><span class="line">       add bx,3</span><br><span class="line">       mov si,ax</span><br><span class="line">       mov ax,[80+di]</span><br><span class="line">       mov dx,[82+di]</span><br><span class="line">       div si</span><br><span class="line">       mov es:[bx],ax</span><br><span class="line">       add bx,3</span><br><span class="line">       loop s</span><br><span class="line"></span><br><span class="line">       mov ax,4c00h</span><br><span class="line">       int 21h</span><br><span class="line"> code ends</span><br><span class="line"> end start</span><br></pre></td></tr></table></figure>
+
+<p>写了一波傻子汇编，就硬填数据，寄存器都快被我整的不够用了</p>
+<img src="/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/pic3.png" class>
+
+<p>简便的做法是用多层循环，由于循环计数器只有cx所以在嵌套时我们需要保存外层循环数，也就是我们c++中for(){for() {}}这样简单的语句在底层实现上还是较为麻烦的</p>
+<p>5.在屏幕中间显示指定颜色背景的字符串‘welcome to masm’</p>
+<p>这个实验需要了解彩色字符模式显示缓冲区的结构</p>
+<p>内存空间中，B8000H-BFFFFH共32kb的空间，为80×25彩色字符的显示缓冲区，一个字符占两个字节分别存放ASCII码(低位字节)和属性(高位字节)</p>
+<p>但是这种输出设定就让人觉得很怪，不知道c++的io底层实现是个什么样子</p>
+<p>属性字节格式</p>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BL</td>
+<td>R</td>
+<td>G</td>
+<td>B</td>
+<td>I</td>
+<td>R</td>
+<td>G</td>
+<td>B</td>
+</tr>
+<tr>
+<td>闪烁</td>
+<td></td>
+<td>背</td>
+<td>景</td>
+<td>高亮</td>
+<td></td>
+<td>前</td>
+<td>景</td>
+</tr>
+</tbody></table>
+<p>需要注意的是我们需要调至80×25彩色模式下的中央，也就是12行40列的位置，需要从b800h+80×2×11+32×2开始写第一个字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"> db &#x27;welcome to masm!&#x27;</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start: mov ax,0B800H</span><br><span class="line">       mov ds,ax</span><br><span class="line">       mov ax,data</span><br><span class="line">       mov es,ax</span><br><span class="line">       mov cx,16</span><br><span class="line">       sub bx,bx</span><br><span class="line">       sub di,di</span><br><span class="line">    s: mov al,es:[bx]</span><br><span class="line">       mov ah,11010B</span><br><span class="line">       mov ds:[di+160*11+64],ax</span><br><span class="line">       inc bx</span><br><span class="line">       add di,2</span><br><span class="line">       loop s</span><br><span class="line"></span><br><span class="line">       mov ax,4c00h</span><br><span class="line">       int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/pic4.png" class>
+
+<p>学完这个也算是能独立写出hello world了，算是浅浅入门了波汇编</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">https://hash-hash.github.io/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/experiment/"># experiment</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/06/06/Writeup-for-Crypto-Problem-in-2022SEETF/">Writeup for Crypto Problem in 2022SEETF</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
