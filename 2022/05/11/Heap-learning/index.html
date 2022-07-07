@@ -295,7 +295,7 @@
 <p>堆块合并:当free掉一个chunk时可能会触发向前合并和向后合并</p>
 </blockquote>
 <ul>
-<li><p>fisrtbin</p>
+<li><p>fastbin</p>
 <p>管理fastbin free chunk，单链表结构，FILO策略</p>
 <p>共十个fastbin链表，每个链表fastbin的size从0x20-0x80以0x10递增</p>
 </li>

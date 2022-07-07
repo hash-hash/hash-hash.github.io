@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>lattice theory | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">lattice theory</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 6, 2022&nbsp;&nbsp;10:11:02</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/note/">note</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>学校暑期课程所讲的格内容，怕忘，记点笔记，写的会比较杂</p>
+<ul>
+<li><p>对于非方阵的格L求行列式：$det(L)&#x3D;\sqrt{L*L^T}$</p>
+</li>
+<li><p>deep holes(covering radius)：与到格点距离最小点的寻找有关，老师说不属于NP-hard，要更难一些</p>
+</li>
+</ul>
+<h4 id="Minkowski-Convex-Body-Theorem"><a href="#Minkowski-Convex-Body-Theorem" class="headerlink" title="Minkowski Convex Body Theorem"></a>Minkowski Convex Body Theorem</h4><blockquote>
+<p>对于关于格点中心对称的凸体V，若$vol(V)&gt;2^ndet(L)$，则V中存在非零向量v是格中向量</p>
+</blockquote>
+<p>proof:</p>
+<p>引理:Blichfeldt’s Theorem</p>
+<p>对于欧几里得平面上S大于det(L)的区域A，这其中一定包含格中向量</p>
+<p>对整个空间mod L，把A全部模到L的基本形内，由pigeonhole principle易得</p>
+<p>回到原命题，对V的各边缩短到$\frac{1}{2}$，由引理在高维上的推广，我们知道V中存在不同于origin的两点(不考虑平凡情况)，他们的连线是格中向量</p>
+<p>于是我们有v为格中向量，记两端点为A，B。OA，OB为$v_1,v_2$</p>
+<p>$&#x3D;&gt;v_1-v_2$为格向量</p>
+<p>做B关于O的对称B’也在V&#x2F;2(V的所有边缩短为原$\frac{1}{2}$)中，则$v_1+(-v_2)$也为格向量为OT</p>
+<p>由于V为凸体，A，B在V中&#x3D;&gt;AB上的所有点在V中</p>
+<p>由上述证明我们知道T在$2v_1$和$2(-v_2)$的非origin端点的连线上，故在V中</p>
+<p>综上我们找到了向量u，即找到了非origin的格点</p>
+<p>QED</p>
+<blockquote>
+<p>利用Minkowski导出的两个推论在以后格的构造上有重大作用</p>
+<p>通过hyper cube推出的 $\lambda_1≤\sqrt{n}det(L)^{\frac{1}{n}}$</p>
+<p>通过n-ball推出的 $\lambda_1≤\sqrt{\frac{2n}{\pi e}}det(L)^{\frac{1}{n}}$(由于n-ball的体积公式中用到了Γ函数，所以最后的结果是逼近的，在高维的情况下较为准确，老师说大概100维度以上)</p>
+<p>以及随机格的高斯估计 $\lambda_1≈\sqrt{\frac{n}{2\pi e}}det(L)^{\frac{1}{n}}$</p>
+</blockquote>
+<p>ps: 一道使用minkowski定理的题目，做法很巧妙</p>
+<p>∀ε&gt;0，∃a，b∈Z，使得$\begin{cases}|2a+\sqrt{2}b|&lt;ε\\|b|&lt;\frac{3}{ε}\end{cases}$</p>
+<p>构造格$L&#x3D;Z\left(\begin{matrix}2\\0\end{matrix}\right)+Z\left(\begin{matrix}\sqrt{2}\\1\end{matrix}\right)$</p>
+<p>在原点处做长宽为$\frac{3}{ε}和ε$的矩形A</p>
+<p>$&#x3D;&gt;∃(2a+\sqrt{2}b,b)∈A$，此时的a，b满足条件</p>
+<ul>
+<li>Gauss Reduction: LLL的简化版本，一个类欧几里得算法的思想(需要考虑1.terminate 2.correct          3.efficient)</li>
+</ul>
+<p>讲了点algebraic number theory的知识很有意思</p>
+<p>首先代数数是整系数方程的根，代数整数是首一整系数方程的根</p>
+<p>$Z[i]&#x3D;Z+iZ$</p>
+<p>上述环中的元素称为Gauss integers，具有一些类似整数的性质，比如这里面也存在素数，称为高斯素数，也就是满足费马和定理的4k+3形素数，还能够推广Euclidean算法到$Z[i]$</p>
+<p>介绍了一下环中的理想</p>
+<p>对于环R，它的理想形如$x_1R+x_2R+…+x_nR$，其中$x_1,…,x_n$为R中的元素</p>
+<p>实际上对于$Z[i]$，把他放在复平面上就是一些整点的集合</p>
+<p>对于$(a+bi)Z[i]$所形成的是以$v_1&#x3D;(a,b);v_2&#x3D;(-b,a)$为格基所张成的二维格，这种格我们也称为ideal lattice</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/07/06/lattice-theory/">https://hash-hash.github.io/2022/07/06/lattice-theory/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/lattice/"># lattice</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/">堆利用笔记</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
