@@ -168,65 +168,6 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6;    // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function () {
-            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function () {
-        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
-    });
-
-    function expandToc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
@@ -247,7 +188,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/note/">note</a>
+                                <a href="/categories/notes/">notes</a>
                             
                         </span>
                     
@@ -257,13 +198,12 @@
 
         <div class="post-content">
             <p>学校暑期课程所讲的格内容，怕忘，记点笔记，写的会比较杂</p>
-<ul>
-<li><p>对于非方阵的格L求行列式：$det(L)&#x3D;\sqrt{L*L^T}$</p>
-</li>
-<li><p>deep holes(covering radius)：与到格点距离最小点的寻找有关，老师说不属于NP-hard，要更难一些</p>
-</li>
-</ul>
-<h4 id="Minkowski-Convex-Body-Theorem"><a href="#Minkowski-Convex-Body-Theorem" class="headerlink" title="Minkowski Convex Body Theorem"></a>Minkowski Convex Body Theorem</h4><blockquote>
+<p><strong>对于非方阵的格L求行列式</strong></p>
+<p>$det(L)&#x3D;\sqrt{L*L^T}$</p>
+<p><strong>deep holes(covering radius)</strong></p>
+<p>与到格点距离最小点的寻找有关，老师说不属于NP-hard，要更难一些</p>
+<p><strong>Minkowski Convex Body Theorem</strong></p>
+<blockquote>
 <p>对于关于格点中心对称的凸体V，若$vol(V)&gt;2^ndet(L)$，则V中存在非零向量v是格中向量</p>
 </blockquote>
 <p>proof:</p>
@@ -279,20 +219,20 @@
 <p>综上我们找到了向量u，即找到了非origin的格点</p>
 <p>QED</p>
 <blockquote>
-<p>利用Minkowski导出的两个推论在以后格的构造上有重大作用</p>
+<p>利用Minkowski convex body theorem导出的两个推论在以后格的构造上有重大作用</p>
 <p>通过hyper cube推出的 $\lambda_1≤\sqrt{n}det(L)^{\frac{1}{n}}$</p>
 <p>通过n-ball推出的 $\lambda_1≤\sqrt{\frac{2n}{\pi e}}det(L)^{\frac{1}{n}}$(由于n-ball的体积公式中用到了Γ函数，所以最后的结果是逼近的，在高维的情况下较为准确，老师说大概100维度以上)</p>
 <p>以及随机格的高斯估计 $\lambda_1≈\sqrt{\frac{n}{2\pi e}}det(L)^{\frac{1}{n}}$</p>
 </blockquote>
-<p>ps: 一道使用minkowski定理的题目，做法很巧妙</p>
+<p>ps: 一道使用hermite bound的题目，做法很巧妙</p>
 <p>∀ε&gt;0，∃a，b∈Z，使得$\begin{cases}|2a+\sqrt{2}b|&lt;ε\\|b|&lt;\frac{3}{ε}\end{cases}$</p>
 <p>构造格$L&#x3D;Z\left(\begin{matrix}2\\0\end{matrix}\right)+Z\left(\begin{matrix}\sqrt{2}\\1\end{matrix}\right)$</p>
 <p>在原点处做长宽为$\frac{3}{ε}和ε$的矩形A</p>
 <p>$&#x3D;&gt;∃(2a+\sqrt{2}b,b)∈A$，此时的a，b满足条件</p>
 <ul>
-<li>Gauss Reduction: LLL的简化版本，一个类欧几里得算法的思想(需要考虑1.terminate 2.correct          3.efficient)</li>
+<li>Gauss Reduction: LLL的简化版本，一个类欧几里得算法的思想(需要考虑1.terminate 2.correct 3.efficient)</li>
 </ul>
-<p>讲了点algebraic number theory的知识很有意思</p>
+<p><strong>algebraic number theory</strong></p>
 <p>首先代数数是整系数方程的根，代数整数是首一整系数方程的根</p>
 <p>$Z[i]&#x3D;Z+iZ$</p>
 <p>上述环中的元素称为Gauss integers，具有一些类似整数的性质，比如这里面也存在素数，称为高斯素数，也就是满足费马和定理的4k+3形素数，还能够推广Euclidean算法到$Z[i]$</p>
@@ -300,6 +240,48 @@
 <p>对于环R，它的理想形如$x_1R+x_2R+…+x_nR$，其中$x_1,…,x_n$为R中的元素</p>
 <p>实际上对于$Z[i]$，把他放在复平面上就是一些整点的集合</p>
 <p>对于$(a+bi)Z[i]$所形成的是以$v_1&#x3D;(a,b);v_2&#x3D;(-b,a)$为格基所张成的二维格，这种格我们也称为ideal lattice</p>
+<p>algebraic nember theory属实有意思</p>
+<p>发现老师上课讲的好些性质都可以直接拿来出一个trick but easy的题目</p>
+<p>补充一下gauss integers的素数说明，对于Z上4k+3型的素数在$Z[i]$称为big prime，4k+1型的素数在$Z[i]$称为ramified prime也就是在$Z[i]$上仍能继续分解</p>
+<p>提了一下Eisenstein integers，即$Z[-\omega]$，既是二次域也是分圆域</p>
+<p>上面都是讲的imaginary quadratic field，下面讨论real quadratic field</p>
+<p>$Z[\sqrt{6}]$</p>
+<p>其中$5+2\sqrt{6}$是$Z[\sqrt{6}]$的fu(fundamental unit)</p>
+<p>这其中有个很有意思的问题对于一个fu g，$g^t$是unit</p>
+<p>于是我们知道对于$v∈Z[\sqrt{6}]$，$vZ[\sqrt{6}]&#x3D;(vg^t)Z[\sqrt{6}]$</p>
+<p>对于这样一个情形，给出$u&#x3D;vg^t$和g能否找到一个尽可能小的v</p>
+<p>这个问题可以转换为cvp</p>
+<p>$log|u|&#x3D;log|v|+tlog|g|$，即需要找到一个t∈Z，使得$log|v|$尽可能地小</p>
+<p>这个只是一维的情形，把上述等式继续添加fu，就能够化归到高维的cvp上面，too magic！</p>
+<p>后面实际操作了一下，类似于一个乘法背包，取log后用背包的格构造就行</p>
+<p>对于$Z[\sqrt{10}]$，可构造$Z(1,1)+Z(\sqrt{10},\sqrt{10})$的格</p>
+<p><strong>LLL</strong></p>
+<p>虽然之前有对LLL的了解，但是一直对<code>Lovász condition</code>这一约束不是很了解，老师给的解释是对block&#x3D;2的三角进行gauss reduction，其中<code>Lovász condition</code>所带的系数δ与gauss reduction的终止条件相关</p>
+<p>LLL的最初应用-Z上分解多项式</p>
+<p>即最初lenstra为论文所加的应用也使得LLL逐渐被接受</p>
+<p>普遍应用于分解多项式的算法是随机算法，根据LLL可以设计出多项式时间算法</p>
+<p>大致流程是先利用牛顿法找出f的近似根α，然后找$f_\alpha|f$中$f_\alpha$的系数，按背包的方式构造格，然后和f做gcd可找到准确α，其中对格的构造上使用了一种叫root separation bounds的技术，具体怎么操作可能得看最初LLL发表的paper</p>
+<p><strong>BKZ</strong></p>
+<p>即LLL是对block&#x3D;2的三角进行gauss reduction，BKZ采取对更大的block，一般取10以上，约减效果比LLL稍好一点，随之带来的是更高的时间代价</p>
+<p><strong>NTRU</strong></p>
+<p>算是复习了一波NTRU，几个有意思的点可以记录一下</p>
+<p>NTRU的quotient ring一开始是选的$x^n-1$后面改成了分圆多项式$x^n+1$，但是$x^n+1$有比较好的代数结构，所以最终出了个NTRU Prime，调整了NTRU的相关结构使得它更加安全，一个改动就是quotient ring改成了$x^n-x+1$</p>
+<blockquote>
+<p>using large Galois groups instead of cyclotomics</p>
+</blockquote>
+<p>相关可以参考这篇<a href="extension://bfdogplmndidlpjfhoijckpakkdjkkil/pdf/viewer.html?file=https%3A%2F%2Fntruprime.cr.yp.to%2Fntruprime-20160511.pdf">paper</a>，算是比较新的了</p>
+<p>另外一个就是关于NTRU的格构造，实际上NTRU格是较为难解的格了，由于私钥的循环均是短向量，导致可出现大量较短的线性组合</p>
+<p>而我们知道想要LLL的算法成功实施是希望我们要的短向量与次短向量出现较大的gap，而这里大量线性组合出的较短向量都在LLL的规约范围内，这就导致了我们所规约出的并不是密钥或等效密钥</p>
+<p><strong>ideal Lattices</strong></p>
+<p>这部分是老师的相关研究，记$L&#x3D;\frac{Q[x]}{x^N+1}$</p>
+<p>Principle ideal </p>
+<p>$g(x)O_L&#x3D;Z(a_0,…a_{N-1})+Z(-a_{N-1},a_0,…)+…+Z(-a_1,-a_2,…,a_0)$</p>
+<p>General ideal</p>
+<p>$MO_L+g(x)O_L&#x3D;g(x)O_L+Z(M,0,…,0)+Z(0,M,…,0)+…+Z(0,…,M)$</p>
+<p>Prime ideal</p>
+<p>$pO_L+g(x)O_L$</p>
+<p>最后的结论是p如果能被分解成两个fat point，这样的ideal lattice，LLL是能够很好地归约</p>
+<p>好像有相关的密码学攻击实例，上了美密</p>
 
         </div>
 
@@ -350,6 +332,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/07/07/Pwn-summer-record/">Pwn summer record</a>
             
             
             <a class="next" rel="next" href="/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/">堆利用笔记</a>

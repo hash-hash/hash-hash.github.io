@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>Information Theory and Coding Theory | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Information Theory and Coding Theory</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 11, 2022&nbsp;&nbsp;18:29:06</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/notes/">notes</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>暑期课程笔记</p>
+<p><strong>hamming code</strong></p>
+<p>就利用奇偶校验实现一比特纠错功能，迟到一小时看的时候老师画了个文氏图在解释，主要方法就是$2^i$的位置为校验位，其加入满足在idx二进制下的第i位&#x3D;1的位置求和为偶，若出现一比特的错误，将导致idx的二进制下对应1的位置的sum为奇数，可通过奇偶纠错找到错码位置</p>
+<p><strong>prefix code</strong></p>
+<p>根据编码字符出现的频率，构建对应的编码规则，使得平均码字长度尽可能短</p>
+<p><strong>shannon entropy</strong></p>
+<p>用信息熵$H(p_1,p_2,…,p_n)$量化信息的平均不确定性</p>
+<p>性质</p>
+<ol>
+<li>$H(p_1,p_2,…,p_n)$在$p_i$上连续</li>
+<li>$H(\frac{1}{2},\frac{1}{2})&#x3D;1$</li>
+<li>$H(\frac{1}{n},…,\frac{1}{n})$随n增加而增加</li>
+<li>grouping axiom</li>
+</ol>
+<p>$H(p_1,…,p_n)&#x3D;\sum_{i&#x3D;1}^mp_ilog(\frac{1}{p_i})$</p>
+<p>proof:</p>
+<p>记$f(m)&#x3D;H(\frac{1}{m},…,\frac{1}{m})$</p>
+<p>先证明引理$f(m^k)&#x3D;kf(m)$</p>
+<p>记$p_i&#x3D;\frac{q_i}{M}$</p>
+<p>利用分组原则得</p>
+<p>$H(p_1,…,p_n)&#x3D;log_M-\sum_{i&#x3D;1}^mp_ilog(q_i)$</p>
+<p>$&#x3D;\sum_{i&#x3D;1}^mp_i[logM-logq_i]&#x3D;\sum_{i&#x3D;1}^mp_ilog(\frac{1}{p_i})$</p>
+<p><strong>Markov chains</strong></p>
+<p>$P_{X_1^n}(x_1^n)&#x3D;P_{X_1}(x_1)P_{X_2|X_1}(x_2|x_1)…$</p>
+<p>即t+1的状态与t状态有关</p>
+<p>有关公式</p>
+<p>$P_{XYZ}(x,y,z)&#x3D;P_Y(y)P_{XZ|Y}(x,z|y)$</p>
+<p>$E[g(X,Y)]&#x3D;\sum_{x∈\mathcal{X},y∈\mathcal{Y}}P_{XY}(x,y)g(x,y)$</p>
+<p><strong>Convex set</strong></p>
+<p>见到了一种有意思的定义</p>
+<p>define a random variable V with $P_V(v_i)&#x3D;p_i$ , satisfy $\sum p_iv_i&#x3D;E[V]∈V$</p>
+<p>接着在凸集基础上讲了下琴生</p>
+<p><strong>typical sequence</strong></p>
+<p>对典型集的定义是，对于权值给定p的数在n长序列中出现pn次，下面计算出现概率</p>
+<p>$P_{X_1^m}(x_1^m)&#x3D;\prod_{i&#x3D;1}^mP_X(x_i)≈\prod_{x∈\mathcal{X}}P_X(x)^{P_X(x)m}$</p>
+<p>$&#x3D;2^{-m\sum P_X(x)log\frac{1}{P_X(x)}}&#x3D;2^{-mH(x)}$</p>
+<p>所以典型集的势$≈2^{mH(x)}$</p>
+<p>补充了H(X)的性质</p>
+<p>$0≤H(X)≤log|\mathcal{X}|$</p>
+<p>其中，$H(X)&#x3D;0 &lt;&#x3D;&gt;$ X 是确定分布</p>
+<p>$H(X)&#x3D;log|\mathcal{X}| &lt;&#x3D;&gt;$ X 为平均分布</p>
+<p>直接加权琴生套取等条件即可 </p>
+<p><strong>Joint Entropy</strong></p>
+<p>$H(X,Y)&#x3D;\sum_{x,y}P_{XY}(x,y)log\frac{1}{P_{XY}(x,y)}$</p>
+<p>$0≤H(x,y)≤log(|x||y|)$</p>
+<p>$H(X,Y)&#x3D;E[log\frac{1}{P_{XY}(x,y)}]&#x3D;E[log\frac{1}{P_X(x)}]+E[log\frac{1}{logP_{Y|X}(y|x)}]&#x3D;H(X)+H(Y|X)$</p>
+<p><strong>Conditional Entropy</strong></p>
+<p>$H(X,Y)&#x3D;H(X)+H(Y|X)&#x3D;H(Y)+H(X|Y)$</p>
+<p>结论 $0≤H(Y|X)≤H(Y)$</p>
+<p>$H(Y|X)&#x3D;0 &lt;&#x3D;&gt;$Y is deterministic func of X</p>
+<p>$H(Y|X)&#x3D;H(Y) &lt;&#x3D;&gt;$X , Y is independent</p>
+<p>means that conditioning doesn’t increase the entropy</p>
+<p><strong>Multiple entropy</strong></p>
+<p>$H(X_1,X_2,…,X_m)&#x3D;\sum P_{X_1^m}(x_1^m)log\frac{1}{P_{X_1^m}(x_1^m)}$</p>
+<p><strong>Mutual Information</strong></p>
+<p>$H(X)+H(Y|X)&#x3D;H(Y)+H(X|Y)$</p>
+<p>$&#x3D;&gt;H(X)-H(X|Y)&#x3D;H(Y)-H(Y|X)$</p>
+<p>define $I(X;Y)&#x3D;H(X)-H(X|Y)&#x3D;H(Y)-H(Y|X)$</p>
+<p>称为X，Y的互信息</p>
+<p><strong>Conditional Mutual Information</strong></p>
+<p>$I(X;Y|Z)&#x3D;H(X|Z)-H(X|Y,Z)&#x3D;H(Y|Z)-H(Y|X,Z)$</p>
+<p>不存在多元的互信息，但是可以推广到数组间的</p>
+<p>$I(X_1^m;Y)&#x3D;I(X_1;Y)+I(X_2;Y|X_1)+…+I(X_m;Y|X^{m-1})$</p>
+<blockquote>
+<p>proof  $I(X;Y|Z)&#x3D;\sum P_Z(z)I(X;Y|Z&#x3D;z)$</p>
+<p>$RHS&#x3D;\sum(P_Z(z)H(X|Z&#x3D;z))-(P_Z(z)H(X|Y,Z&#x3D;z))$</p>
+<p>$&#x3D;\sum (H(X|Z)-H(X|Y,Z))&#x3D;I(X;Y|Z)$</p>
+</blockquote>
+<p>韦恩图的表示</p>
+<img src="/2022/07/11/Information-Theory-and-Coding-Theory/pic1.png" class>
+
+<p>个人感觉就是互信息越小两变量越疏离，越大两变量越紧密</p>
+<p><strong>Data Processing Inequality</strong></p>
+<blockquote>
+<p>for markov chain</p>
+<p>$X-&gt;Y-&gt;Z$</p>
+<p>$I(X;Y)≥I(X;Z)$</p>
+</blockquote>
+<p>结论</p>
+<p>$I(X;Y)$ is a concave func of Px for fixed $P_{Y|X}$，这个常在capacity of channel上使用</p>
+<p>$I(X:Y)$ is a convex func of $P_{Y|X}$ for fixed Px，这个常在Rate distortion theory上使用</p>
+<blockquote>
+<p>Fano’s Inequality</p>
+<p>$X-&gt;Y-&gt;\hat{X}$，$P_e&#x3D;P[\hat{X}≠X]$</p>
+<p>proof $H(X|Y)≤H_{bin}(P_e)+P_elog(|\mathcal{X}|-1)$</p>
+<p>这里记录老师给的一种clever trick</p>
+<p>定义$E&#x3D;\begin{cases}0，\hat{X}&#x3D;X\\1，\hat{X}≠X\end{cases}$</p>
+<p>$\begin{cases}P_E(1)&#x3D;P_e\\P_E(0)&#x3D;1-P_e\end{cases}$</p>
+<p>∵$H(X,E|\hat{X})&#x3D;H(X|\hat{X})+H(E|X,\hat{X})&#x3D;H(E|\hat{X})+H(X|E,\hat{X})$</p>
+<p>我们有</p>
+<ol>
+<li>$H(E|X,\hat{X})&#x3D;0$</li>
+<li>$H(E|\hat{X})≤H(E)&#x3D;H_{bin}(P_e)~(H_{bin}(P)&#x3D;plog\frac{1}{p}+(1-p)log\frac{1}{1-p})$</li>
+<li>$H(X|\hat{X},E)&#x3D;P_E(0)H(X|\hat{X},E&#x3D;0)+P_E(1)H(X|\hat{X},E&#x3D;1)≤P_elog(|\mathcal{X}|-1)$</li>
+</ol>
+<p>综上可得 $H(X|Y)≤H_{bin}(P_e)+P_elog(|\mathcal{X}|-1)$</p>
+<p>$&#x3D;&gt;P_e≥\frac{H(X|Y)-1}{log(|\mathcal{X}|-1)}≥\frac{H(X|Y)-1}{log|\mathcal{X}|}$</p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/07/11/Information-Theory-and-Coding-Theory/">https://hash-hash.github.io/2022/07/11/Information-Theory-and-Coding-Theory/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/code/"># code</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/07/07/Pwn-summer-record/">Pwn summer record</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
