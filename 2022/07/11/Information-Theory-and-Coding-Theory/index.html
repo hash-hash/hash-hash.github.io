@@ -295,6 +295,44 @@
 <p>综上可得 $H(X|Y)≤H_{bin}(P_e)+P_elog(|\mathcal{X}|-1)$</p>
 <p>$&#x3D;&gt;P_e≥\frac{H(X|Y)-1}{log(|\mathcal{X}|-1)}≥\frac{H(X|Y)-1}{log|\mathcal{X}|}$</p>
 </blockquote>
+<p>对于一个非负随机变量V，有以下结论</p>
+<p><strong>Markov Inequality</strong></p>
+<blockquote>
+<p>if V is non-negative , </p>
+<p>Then ∀ e&gt;0 , $P[V≥e]≤\frac{E[V]}{e}$</p>
+</blockquote>
+<p><strong>Chebyshev Inequality</strong></p>
+<blockquote>
+<p>a random variable V with $E[V]&#x3D;μ_v$ and $var[V]&#x3D;σ_v^2$ . </p>
+<p>Then $P[|v-μ_v|≥ε]≤\frac{σ_v^2}{ε^2}$</p>
+</blockquote>
+<p><strong>Weak Law of Large Numbers</strong></p>
+<blockquote>
+<p>if $v_1,v_2,…,v_n$ are i.i.d random variables with finite , $E[v_i]&#x3D;μ_v$ and $var[v_i]&#x3D;σ_v^2$ </p>
+<p>defining $\hat{V}^{(n)}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^nv_i$</p>
+<p>then $P[|\hat{V}^{(n)}-μ_v|≥ε]≤\frac{σ_v^2}{nε^2}$</p>
+</blockquote>
+<p><strong>Asymptotic Equipartition Property</strong></p>
+<p>AEP</p>
+<p>若$X_1,X_2,…,X_n$为i.i.d~p(x)</p>
+<p>则$-\frac{1}{n}logp(X_1,…,X_n)-&gt;H(x)$依概率</p>
+<p>典型集的相关性质</p>
+<ol>
+<li>$(x_1,x_2,…,x_n)∈A_ε^{(n)}$，则$H(x)-ε≤-\frac{1}{n}logp(x_1,…,x_n)≤H(x)+ε$</li>
+<li>当n充分大时，$Pr{A_ε^{(n)}}&gt;1-ε$</li>
+<li>$|A_ε^{(n)}|≤2^{n(H(x)+ε)}$</li>
+<li>当n充分大时，$|A_ε^{(n)}|≥(1-ε)2^{n(H(x)-ε)}$</li>
+</ol>
+<p>对于非均等分布的X，典型集的概率$≈2^{-m(H(x)±ε)}$，平均概率约为1</p>
+<p>Shannon’s Theorem</p>
+<p>这个理论挺重要的，大概是说的对随机变量的编码仅考虑在典型集中能做到长度短且误差小</p>
+<blockquote>
+<p>Let’s $x_1,x_2,…$ be i.i.d random variables on a finite $\mathcal{X}$. Then for any ε&gt;0</p>
+<p>we can encode in binary form these variables using a number of bits per symbol H(x)+ε with</p>
+<p>probability of error small as n grows</p>
+<p>Conversely, if we encode using a number of bits per symbol less than H(x)-ε’, then as n grows the </p>
+<p>probability of error goes to 1</p>
+</blockquote>
 
         </div>
 
