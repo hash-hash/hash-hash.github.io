@@ -333,6 +333,42 @@
 <p>Conversely, if we encode using a number of bits per symbol less than H(x)-ε’, then as n grows the </p>
 <p>probability of error goes to 1</p>
 </blockquote>
+<p><strong>variable length codes</strong></p>
+<p>A block of m source symbols is mapped to a variable number of bits</p>
+<p>Given a R.V. x with an alphabet $\mathcal{X}$ we consider a variable length code</p>
+<p>$C: X-&gt;${0,1}$^*$ where {0,1}$^*$&#x3D;$∪_{k&#x3D;1}^∞${0,1}$^k$</p>
+<p>性质</p>
+<p>所有前缀码都是可唯一解码的</p>
+<p><strong>Kraft Inequality</strong></p>
+<p>给定D元字母表上的前缀码，码长$l_i$满足$\sum_{i&#x3D;0}^nD^{-l_i}≤1$</p>
+<p>任何唯一可译编码都满足kraft inequality</p>
+<p><strong>Optimal code</strong></p>
+<p>for an optimal code</p>
+<p>$H(x)≤L&lt;H(x)+1$</p>
+<p><strong>Huffman codes</strong></p>
+<p>An algorithm for building optimal prefix-free codes was found by Huffman</p>
+<p>算法流程就是先找每次找集合中权值最低的两个构建huffman tree，然后合并后再放回集合</p>
+<p>这个算法是可证明最优的，对于相同信源字母表的任意其他编码，不可能比huffman算法所构造的编码具有更小的期望长度</p>
+<p><strong>Shannon Coding</strong></p>
+<p>利用序列的累积分布函数以适当的精度表示作为该序列的编码</p>
+<p>由于Huffman编码没有关于码字长度的显示表达式，所以并不具备优势</p>
+<p><strong>Model for the Channel</strong></p>
+<ul>
+<li>Discrete-time channels</li>
+<li>Finite input and output alphabets</li>
+<li>No feedback</li>
+<li>Memoryless channel</li>
+</ul>
+<p>ps:</p>
+<p>Binary Symmetric Channel</p>
+<img src="/2022/07/11/Information-Theory-and-Coding-Theory/pic2.png" class>
+
+<p>$P(y|x)&#x3D;\begin{cases}1-ε,y&#x3D;x\\ε，y≠x\end{cases}$</p>
+<p>Binary Erasure Channel</p>
+<p>x&#x3D;{0,1};y&#x3D;{0,E,1}</p>
+<p>BEC在某种意义上是无错误的，只有当位被擦除时才会出现唯一的混淆</p>
+<p><strong>Channel Coding Theorem</strong></p>
+<p>对于离散无记忆信道，小于信道容量C的所有码率都是可达的。即对任意码率R&lt;C，存在一个$(2^{nR},n)$码序列，它的最大误差概率$λ^{(n)}$-&gt;0</p>
 
         </div>
 
@@ -383,6 +419,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/07/20/Writeup-in-2022CryptoCTF/">Writeup in 2022CryptoCTF</a>
             
             
             <a class="next" rel="next" href="/2022/07/07/Pwn-summer-record/">Pwn summer record</a>
