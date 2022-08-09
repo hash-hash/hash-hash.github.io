@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>Crypto summer record | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Crypto summer record</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">August 6, 2022&nbsp;&nbsp;16:49:39</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cryptography/">Cryptography</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>主要记录一下暑假的一些困惑，包括之前d3没复现的题目以及这次强网杯的两题还有一些论文的学习记录之类的</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/hidden%20subset%20sum%20problem.pdf">Hidden subset sum problem</a></p>
+<p><a target="_blank" rel="noopener" href="https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/iet-ifs.2018.0041">Equivalent key attack</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/raw/main/paper/Attack%20Based%20on%20Perturbation%20Polynomials.pdf">Attack based on Perturbation Polynomials</a></p>
+<p>equivalent可以参考dbt的<a target="_blank" rel="noopener" href="https://d33b4t0.com/equivalent/">blog</a>，写的很详尽了</p>
+<blockquote>
+<p>Orthogonal lattice</p>
+<p>The orthogonal lattice of a lattice $L∈Z^m$ is </p>
+<p>$L^⊥&#x3D;${$v∈Z^m|∀b∈L,&lt;v,b&gt;&#x3D;0$}</p>
+<p>theorem:$dimL+dimL^⊥&#x3D;m$(linear algebra)</p>
+</blockquote>
+<p>Algorithm:Find out the orthogonal lattice</p>
+<blockquote>
+<p>input: a basis ($b_1,b_2,…,b_k$) of a lattice L in $Z^n$</p>
+<p>output: the basis ($y_1,y_2,…,y_n$) of $L^⊥$.</p>
+<p>select $g&#x3D;[2^{\frac{n-1}{2}+(\frac{(n-k)(n-k-1)}{4})}\prod_{j&#x3D;1}^k||b_k||]$</p>
+<p>$L&#x3D;\left[\begin{matrix}g×b_{1,1}&amp;g×b_{1,2}&amp;…&amp;g×b_{1,n}\\g×b_{2,1}&amp;g×b_{2,2}&amp;…&amp;g×b_{2,n}\\&amp;&amp;…&amp;\\g×b_{k,1}&amp;g×b_{k,2}&amp;…&amp;g×b_{k,n}\\1&amp;&amp;&amp;&amp;\\&amp;1&amp;&amp;&amp;\\&amp;&amp;&amp;…&amp;\\&amp;&amp;&amp;&amp;1\end{matrix}\right]$</p>
+<p>compute an LLL-reduced basis ($x_1,x_2,…,x_n$) of the lattice spanned by L(column vector)</p>
+<p>output an LLL-reduced basis of $L^⊥$</p>
+</blockquote>
+<p>上面寻找约化正交格的格构造在sage上可以利用kernel(basis&#x3D;’LLL’)实现</p>
+<h3 id="D-3CTF2022-equivalent"><a href="#D-3CTF2022-equivalent" class="headerlink" title="D^3CTF2022-equivalent"></a>D^3CTF2022-equivalent</h3><p><a href>attachment</a></p>
+<p>稍微补充一下Knapsack的相关内容</p>
+<p>私钥为$s_i$,公钥$p_i&#x3D;e_i*s(mod p)$</p>
+<p>Knapsack系统的密度$d&#x3D;\frac{n}{log_2(max(e_i))}$</p>
+<p>对于密度比较低的Knapsack(d&lt;0.9408)，可以采用LLL或丢番图逼近等方式</p>
+<p>这里为了抵抗低密度攻击参数的选取使得d&gt;1</p>
+<p>上述论文提供了一种攻击方式，即找到一组等效的私钥</p>
+<blockquote>
+<p>we only need to find out the keys which satisfy the following conditions</p>
+<p>i)$a_i&#x3D;es_i(modp)$ for i&#x3D;1,2,…,n</p>
+<p>ii)p is a prime number and $p&gt;\sum_{i&#x3D;1}^ns_i$</p>
+<p>iii)$s_1,s_2,…,s_n$ is a positive odd sequence</p>
+</blockquote>
+<p>对于等式$a&#x3D;es(modp)$&#x3D;&gt;$a&#x3D;es+kp$</p>
+<p>若存在t属于a的正交格且||t||足够短&#x3D;&gt;$&lt;a,t&gt;&#x3D;e&lt;s,t&gt;+p&lt;k,t&gt;&#x3D;0$</p>
+<p>又(e,p)&#x3D;1，若&lt;s,t&gt; &lt; p &#x3D;&gt; &lt;s,t&gt;&#x3D;&lt;k,t&gt;&#x3D;0</p>
+<p>论文中在这里给出了一个重要性质</p>
+<blockquote>
+<p>theorem</p>
+<p>Define that $\mathscr{L}_1&#x3D;${$t∈\mathscr{L^⊥(a)}|&lt;s,t&gt;&#x3D;0$}.There exists a vector $t_0∈\mathscr{L}^⊥(a)$,such that $&lt;s,t_0&gt;≠0$,and $\mathscr{L}^⊥(a)&#x3D;\mathscr{L}_1⨁\mathscr{L(t_0)}$</p>
+</blockquote>
+<p>我们记s的量级为N，由密钥的生成过程我们知道p&gt;nN</p>
+<p>又$||s||&lt;\sqrt{n}N$，所以当$||t||&lt;\sqrt{n}$时，我们有$|&lt;s,t&gt;|&lt;p$</p>
+<p>故$&lt;s,t_0&gt;≠0$ &#x3D;&gt; $||t_0||≥\sqrt{n}$</p>
+<p>由于LLL约化后的格基，长度逐增，所以我们知道$\mathscr{L}_1$包括了a的正交格约化基的前n-2个向量，我们记$\mathscr{L}_1$的正交格的约化基为($u_1,u_2$)，从上述推导中我们知道s，k在$\mathscr{L}_1$的正交格上，故有以下等式</p>
+<p>$s&#x3D;x_1u_1+x_2u_2$</p>
+<p>$k&#x3D;y_1u_1+y_2u_2$</p>
+<p>$a&#x3D;z_1u_1+z_2u_2$</p>
+<p>$x_i,y_i∈Z,i&#x3D;1,2$</p>
+<p>枚举空间对于每个$x_i,y_i$都在$\sqrt{N}$的量级</p>
+<p>直接穷举拿这题来说在pc上跑我觉得是够呛的</p>
+<p>考虑根据s的奇偶判断$x_i$的奇偶，之后随机生成$x_i$，接着利用连分数计算$y_i$</p>
+<p>$(e,p)·\left[\begin{matrix}x_1&amp;x_2\\y_1&amp;y_2\end{matrix}\right]&#x3D;(z_1,z_2)$</p>
+<p>用上述方程求解e,p</p>
+<p>这里对私钥筛选的条件是每个序列满足</p>
+<ul>
+<li>$gcd(p,e)&#x3D;1,p&gt;\sum_{i&#x3D;1}^ns_i$</li>
+<li>$s_i$是正奇数序列</li>
+</ul>
+<p>筛选出来的每一组私钥都是等效私钥</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dec</span>(<span class="params">c,e,p</span>):</span><br><span class="line">    e_inv = inverse(e,p)</span><br><span class="line">    m = (e_inv * c % p) % <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">cip,e,p</span>):</span><br><span class="line">    bits = [dec(c,e,p) <span class="keyword">for</span> c <span class="keyword">in</span> cip]</span><br><span class="line">    msg = long_to_bytes(<span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, bits)), <span class="number">2</span>))</span><br><span class="line">    <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">orthogonal_lattice</span>(<span class="params">L</span>):</span><br><span class="line">    <span class="keyword">return</span> L.right_kernel(basis=<span class="string">&#x27;LLL&#x27;</span>).basis_matrix()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_y</span>(<span class="params">x1,x2</span>):</span><br><span class="line">    y=<span class="built_in">list</span>((x1/x2).continued_fraction())</span><br><span class="line">    y[-<span class="number">1</span>]-=<span class="number">1</span></span><br><span class="line">    y=continued_fraction(y).convergents()[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> y.numer(),y.denom()</span><br><span class="line"></span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;out.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">a=<span class="built_in">eval</span>(f.readline())</span><br><span class="line">cip=<span class="built_in">eval</span>(f.readline())</span><br><span class="line">n=<span class="built_in">len</span>(a)</span><br><span class="line">L1=Matrix(<span class="built_in">list</span>(orthogonal_lattice(Matrix(a)))[:-<span class="number">1</span>])</span><br><span class="line">L2=orthogonal_lattice(L1)</span><br><span class="line">u1,u2=L2</span><br><span class="line">z=L2.solve_left(vector(ZZ,a))</span><br><span class="line">L_x=L2.change_ring(Zmod(<span class="number">2</span>))</span><br><span class="line">xx1,xx2=L_x.solve_left(vector(Zmod(<span class="number">2</span>),[<span class="number">1</span>]*n)).change_ring(ZZ)</span><br><span class="line">N=<span class="number">2</span>^<span class="number">30</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        x1=randint(-N,N)*<span class="number">2</span>+xx1</span><br><span class="line">        x2=randint(-N,N)*<span class="number">2</span>+xx2</span><br><span class="line">        s=x1*u1+x2*u2</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">min</span>(s)&gt;<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    y1,y2=search_y(x1,x2)</span><br><span class="line">    k=y1*u1+y2*u2</span><br><span class="line">    A=Matrix(ZZ,[[x1,x2],[y1,y2]])</span><br><span class="line">    e,p=A.solve_left(z)</span><br><span class="line">    <span class="keyword">if</span> p&lt;<span class="number">0</span>:</span><br><span class="line">        p=-p</span><br><span class="line">    <span class="keyword">if</span> GCD(e,p)!=<span class="number">1</span> <span class="keyword">or</span> e&lt;<span class="number">0</span> <span class="keyword">or</span> <span class="built_in">sum</span>(s)&gt;p:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="built_in">print</span>(decrypt(cip,<span class="built_in">int</span>(e),<span class="built_in">int</span>(p)))</span><br><span class="line">    <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="D-3CTF2022-leak-dsa"><a href="#D-3CTF2022-leak-dsa" class="headerlink" title="D^3CTF2022-leak_dsa"></a>D^3CTF2022-leak_dsa</h3><p>在dsa签名的基础上对随机数k进行掩码输出</p>
+<p>$k&#x3D;mask$&amp;$k+\sum_{i&#x3D;0}^t2^{s_i}k_i$(其中$k_i$未知)</p>
+<p>考虑给到了多组签名结果，希望将上式化到HNP的形式</p>
+<p>对于签名的形式$s×k&#x3D;h(m)+x×r(modq)$</p>
+<p>如果k的MSB已知，可以利用LLL恢复k</p>
+<p>对于已知mask&amp;k的情况，我们有</p>
+<p>$mask$&amp;$k+\sum_{i&#x3D;0}^t2^{s_i}k_i&#x3D;s^{-1}(h(m)+x*r)(modq)$</p>
+<p>$&#x3D;&gt;\sum_{i&#x3D;0}^t2^{s_i}k_i&#x3D;s^{-1}r*x+(s^{-1}h(m)-mask$&amp;k$)(modq)$</p>
+<p>如果能控制左边整体上在较低的量级，就能利用LLL求解，注意到$k_i$是随机的较小量级</p>
+<p>考虑构造下面形式的格对系数进行规约</p>
+<p>$\left[\begin{matrix}q\\&amp;q\\&amp;&amp;…\\&amp;&amp;&amp;q\\2^{s_0}&amp;2^{s_1}&amp;…&amp;2^{s_t}&amp;1\end{matrix}\right]$</p>
+<p>最后求解HNP即可</p>
+<p>在求解的过程中会发现上面构造的系数矩阵其实不利于系数的化简，官方wp给出的是不加1的格构造，会发现比我们这里的最短向量更短，总的来说这题思路虽然不算太难，但是具体调起格子来还是比较痛苦的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;out.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">p,q,g,y=<span class="built_in">eval</span>(f.readline())</span><br><span class="line">m,r,s,gift,mask=[],[],[],[],[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">70</span>):</span><br><span class="line">    t=f.readline().split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    m.append(<span class="built_in">int</span>(sha256(long_to_bytes(<span class="built_in">int</span>(t[<span class="number">0</span>],<span class="number">16</span>))).hexdigest(),<span class="number">16</span>))</span><br><span class="line">    r.append(<span class="built_in">int</span>(t[<span class="number">1</span>][<span class="number">1</span>:]))</span><br><span class="line">    s.append(<span class="built_in">int</span>(t[<span class="number">2</span>][:-<span class="number">1</span>]))</span><br><span class="line">    gift.append(<span class="built_in">int</span>(t[<span class="number">3</span>]))</span><br><span class="line">    mask.append(<span class="built_in">int</span>(t[<span class="number">4</span>]))</span><br><span class="line">    </span><br><span class="line">L=Matrix(ZZ,<span class="number">72</span>,<span class="number">71</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">70</span>):</span><br><span class="line">    L[i,i]=q</span><br><span class="line">L[<span class="number">71</span>,<span class="number">70</span>]=<span class="number">2</span>^<span class="number">250</span></span><br><span class="line">a=[]</span><br><span class="line">b=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">70</span>):</span><br><span class="line">    coeff=[]</span><br><span class="line">    X=[]</span><br><span class="line">    tmp=(<span class="string">&#x27;1&#x27;</span>+<span class="built_in">bin</span>(mask[i])[<span class="number">2</span>:].rjust(<span class="number">256</span>,<span class="string">&#x27;0&#x27;</span>))[::-<span class="number">1</span>]</span><br><span class="line">    exp=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(tmp)):</span><br><span class="line">            <span class="keyword">if</span> tmp[j]==<span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">                <span class="keyword">if</span> exp==<span class="number">0</span>:</span><br><span class="line">                    coeff.append(j)</span><br><span class="line">                exp+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> exp!=<span class="number">0</span>:</span><br><span class="line">                    X.append(exp)</span><br><span class="line">                    exp=<span class="number">0</span></span><br><span class="line">    A=Matrix(ZZ,<span class="built_in">len</span>(coeff)+<span class="number">1</span>,<span class="built_in">len</span>(coeff)+<span class="number">1</span>)</span><br><span class="line">    A[<span class="built_in">len</span>(coeff),<span class="built_in">len</span>(coeff)]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(coeff)):</span><br><span class="line">        A[j,j]=q*<span class="number">2</span>^X[::-<span class="number">1</span>][j]</span><br><span class="line">        A[<span class="built_in">len</span>(coeff),j]=<span class="number">2</span>^coeff[::-<span class="number">1</span>][j]*<span class="number">2</span>^X[::-<span class="number">1</span>][j]</span><br><span class="line">    inv=<span class="built_in">abs</span>(<span class="built_in">list</span>(A.BKZ(block_size=<span class="number">20</span>)[<span class="number">1</span>])[-<span class="number">1</span>])</span><br><span class="line">    a.append(inv*inverse(s[i],q)*r[i]%q)</span><br><span class="line">    b.append(inv*(inverse(s[i],q)*m[i]-gift[i])%q)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">70</span>):</span><br><span class="line">    L[<span class="number">70</span>,i]=a[i]</span><br><span class="line">    L[<span class="number">71</span>,i]=b[i]</span><br><span class="line">tmp=L.BKZ(block_size=<span class="number">20</span>)[<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(tmp)</span><br><span class="line">d = (tmp[<span class="number">0</span>]-b[<span class="number">0</span>])*inverse(a[<span class="number">0</span>],q)%q</span><br><span class="line"><span class="built_in">print</span>((inverse(s[<span class="number">0</span>],q)*(m[<span class="number">0</span>]+d*r[<span class="number">0</span>])%q)&amp;mask[<span class="number">0</span>]-gift[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(d)</span><br></pre></td></tr></table></figure>
+
+<h3 id="D-3CTF2022-d3share"><a href="#D-3CTF2022-d3share" class="headerlink" title="D^3CTF2022-d3share"></a>D^3CTF2022-d3share</h3><p>待复现</p>
+<h3 id="强网杯2022-Lattice"><a href="#强网杯2022-Lattice" class="headerlink" title="强网杯2022-Lattice"></a>强网杯2022-Lattice</h3><p>解决一个稍微改了点的HSP，实际上按照HSP的解法就行，先大致了解HSP问题的解法</p>
+<p>基本上还是采取的一个正交格的攻击方式，只不过和d3这题不同的是这里正交格是要在模约化下进行，我们需要自己进行格的构造，这里我们只需在文章开头提到的<code>Find out the orthogonal lattice</code>的基础上增加元素为N的对角阵进行LLL规约即可</p>
+<blockquote>
+<p>The Nguyen-Stern Algorithm</p>
+<p>Recall that in the hidden subset sum problem, given a modulus M and h&#x3D;$(h_1,h_2,…,h_m)∈Z^m$ satisfying</p>
+<p>$h&#x3D;a_1x_1+…+a_nx_n$</p>
+<p>we must recover the vector $a&#x3D;(a_1,…,a_n)∈Z^m$ and vectors $x_i∈(0,1)^m$</p>
+<p>The Nguyen-Stern algorithm proceeds in 2 steps:</p>
+<ol>
+<li>From the samples h, determine the lattice $L_x$, where the lattice generated by the $x_i$</li>
+<li>From $L_x$, recover the hidden cevtor $x_i$. From h, the $x_i$ and M, recover the weights $a_i$</li>
+</ol>
+</blockquote>
+<p>这里的基于正交格的攻击还是挺精彩的</p>
+<p>我们记$L_0&#x3D;\mathscr{L}^⊥_M(h)$</p>
+<p>对于$u∈\mathscr{L}^⊥_M(h)$</p>
+<p>$&#x3D;&gt;&lt;u,h&gt;&#x3D;a_1&lt;x_1,u&gt;+…+a_n&lt;x_n,u&gt;&#x3D;0(modM)$</p>
+<p>则$U&#x3D;(&lt;x_1,u&gt;,…,&lt;x_n,u&gt;)$在模M约化的基础上与a正交</p>
+<p>考虑到$x_i$较小，那么U也会较小，如果U比a在模M约化下的约化正交格的最短向量还要小</p>
+<p>我们可得U&#x3D;0，也就是$U∈\mathscr{L}^⊥_x$</p>
+<p>于是我们取$L_0$的前m-n个向量组成A</p>
+<p>于是可得$L_x&#x3D;\mathscr{L}^⊥(A)$</p>
+<p>在论文的第二部分有提到一个问题，在上面步骤LLL约化后得到的$L_x$不一定能反应向量$x_i$，可能比原始的$x_i$要更大，它给出的解决方案是采用BKZ代替LLL，去获得更好的约化结果，最后利用h, $x_i$, M恢复a，也就解决了HSP</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;output.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">s2row</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, re.split(<span class="string">r&#x27;\s+&#x27;</span>, s[<span class="number">1</span>:-<span class="number">1</span>].strip())))</span><br><span class="line"></span><br><span class="line">matA=[]</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    s = f.readline().strip()</span><br><span class="line">    row = s2row(s)</span><br><span class="line">    matA.append(row)</span><br><span class="line">    </span><br><span class="line">c=f.readline()</span><br><span class="line">n = <span class="number">75</span></span><br><span class="line">m = <span class="number">150</span></span><br><span class="line">r = <span class="number">10</span></span><br><span class="line">N = <span class="number">126633165554229521438977290762059361297987250739820462036000284719563379254544315991201997343356439034674007770120263341747898897565056619503383631412169301973302667340133958109</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">orthogonal_lattice_N</span>(<span class="params">matA</span>):</span><br><span class="line">    g=<span class="built_in">int</span>(<span class="number">2</span>^((m-<span class="number">1</span>)/<span class="number">2</span>+(m-r)*(m-r-<span class="number">1</span>)/<span class="number">4</span>))</span><br><span class="line">    L=Matrix(ZZ,m+r,m+r)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">        L[i,i]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(r):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            L[j,m+i]=g*matA[i][j]</span><br><span class="line">        L[m+i,m+i]=g*N</span><br><span class="line">    <span class="keyword">return</span> L.LLL()[:m-n]</span><br><span class="line"></span><br><span class="line">LL=<span class="built_in">list</span>(orthogonal_lattice_N(matA))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(LL)):</span><br><span class="line">    LL[i]=LL[i][:-<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line">LL=Matrix(ZZ,LL)</span><br><span class="line">sk=LL.right_kernel(basis=<span class="string">&#x27;LLL&#x27;</span>).basis_matrix()[<span class="number">0</span>]</span><br><span class="line">key = sha256(<span class="built_in">str</span>(sk).encode()).digest()</span><br><span class="line">aes = AES.new(key, AES.MODE_ECB)</span><br><span class="line">pt = aes.decrypt(b64decode(c))</span><br><span class="line"><span class="built_in">print</span>(pt)</span><br></pre></td></tr></table></figure>
+
+<p>由于向量长度放的比较松，而用BKZ跑得很慢，最后采用LLL，构造约化正交基的时候参数并不需要太细地调，和普通背包的格构造差不多，权重稍微放大点就行</p>
+<h3 id="强网杯2022-crys"><a href="#强网杯2022-crys" class="headerlink" title="强网杯2022-crys"></a>强网杯2022-crys</h3><p>待复现</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/08/06/Crypto-summer-record/">https://hash-hash.github.io/2022/08/06/Crypto-summer-record/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/lattice/"># lattice</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/07/29/%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0/">近世代数</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

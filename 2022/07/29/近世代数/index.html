@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>近世代数 | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">近世代数</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 29, 2022&nbsp;&nbsp;20:59:44</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/note/">note</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>容易忘概念</p>
+<h2 id="群"><a href="#群" class="headerlink" title="群"></a>群</h2><p>集合S和集合S上满足结合律的二元运算所形成的代数结构叫<strong>半群</strong></p>
+<p>对于含幺半群G，G中的每个元素均可逆，则G叫做<strong>群</strong>(若运算又满足交换律，则G叫做交换群或Abel群)</p>
+<blockquote>
+<p>$M_n(C)$表示n行n列复矩阵组成的集合，对矩阵加法形成Abel群，对矩阵乘法形成含幺半群</p>
+</blockquote>
+<p>设M是含幺半群，用$U(M)$或$M^*$表示半群M中的可逆元素全体</p>
+<blockquote>
+<p>a)全体n阶可逆复方阵形成乘法群，叫做复数上的n次一般线性群，表示成$GL(n.C)$</p>
+<p>b)设A为非空集合，A到自身之上的所有一一对应对于合成运算形成群，叫做集合A上的对称群或全置换群</p>
+</blockquote>
+<p>设$(G,R_1)$和$(G’,R_2)$是两个群，若映射$f:G→G’$，满足对$∀a,b∈G$，$f(a)R_2f(b)&#x3D;f(aR_1b)$，则称$f$是群$G$到$G’$的<strong>群同态</strong></p>
+<p>(若$f$是单射或满射则$f$分别叫单同态或满同态。如果同态$f$是一一对应的则称$f$是$G→G’$的同构)</p>
+<blockquote>
+<p>以Aut(G)表示群G的自同构全体，验证其对合成运算为群</p>
+<p>proof:</p>
+<p>a)结合律易证</p>
+<p>b)含幺，幺元为恒等映射$1_G$</p>
+<p>c)由于同构是双射，所以对于任意f存在逆$f^{-1}$</p>
+<p>综上Aut(G)对合成运算为群</p>
+</blockquote>
+<p>设G是群，A≤G.定义G上的关系为:对于g,h∈G，g~h&lt;&#x3D;&gt;$gh^{-1}∈A$，元素g对此等价关系的等价类是Ag(h&#x3D;ag∈Ag)</p>
+<p>于是我们考虑将G分拆成形如Ag的一些集合，每个等价类Ag叫做G对A的<strong>右陪集</strong>。如果R&#x3D;{$g_i|i∈I$}是G对于上述等价关系的完全代表元系，则它通常叫做G对A的右陪集代表元系。</p>
+<p>我们称分拆$G&#x3D;∪_{g∈R}Ag$叫G对子群A的<strong>右陪集分解</strong>，其中右陪集个数表示为$[G:A]$，称为子群A对于群G的指数</p>
+<blockquote>
+<p><strong>Lagrange</strong></p>
+<p>设G为有限群，A≤G，则$|G|&#x3D;|A|·[G:A]$，特别地，G的每个子群的阶都是G的阶的因子</p>
+<p>proof:</p>
+<p>对于a,b∈A，有a≠b&lt;&#x3D;&gt;ag≠bg.从而对于g∈R，|Ag|&#x3D;|A|</p>
+<p>$&#x3D;&gt;|G|&#x3D;\sum_{g∈R}|Ag|&#x3D;\sum_{g∈R}|A|&#x3D;|A|·|R|&#x3D;|A|·[G:A]$</p>
+</blockquote>
+<p>p阶群G均是Abel群，并且均同构于整数模p加法群$Z_p$</p>
+<p>非Abel群的最小阶数是6</p>
+<p>设A和B是群G的两子集，如果存在g∈G使$g^{-1}Ag&#x3D;B$则称A和B<strong>共轭</strong>，$g^{-1}Ag$叫做A的<strong>共轭子群</strong>，元素$g^{-1}ag$叫做a的共轭元素</p>
+<p>设M是群G的子集，则$N_G(M)&#x3D;${$g∈G|g^{-1}Mg&#x3D;M$}是G的子群，叫做M的正规化子</p>
+<p>$C_G(M)&#x3D;${$g∈G|g^{-1}ag&#x3D;a,∀a∈M$}，从而$C_G(M)$为G中与M的每个元素均可换的元素全体，也为G的子群，叫做M的中心化子</p>
+<p>子群$C(G)&#x3D;C_G(G)$叫做G的中心，于是G为Abel群&lt;&#x3D;&gt;G&#x3D;C(G)，所以C(G)的势反映了群G的交换性程度</p>
+<blockquote>
+<p>设M是群G的子群，则与M共轭的子群个数为$[G:N_G(M)]$</p>
+<p>proof:</p>
+<p>对于M共轭的子群有形式$g^{-1}Mg$</p>
+<p>若存在$g^{-1}Mg&#x3D;g’^{-1}Mg’&#x3D;&gt;(g’g^{-1})M(gg’^{-1})&#x3D;M$</p>
+<p>$&#x3D;&gt;gg’^{-1}∈N_G(M)$</p>
+<p>$&#x3D;&gt;N_G(M)g&#x3D;N_G(M)g’$</p>
+<p>即g与g’为G按M的正规化子右陪集分解的同一个等价类</p>
+<p>∴与M共轭的子群个数为右陪集分解的等价类数目$[G:N_G(M)]$</p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/07/29/%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0/">https://hash-hash.github.io/2022/07/29/%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%8A%BD%E4%BB%A3/"># 抽代</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/08/06/Crypto-summer-record/">Crypto summer record</a>
+            
+            
+            <a class="next" rel="next" href="/2022/07/25/2022DASCTF-July/">2022DASCTF_July</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
