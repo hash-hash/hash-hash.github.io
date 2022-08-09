@@ -294,7 +294,7 @@
 <p>$C_G(M)&#x3D;${$g∈G|g^{-1}ag&#x3D;a,∀a∈M$}，从而$C_G(M)$为G中与M的每个元素均可换的元素全体，也为G的子群，叫做M的中心化子</p>
 <p>子群$C(G)&#x3D;C_G(G)$叫做G的中心，于是G为Abel群&lt;&#x3D;&gt;G&#x3D;C(G)，所以C(G)的势反映了群G的交换性程度</p>
 <blockquote>
-<p>设M是群G的子群，则与M共轭的子群个数为$[G:N_G(M)]$</p>
+<p>theorem:设M是群G的子群，则与M共轭的子群个数为$[G:N_G(M)]$</p>
 <p>proof:</p>
 <p>对于M共轭的子群有形式$g^{-1}Mg$</p>
 <p>若存在$g^{-1}Mg&#x3D;g’^{-1}Mg’&#x3D;&gt;(g’g^{-1})M(gg’^{-1})&#x3D;M$</p>
@@ -303,6 +303,33 @@
 <p>即g与g’为G按M的正规化子右陪集分解的同一个等价类</p>
 <p>∴与M共轭的子群个数为右陪集分解的等价类数目$[G:N_G(M)]$</p>
 </blockquote>
+<blockquote>
+<p>theorem:对每个素数p，$p^2$阶群G均是Abel群</p>
+<p>设a≠1∈G，则a的阶为p或$p^2$，如果G中存在$p^2$阶元素g，则G&#x3D;{$1,g,…,g^{p^2-1}$}是Abel群与$Z_{p^2}$同构，否则每个元素都是p阶元素，可证明G中存在中心元素a≠1，而a的阶是p，则A&#x3D;{$1,a,…,a^{p-1}$}中的所有元素均为中心元素(易证)，考虑不在A中的p阶元素b，G可陪集分解为$A,Ab,…,Ab^{p-1}$(互斥性易证)，于是G&#x3D;{$a^nb^m|0≤n,m≤p-1$}</p>
+<p>由$a^n$为中心元素，</p>
+<p>有$(a^nb^m)(a^{n’}b^{m’})&#x3D;a^{n+n’}b^{m+m’}&#x3D;(a^{n’}b^{m’})(a^nb^m)$</p>
+<p>故G为Abel群</p>
+</blockquote>
+<p>设G为群，S是G的子集，G中包含S的最小子群A叫做<strong>由S生成的子群</strong></p>
+<p>如果群G自身由子集S生成，即$G&#x3D;<S>$，则称S是G的<strong>生成元系</strong>，如果S是有限集，称G是<strong>有限生成群</strong>。特别的，若群G由一个元素a生成，称G是<strong>循环群</strong></S></p>
+<blockquote>
+<p>Theorem:无限循环群同构于整数加法群Z，n阶有限循环群同构于$Z_n$，从而同阶循环群彼此同构</p>
+</blockquote>
+<p>群G的子群N叫做G的<strong>正规子群</strong>，是指对每个g∈G，$g^{-1}Ng&#x3D;N$，如果N是G的正规子群，则表示为N◁G</p>
+<blockquote>
+<p>Theorem:设N是G的子群，则下列条件彼此等价</p>
+<p>i)N◁G</p>
+<p>ii)对于每个g∈G，$gN&#x3D;Ng$</p>
+<p>iii)$N_G(N)&#x3D;G$</p>
+<p>iv)G对于N的每个左陪集均是右陪集</p>
+</blockquote>
+<p>设N◁G，令$\hat{a}&#x3D;Na&#x3D;aN$，可在集合$\hat{G}&#x3D;${$\hat{a}|a∈G$}上定义二元运算:$\hat{a}·\hat{b}&#x3D;\hat{ab}$，不难验证$\hat{G}$对此运算形成群，幺元素为N。我们把群$\hat{G}$叫做G对正规子群的N的<strong>商群</strong>，表示为$\hat{G}&#x3D;G&#x2F;N$</p>
+<blockquote>
+<p>Theorem(同态基本定理):</p>
+<p>设f:G-&gt;G’是群同态。则Im f&#x3D;f(G)是G’的子群，Ker f&#x3D;$f^{-1}(1)$&#x3D;{$g∈G|f(g)&#x3D;1$}是G的正规子群，并且有群同构</p>
+<p>$\hat{f}:G&#x2F;Ker~f→$Im f，$\hat{f}(\hat{g})&#x3D;f(g)$</p>
+</blockquote>
+<p>以S(Σ)表示Σ上全部置换构成的集合，这是一个|Σ|!元群，幺元素是恒等置换，S(Σ)叫做Σ的<strong>对称群</strong>，它的每个子集均为Σ上的<strong>置换群</strong></p>
 
         </div>
 
