@@ -257,7 +257,7 @@
 
         <div class="post-content">
             <p>容易忘概念</p>
-<h2 id="群"><a href="#群" class="headerlink" title="群"></a>群</h2><p>集合S和集合S上满足结合律的二元运算所形成的代数结构叫<strong>半群</strong></p>
+<h2 id="群"><a href="#群" class="headerlink" title="群"></a><strong>群</strong></h2><p>集合S和集合S上满足结合律的二元运算所形成的代数结构叫<strong>半群</strong></p>
 <p>对于含幺半群G，G中的每个元素均可逆，则G叫做<strong>群</strong>(若运算又满足交换律，则G叫做交换群或Abel群)</p>
 <blockquote>
 <p>$M_n(C)$表示n行n列复矩阵组成的集合，对矩阵加法形成Abel群，对矩阵乘法形成含幺半群</p>
@@ -323,13 +323,65 @@
 <p>iii)$N_G(N)&#x3D;G$</p>
 <p>iv)G对于N的每个左陪集均是右陪集</p>
 </blockquote>
-<p>设N◁G，令$\hat{a}&#x3D;Na&#x3D;aN$，可在集合$\hat{G}&#x3D;${$\hat{a}|a∈G$}上定义二元运算:$\hat{a}·\hat{b}&#x3D;\hat{ab}$，不难验证$\hat{G}$对此运算形成群，幺元素为N。我们把群$\hat{G}$叫做G对正规子群的N的<strong>商群</strong>，表示为$\hat{G}&#x3D;G&#x2F;N$</p>
+<p>设N◁G，令$\hat{a}&#x3D;Na&#x3D;aN$，可在集合$\hat{G}&#x3D;${$\hat{a}|a∈G$}上定义二元运算:$\hat{a}·\hat{b}&#x3D;\hat{ab}$，不难验证$\hat{G}$对此运算形成群，幺元素为N。我们把群$\hat{G}$叫做G对正规子群N的<strong>商群</strong>，表示为$\hat{G}&#x3D;G&#x2F;N$</p>
 <blockquote>
 <p>Theorem(同态基本定理):</p>
 <p>设f:G-&gt;G’是群同态。则Im f&#x3D;f(G)是G’的子群，Ker f&#x3D;$f^{-1}(1)$&#x3D;{$g∈G|f(g)&#x3D;1$}是G的正规子群，并且有群同构</p>
 <p>$\hat{f}:G&#x2F;Ker~f→$Im f，$\hat{f}(\hat{g})&#x3D;f(g)$</p>
 </blockquote>
 <p>以S(Σ)表示Σ上全部置换构成的集合，这是一个|Σ|!元群，幺元素是恒等置换，S(Σ)叫做Σ的<strong>对称群</strong>，它的每个子集均为Σ上的<strong>置换群</strong></p>
+<p>我们称置换将($a_{i_1},…,a_{i_t}$)映射成($a_{i_2},…,a_{i_t},a_{i_1}$)叫做一个长度为t的<strong>轮换</strong>，每个置换可唯一表示成没有公共元素的轮换之积</p>
+<blockquote>
+<p>Theorem:将$S_n$看作是{1,2,..,n}上的对称群，则n≥2时，(1,2),(1,3),…,(1,n)是$S_n$的一个生成元系</p>
+</blockquote>
+<p>设σ∈$S_n$，设将σ表示成没有公共元素的轮换之积，如果长为r的轮换共$\lambda_r$个，则称σ的<strong>型</strong>为$1^{\lambda_1}2^{\lambda_2}…n^{\lambda_n}$</p>
+<p>称群G是<strong>单群</strong>，如果G≠{1}，并且G的正规子群只有{1}和G本身</p>
+<blockquote>
+<p>Theorem:设G是有限群，p为素数，r是正整数，$p^r$是|G|的因子。用$N(p^r)$表示G的$p^r$阶子群的个数，则$N(p^r)&#x3D;1(modp)$</p>
+</blockquote>
+<p>最后自由群，小阶群结构和有解群属实不想看，数学成分过高＞﹏＜</p>
+<h2 id="环"><a href="#环" class="headerlink" title="环"></a><strong>环</strong></h2><p>环是一个集合R和R上两个二元运算组成的代数结构(R,+,·)，并且满足以下三个条件</p>
+<ul>
+<li>(R,+)是Abel群，加法群的幺元叫做环R的零元素</li>
+<li>(R,·)是半群</li>
+<li>加法和乘法满足分配律，即对任意a,b,c∈R，有a(b+c)&#x3D;ab+ac</li>
+</ul>
+<p>正是条件3将两个运算用分配律联系在一起，形成新的代数结构-环</p>
+<p>如果还满足条件</p>
+<ul>
+<li>对所有a，b∈R，ab&#x3D;ba，则称R为交换环</li>
+<li>如果$1_R∈R$，使得对每个元素a∈R，$1_Ra&#x3D;a1_R&#x3D;a$，则R叫含幺环。$1_R$叫做环R的幺元素</li>
+</ul>
+<p>环R中非零元素a叫做R的左零因子，是指存在非零元素b∈R，使得ab&#x3D;0，类似地定义右零因子，如果a同时是左零因子和右零因子，则a叫做环R的零因子</p>
+<p>环R中的可逆元素通常叫做环R的单位，含幺环R的全体单位形成乘法群叫做环R的单位群，表示为U(R)</p>
+<p>设S是环R的子集合，如果S本身对于环R中的运算也是环，则称S是R的<strong>子环</strong>。如果S对R中运算是体或域，则S叫做R的<strong>子体</strong>或<strong>子域</strong>。</p>
+<p>设R和S是环，映射f:R-&gt;S为<strong>环的同态</strong>，是指对每个a，b∈R，有$f(a+b)&#x3D;f(a)+f(b);f(ab)&#x3D;f(a)f(b)$</p>
+<p>环R的子集S叫做R的<strong>理想</strong>是指满足如下条件</p>
+<ul>
+<li>如果a，b∈S，则a±b∈S</li>
+<li>如果r∈R，a∈S，则ar，ra∈S</li>
+</ul>
+<p>设A是环R的理想，集合R&#x2F;A对自然定义的加法和乘法形成环，叫做R对理想A的<strong>商环</strong></p>
+<p>由一个元素x∈R生成的理想(x)叫做环R的<strong>主理想</strong>。如果R是整环，且R的每个理想都是主理想(x)，则R叫做<strong>主理想整环</strong>，简记为PID</p>
+<p>设R为环，如果存在正整数m，使得对于每个r∈R均有mr&#x3D;0，我们把满足此条件的最小正整数m叫做环R的特征。如果不存在这样的正整数m，便称环R的特征是零，环R的<strong>特征</strong>记为char R</p>
+<p>设$R_1,R_2$是两个环，定义<strong>直积</strong>$R_1×R_2$，定义加法$(a,b)+(c,d)&#x3D;(a+c,b+d)$，定义乘法$(a,b)(c,d)&#x3D;(ac,bd)$，</p>
+<p>可验证其对上述加法和乘法形成环</p>
+<blockquote>
+<p>Theorem(CRT):设R是含幺环，$I_1,…,I_n$为环R的理想，并且i≠j是，$I_i+I_j&#x3D;R$。则有环同构$R&#x2F;(I_1∩…∩I_n)≌\prod_{i&#x3D;1}^n(R&#x2F;I_i)$</p>
+</blockquote>
+<p>算是中国剩余定理在环上的表达形式吧</p>
+<p>环R的理想P叫做<strong>素理想</strong>是指，</p>
+<ol>
+<li>P≠R</li>
+<li>对于环R的任意两个理想A和B，如果AB⊆P，则A⊆P或者B⊆P</li>
+</ol>
+<p>环还有各种各样的定义性质，但是我都不是很能理解就跳过了，以后用上再先查吧</p>
+<p>这里会着重记录两个点，也是我比较感兴趣的两个方面，高斯整数环和多项式环</p>
+<h3 id="高斯整数环"><a href="#高斯整数环" class="headerlink" title="高斯整数环"></a><strong>高斯整数环</strong></h3><p>环$G&#x3D;Z[\sqrt{-1}]$的单位群U(G)&#x3D;{$±1,±\sqrt{-1}$}</p>
+<blockquote>
+<p>Theorem:每个有理素数p在环G中均是不超过两个不可约元之积，并且若$p&#x3D;\pi_1\pi_2$，其中$\pi_1,\pi_2$为G中不可约元</p>
+<p>则$N(\pi_1)&#x3D;N(\pi_2)&#x3D;p$</p>
+</blockquote>
 
         </div>
 
