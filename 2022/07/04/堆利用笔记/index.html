@@ -388,7 +388,8 @@
 <p>在<code>IO_FILE</code>调用函数指针时就会通过vtable找到相关函数指针</p>
 <p><strong>_IO_list_all</strong>指针</p>
 <p>处于libc段的<code>_IO_list_all</code>指针记录着最近生成的<code>_IO_FILE_plus</code>结构体，通过单链表形式将所有plus结构体串联起来，可以通过改写该指针达到伪造<code>_IO_FILE</code>结构体的作用</p>
-<p><img src="/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0.assets/image-20220726153318452.png" alt="image-20220726153318452">                                                  </p>
+<img src="/2022/07/04/%E5%A0%86%E5%88%A9%E7%94%A8%E7%AC%94%E8%AE%B0/pic4.png" class>                                          
+
 <h4 id="FSOP"><a href="#FSOP" class="headerlink" title="FSOP"></a>FSOP</h4><p>FSOP即File Stream Oriented Programming，主要利用<code>_IO_flush_all_lockp</code>函数，功能是刷新FILE结构体的输出缓冲区</p>
 <p>而这个函数会遍历<code>_IO_list_all</code>且调用<code>_IO_OVERFLOW</code>这个vtable里的函数，所以可以考虑劫持<code>_IO_OVERFLOW</code>进行操作</p>
 <p><code>_IO_flush_all_lockp</code>调用函数的时机包括</p>

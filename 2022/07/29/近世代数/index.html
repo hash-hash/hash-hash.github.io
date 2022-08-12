@@ -376,12 +376,31 @@
 <li>对于环R的任意两个理想A和B，如果AB⊆P，则A⊆P或者B⊆P</li>
 </ol>
 <p>环还有各种各样的定义性质，但是我都不是很能理解就跳过了，以后用上再现查吧</p>
-<p>这里会着重记录两个点，也是我比较感兴趣的两个方面，高斯整数环和多项式环</p>
+<p>这里会记录两个点，也是我比较感兴趣的两个方面，高斯整数环和多项式环</p>
 <h3 id="高斯整数环"><a href="#高斯整数环" class="headerlink" title="高斯整数环"></a><strong>高斯整数环</strong></h3><p>环$G&#x3D;Z[\sqrt{-1}]$的单位群U(G)&#x3D;{$±1,±\sqrt{-1}$}</p>
 <blockquote>
 <p>Theorem:每个有理素数p在环G中均是不超过两个不可约元之积，并且若$p&#x3D;\pi_1\pi_2$，其中$\pi_1,\pi_2$为G中不可约元</p>
 <p>则$N(\pi_1)&#x3D;N(\pi_2)&#x3D;p$</p>
 </blockquote>
+<p>$Z[\sqrt{-1}]$一个有意思的点是它既是<strong>UFD</strong>(唯一因子分解整环)也是PID</p>
+<blockquote>
+<p>Theorem:设p是有理素数，$G&#x3D;Z[\sqrt{-1}]$</p>
+<p>i)p&#x3D;2时，$2&#x3D;(1+i)(1-i)$，$1±i$为素元</p>
+<p>ii)p&#x3D;3(mod 4)时，p为G中素元</p>
+<p>iii)p&#x3D;1(mod 4)时，$p&#x3D;\pi\hat{\pi}$，$\pi,\hat{\pi}$为G中素元</p>
+<p>这里性质3比较有意思，给出证明</p>
+<p>proof:</p>
+<p>若p&#x3D;1(mod 4)，则$(\frac{-1}{p})&#x3D;1$，即存在$a∈Z,a^2&#x3D;-1(modp)$</p>
+<p>$&#x3D;&gt;p|a^2+1&#x3D;(a+\sqrt{-1})(a-\sqrt{-1})$</p>
+<p>又$p∤(a+\sqrt{-1}),p∤(a-\sqrt{-1})$，</p>
+<p>故p不是高斯整数环上的素元，命题成立</p>
+</blockquote>
+<p>高斯整数环实际上是丢番图方程的一种形式，对于$x^2+2y^2&#x3D;n$之类的方程，可以选择在$Z[\sqrt{-2}]$上进行分析</p>
+<p>对于高斯整数环是UFD的证明需要利用欧氏整环上的相关性质，是个很有意思的命题</p>
+<h3 id="多项式环"><a href="#多项式环" class="headerlink" title="多项式环"></a><strong>多项式环</strong></h3><p>设R是任意环，R[x]表示集合</p>
+<p>R[x]&#x3D;{$f(x)&#x3D;a_0+a_1x+…+a_nx^n|a_i∈R(0≤i≤n),n≥0$}</p>
+<p>R[x]中每个元素f(x)叫做R上关于x的多项式，类似定义加法乘法，可验证R[x]对此形成环，叫做<strong>多项式环</strong></p>
+<p>其中R[x]为交换环&lt;&#x3D;&gt;R为交换环，R[x]有幺元素&lt;&#x3D;&gt;R有幺元素</p>
 
         </div>
 
