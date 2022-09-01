@@ -297,6 +297,7 @@
 <p>交换群$E(F_p)$中的点的个数满足$|E(F_p)|∈[p+1-\sqrt{p},p+1+\sqrt{p}]$</p>
 </blockquote>
 <p>Hasse定理也称Hasse边界，说明了阶的取值范围，具有较大实用性，如我们需要得到一个$2^{128}$个元素的曲线群，那么我们p的选择就在128比特</p>
+<h3 id="j-invariant"><a href="#j-invariant" class="headerlink" title="j-invariant"></a>j-invariant</h3><p>用来判断椭圆曲线的同构关系的一种手段，对于j-invariant相等的曲线同构</p>
 <h2 id="attack"><a href="#attack" class="headerlink" title="attack"></a>attack</h2><p>求解不同情况下椭圆曲线上的离散对数问题</p>
 <h3 id="general"><a href="#general" class="headerlink" title="general"></a>general</h3><p>离散对数问题有几个通用的基本解法</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/oyrd/articles/16147217.html">Pohlig-Hellman</a></p>
@@ -334,6 +335,8 @@
 <p>嵌入度是满足k≥2且椭圆曲线的阶，$n|q^k-1$的最小k</p>
 </blockquote>
 <hr>
+<p>主要还是利用双线性配对的方式，像weil和tate之类的，将椭圆曲线上的ecdlp映射到$p^k$上的dlp</p>
+<p>如果只是想了解大致思想的话可以参考这篇<a target="_blank" rel="noopener" href="https://crypto.stackexchange.com/questions/1871/how-does-the-mov-attack-work">文章</a>，深入的话得去读读有关的论文，以我现在薄弱的数学能力反正看不大懂</p>
 <p>More attacks are waiting to be updated:runner:</p>
 
         </div>
