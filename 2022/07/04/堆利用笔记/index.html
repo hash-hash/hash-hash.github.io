@@ -322,11 +322,10 @@
 
 <p>这里可以进行一个精心构造</p>
 <blockquote>
-<p>p-&gt;fd&#x3D;p-0x18</p>
-<p>p-&gt;bk&#x3D;p-0x10</p>
-<p>这样(p-&gt;fd)-&gt;bk&#x3D;p;(p-&gt;bk)-&gt;fd&#x3D;p满足条件</p>
-<p>并且在unlink后得到p&#x3D;p-0x18</p>
-<p>(即原本指向chunk的指针指到了我们所能控制的地方，比如存放chunk地址的bss段上，后面的操作之前在house of spirit上用到过，若直接打got表的话会覆盖掉一些其他函数的got可能会报错)</p>
+<p>p-&gt;fd&#x3D;target-0x18</p>
+<p>p-&gt;bk&#x3D;target-0x10</p>
+<p>这样(p-&gt;fd)-&gt;bk&#x3D;p;(p-&gt;bk)-&gt;fd&#x3D;p满足条件，取target满足*target&#x3D;p</p>
+<p>并且在unlink后得到*target&#x3D;target-0x18，这种修改是能够做到修改整个储存指针的数组的</p>
 </blockquote>
 <p>在glibc 2.29上又增加了unlink的相关检测</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* consolidate backward */</span></span><br><span class="line"><span class="keyword">if</span> (!prev_inuse(p)) &#123;</span><br><span class="line">    prevsize = prev_size (p);</span><br><span class="line">    size += prevsize;</span><br><span class="line">    p = chunk_at_offset(p, -((<span class="type">long</span>) prevsize));</span><br><span class="line">    <span class="keyword">if</span> (__glibc_unlikely (chunksize(p) != prevsize))</span><br><span class="line">        malloc_printerr (<span class="string">&quot;corrupted size vs. prev_size while consolidating&quot;</span>);</span><br><span class="line">    unlink_chunk (av, p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
