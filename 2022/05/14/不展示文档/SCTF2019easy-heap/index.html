@@ -217,15 +217,15 @@
 <p>检查保护全开</p>
 <p>分析主程序菜单的功能有malloc，free以及fill</p>
 <p>首先看add</p>
-<img src="/2022/05/14/SCTF2019easy-heap/pic1.png" class>
+<img src="/2022/05/14/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/SCTF2019easy-heap/pic1.png" class>
 
 <p>没有漏洞</p>
 <p>再看del</p>
-<img src="/2022/05/14/SCTF2019easy-heap/pic2.png" class>
+<img src="/2022/05/14/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/SCTF2019easy-heap/pic2.png" class>
 
 <p>将指针free后将array中的数据置空，也没漏洞</p>
 <p>最后看fill</p>
-<img src="/2022/05/14/SCTF2019easy-heap/pic3.png" class>
+<img src="/2022/05/14/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/SCTF2019easy-heap/pic3.png" class>
 
 <p>跟进edit很容易发现问题，虽然对输入进行了控制但是最后会在结尾补一个\x00，这就导致了off by null漏洞，利用此漏洞实现chunk overlap，有一个需要留意的是在main函数刚开始时内存映射了一段可读可写可执行的区域，并打印了地址，后面就利用fastbin attack在这段区域写shellcode即可</p>
 <blockquote>
@@ -247,7 +247,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://hash-hash.github.io/2022/05/14/SCTF2019easy-heap/">https://hash-hash.github.io/2022/05/14/SCTF2019easy-heap/</a></span>
+                        <span><a href="https://hash-hash.github.io/2022/05/14/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/SCTF2019easy-heap/">https://hash-hash.github.io/2022/05/14/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/SCTF2019easy-heap/</a></span>
                     </p>
                 
                 
@@ -287,7 +287,7 @@
                 <a class="prev" rel="prev" href="/2022/05/14/Unbalanced-RSA-with-Small-CRT-Exponent/">Unbalanced RSA with Small CRT-Exponent</a>
             
             
-            <a class="next" rel="next" href="/2022/05/12/easyheap/">easyheap</a>
+            <a class="next" rel="next" href="/2022/05/12/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/easyheap/">easyheap</a>
             
         </section>
 

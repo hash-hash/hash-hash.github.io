@@ -202,24 +202,24 @@
 <p>指路-&gt;<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-272653.htm">配置环境</a></p>
 <p>总的来说还是学到了很多，也算是认识到了gdb调试的重要性，多看看栈段存储的信息会有神奇的事情发生</p>
 <p>checksec一下保护全开</p>
-<img src="/2022/05/10/HFCTF-babygame/pic1.png" class>
+<img src="/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/pic1.png" class>
 
 <p>主函数有个read读入的溢出，</p>
-<img src="/2022/05/10/HFCTF-babygame/pic2.png" class>
+<img src="/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/pic2.png" class>
 
 <p>进入sub_1305发现是个猜数字的程序，如果成功猜对100次就能够进入sub_13F7</p>
-<img src="/2022/05/10/HFCTF-babygame/pic3.png" class>
+<img src="/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/pic3.png" class>
 
 <p>有一个格式化字符串漏洞可以利用</p>
 <p>所以我们的想法首先就是覆盖随机数种子自己事先跑一波把数记录下来用来猜数字，注意得在linux下运行</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"> srand(<span class="number">0x61616161</span>);</span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="type">int</span> b=rand()%<span class="number">3</span>;</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;%d,&quot;</span>,b);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们在read处下个断点看看栈上有无值得利用的东西</p>
-<img src="/2022/05/10/HFCTF-babygame/pic4.png" class>
+<img src="/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/pic4.png" class>
 
 <p>发现main函数栈段里有一些栈段的地址信息，其中最后一条发现可以随着泄露canary一并带出，但是实际上最后我没用上canary，也有不同的做法可以通过泄露程序基地址回到main，那么就需要用到canary构造rop链</p>
 <p>断点打在第二个read上查看栈段信息</p>
-<img src="/2022/05/10/HFCTF-babygame/pic5.png" class>
+<img src="/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/pic5.png" class>
 
 <p>发现存有代码段(printf+175)和(atoi+20)的地址，利用其来获取libc基地址，为了让程序继续运行我们还得利用printf任意写更改ret地址，这里考虑到pie不会更改代码段的后三位，partial write一个字节使程序再次进入这个子函数，最后通过libc基址得到onegadget，重复上次操作再改一次ret即可getshell</p>
 <p>最后格式化字符串写一个地址信息需要四次二字节写入还要避免\x00截断的情况，我直接偷懒使用format_str函数了，默认32位记得改架构为amd64</p>
@@ -243,7 +243,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://hash-hash.github.io/2022/05/10/HFCTF-babygame/">https://hash-hash.github.io/2022/05/10/HFCTF-babygame/</a></span>
+                        <span><a href="https://hash-hash.github.io/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/">https://hash-hash.github.io/2022/05/10/%E4%B8%8D%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3/HFCTF-babygame/</a></span>
                     </p>
                 
                 
