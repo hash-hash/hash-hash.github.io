@@ -266,22 +266,67 @@
 <li>Constructions of versatile and powful cryptographic objects</li>
 </ul>
 <p><strong>The Dual lattice</strong></p>
-<p>the dual lattice of a lattice $L⊆R^n$ is defined as $L^※:&#x3D;\left{w:&lt;w,L&gt;⊆Z\right}$</p>
+<p>the dual lattice of a lattice $L⊆R^n$ is defined as $L^※:&#x3D;{w:&lt;w,L&gt;⊆Z}$</p>
 <p><strong>Orthogonal lattice</strong></p>
-<p>The orthogonal lattice of a lattice $L∈Z^m$ is  $L^⊥&#x3D;\left{v∈Z^m|∀b∈L,&lt;v,b&gt;&#x3D;0\right}$</p>
-<h3 id="Computational-Problems"><a href="#Computational-Problems" class="headerlink" title="Computational Problems"></a><strong>Computational Problems</strong></h3><p><strong>Shortest Vector Problem</strong></p>
+<p>The orthogonal lattice of a lattice $L∈Z^m$ is  $L^⊥&#x3D;{v∈Z^m|∀b∈L,&lt;v,b&gt;&#x3D;0}$</p>
+<h2 id="Computational-Problems"><a href="#Computational-Problems" class="headerlink" title="Computational Problems"></a><strong>Computational Problems</strong></h2><ol>
+<li><p><strong>Shortest Vector Problem</strong></p>
 <p>Given an arbitrary basis B of some lattice $L&#x3D;L(B)$, find a shortest nonzero lattice vector.</p>
-<p><strong>Approximate Shortest Vector Problem</strong></p>
+</li>
+<li><p><strong>Approximate Shortest Vector Problem</strong></p>
 <p>Given a basis B of an n-dimensional lattice $L&#x3D;L(B)$, find a nonzero vector $v∈L$ for which $‖v‖≤γ(n)·\lambda_1(L)$ .</p>
-<p><strong>Decisional Approximate SVP</strong></p>
+</li>
+<li><p><strong>Decisional Approximate SVP</strong></p>
 <p>Fixed d,whether exit a vector $v∈L$ for which $γ(n)·‖v‖≤d$</p>
-<p><strong>Approximate Shortest Independent Vectors Problem</strong></p>
+</li>
+<li><p><strong>Approximate Shortest Independent Vectors Problem</strong></p>
 <p>Given a basis B of a full-rank n-dimensional lattice $L&#x3D;L(B)$, output a ser $S&#x3D;\left{s_i\right}⊆L$ of n linearly independent lattice vector where $‖s_i‖≤γ(n)·\lambda_n(L)$ for all i.</p>
-<p><strong>Bounded Distance Decoding Problem</strong></p>
+</li>
+<li><p><strong>Bounded Distance Decoding Problem</strong></p>
 <p>Given a basis B of an n-dimensional lattice $L&#x3D;L(B)$ and a target point $t∈R^n$ with the guarantee that $dist(t,L)&lt;d$, find the unique lattice vector $v∈L$ such that $‖t-v‖&lt;d$.</p>
+</li>
+</ol>
 <p><strong>Gaussians</strong></p>
 <p>For any positive integer n and real s&gt;0, which is taken to be s&#x3D;1 when omitted, define the Gaussian function $\rho_s:R^n→R^+$ of parameter s as $\rho_s(x):&#x3D;e^{-\pi‖x‖^2&#x2F;s^2}$ </p>
 <p>the continuous Gaussian distribution $D_s$ of parameters over $R^n$ is defined to have probability density function proportional to $\rho_s$, $f(\vec{x}):&#x3D;\rho_s(\vec{x})&#x2F;s^n$</p>
+<p>高斯分布的话其实就是提供的高维度上的一种采样方式，和正态分布类似</p>
+<h2 id="Early-Results"><a href="#Early-Results" class="headerlink" title="Early Results"></a>Early Results</h2><h3 id="Ajtai-Dwork-Encryption"><a href="#Ajtai-Dwork-Encryption" class="headerlink" title="Ajtai-Dwork Encryption"></a>Ajtai-Dwork Encryption</h3><p>挺有意思的一个方案，基于HHP问题所构建，但是其问题在于要保证在相关攻击下的安全性需要产生较大规模的密钥，效率低下</p>
+<p><strong>Hidden hyperplanes problem</strong></p>
+<blockquote>
+<p>Let s ∈ $R^n$ be a secret, random short vector. The goal is to find s, given many points $y_i∈R^n$ such that $&lt;s,y_i&gt;$ is close to an integer, i.e., $&lt;s,y_i&gt;≈0(mod~1)$. In the other words, each $y_i$ is close to one of the parallel (n-1)-dimensional hyperplanes $H_j&#x3D;{z∈R^n:&lt;s,z&gt;&#x3D;j}$, j∈Z.</p>
+</blockquote>
+<p><strong>procedure</strong></p>
+<p>generate key</p>
+<ol>
+<li>选取私钥s∈$R^n$</li>
+<li>随机选取$v_i∈{v|&lt;v,s&gt;&#x3D;Z}$</li>
+<li>将$S&#x3D;{v_i}$作为公钥，s作为私钥</li>
+</ol>
+<p>enc</p>
+<p>对于明文的每个比特若为0则输出$R^n$中的随机向量，若为1则输出S中的若干元素和</p>
+<p>dec</p>
+<p>通过将输出与私钥s点乘若为整数则输出1否则输出0</p>
+<p>基于HHP所以从公钥pk推出私钥s是困难的</p>
+<h3 id="NTRU"><a href="#NTRU" class="headerlink" title="NTRU"></a>NTRU</h3><p>NTRU的quotient ring一开始是选的$x^n-1$后面改成了分圆多项式$x^n+1$，但是$x^n+1$有比较好的代数结构，所以最终出了个NTRU Prime，调整了NTRU的相关结构使得它更加安全，一个改动就是quotient ring改成了$x^n-x+1$</p>
+<blockquote>
+<p>using large Galois groups instead of cyclotomics</p>
+</blockquote>
+<p>相关可以参考这篇<a href="extension://bfdogplmndidlpjfhoijckpakkdjkkil/pdf/viewer.html?file=https%3A%2F%2Fntruprime.cr.yp.to%2Fntruprime-20160511.pdf">paper</a>，算是比较新的了</p>
+<p>另外一个就是关于NTRU的格构造，实际上NTRU格是较为难解的格了，由于私钥的循环均是短向量，导致可出现大量较短的线性组合</p>
+<p>而我们知道想要LLL的算法成功实施是希望我们要的短向量与次短向量出现较大的gap，而这里大量线性组合出的较短向量都在LLL的规约范围内，这就导致了我们所规约出的并不是密钥或等效密钥</p>
+<p>实验的时候发现似乎q较小或者格子维数过高时都无法得到理想的规约结果</p>
+<h3 id="GGH"><a href="#GGH" class="headerlink" title="GGH"></a>GGH</h3><p>基于CVP的一个比较简单的加密方案</p>
+<p>embeded technique也是一种有效的攻击方式，可以将CVP转化为高一个维度的SVP</p>
+<p>具体参考这篇<a target="_blank" rel="noopener" href="https://hxp.io/blog/26/VolgaCTF-2016-Quals-crypto300-XXY-writeup/">文章</a></p>
+<h2 id="Modern-Foundations"><a href="#Modern-Foundations" class="headerlink" title="Modern Foundations"></a>Modern Foundations</h2><h3 id="SIS"><a href="#SIS" class="headerlink" title="SIS"></a>SIS</h3><blockquote>
+<p>def Given m uniformly random vector $a_i∈Z_q^n$, forming the columns of a matrix $A∈Z_q^{n×m}$, find a nonzero integer vector $z∈Z^m$ of norm $||z||≤β$ such that Az&#x3D;0∈$Z_q^n$ </p>
+</blockquote>
+<p>LWE</p>
+<p>Ring-SIS</p>
+<p>与SIS类似，向量换多项式</p>
+<p>给定一个多项式向量A求短的多项式向量X满足$A·X&#x3D;0(R_q)$</p>
+<p>当$R&#x3D;\frac{Z[x]}{x^n-1}$时$X&#x3D;(1+x+x^2+…+x^{n-1},0,…,0)$有$\frac{1}{q}$的概率能满足要求，所以Ring-SIS的商环一般考虑分圆多项式</p>
+<p>对于多项式一般考虑构造ideal lattice进行约化</p>
 
         </div>
 
