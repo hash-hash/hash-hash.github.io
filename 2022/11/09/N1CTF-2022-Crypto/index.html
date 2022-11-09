@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>N1CTF 2022 Crypto | hash_hash的博客</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">hash_hash&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">hash_hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/friend">Friends</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">N1CTF 2022 Crypto</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 9, 2022&nbsp;&nbsp;12:08:54</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Writeup/">Writeup</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>今年n1ctf密码方向相比其他几个方向来说比较简单，没有离谱的论文题，都是些简单有趣的trick，想起来也挺久没写blog了，太摆了太摆了！</p>
+<p>这里就把比赛时候大致思路写一下</p>
+<h3 id="Brand-new-checkin"><a href="#Brand-new-checkin" class="headerlink" title="Brand_new_checkin"></a>Brand_new_checkin</h3><p>题目思路其实很简单，只是在梅森伪随机数的状态旋转时候需要做一定的分析简化爆破量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">m, k</span>):</span><br><span class="line">    s, t, n = k</span><br><span class="line">    r = getrandbits(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> m * <span class="built_in">pow</span>(r, s, n) % n, m * <span class="built_in">pow</span>(r, t, n) % n</span><br></pre></td></tr></table></figure>
+
+<p>由于s，t给了并且m是单字节，从0-255爆破一下就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">m_enc=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="built_in">len</span>(c))):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">        m1=c[i][<span class="number">0</span>]*inverse(j,n)%n</span><br><span class="line">        m2=c[i][<span class="number">1</span>]*inverse(j,n)%n</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">pow</span>(m1,t,n)==<span class="built_in">pow</span>(m2,s,n):</span><br><span class="line">            m_enc.append(j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(m_enc)</span><br></pre></td></tr></table></figure>
+
+<p>m解出后利用扩展欧几里得组一下指数把r(mod n)计算出来，注意到$r&lt;2^{1024},2^{1022}&lt;n&lt;2^{1023}$</p>
+<p>我们可以计算一下$r+kn$的k的上限</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>我取的最后20组，2的分布较少，爆破量是$2^{15}3^5$</p>
+<p>拟合我选择的是向前8位拟合，最后筛出了24组，再向前20位拟合得到正确的随机数状态回到最开始把a算出来，最后直接解密就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">partS = recover_state(rn)</span><br><span class="line">state = backtrace([<span class="number">0</span>] * <span class="number">32</span>*<span class="number">62</span> + partS)[:<span class="number">624</span>]</span><br><span class="line"><span class="comment"># print(state)</span></span><br><span class="line">prng = Random()</span><br><span class="line">prng.setstate((<span class="number">3</span>, <span class="built_in">tuple</span>(state + [<span class="number">0</span>]), <span class="literal">None</span>))</span><br><span class="line">a = [prng.getrandbits(<span class="number">1024</span>) <span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">62</span>)]</span><br><span class="line">a=a[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">M=<span class="built_in">bytes</span>(m_enc)</span><br><span class="line">phi= <span class="built_in">abs</span>(a*s-t*(a-<span class="number">1</span>))</span><br><span class="line">d=inverse(<span class="number">0x10001</span>,phi)</span><br><span class="line">m=<span class="built_in">pow</span>(bytes_to_long(M),d,n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ezdlp"><a href="#Ezdlp" class="headerlink" title="Ezdlp"></a>Ezdlp</h3><p>拿到了47组方程$65537^{x_i}&#x3D;y_i(mod~n)$，已知x，y求n</p>
+<p>由于在未知模数的情况下不能进行太大的幂次计算，所以利用一下LLL</p>
+<p>造个格求x的线性组合的较小值，同时线性系数尽可能小</p>
+<p>$\left[\begin{matrix}1&amp;&amp;&amp;&amp;&amp;x_0\\&amp;1&amp;&amp;&amp;&amp;x_1\\&amp;&amp;&amp;…\\&amp;&amp;&amp;&amp;1&amp;x_{46}\end{matrix}\right]$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mes=[]</span><br><span class="line"></span><br><span class="line">A=Matrix(ZZ,<span class="number">47</span>,<span class="number">48</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">47</span>):</span><br><span class="line">    A[i,i]=<span class="number">1</span></span><br><span class="line">    A[i,<span class="number">47</span>]=mes[i]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(A.LLL()[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<p>按照约化出的结果组一下，求gcd，最后丢factordb把靠近n的比特的值取了</p>
+<p>到这里基本是秒出思路的，结果pollard p-1那卡了我好几个小时，我还寻思这量级pc应该跑不出才对啊，最后pollard p-1的基础上改改丢服务器上也就一个半小时，还行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"></span><br><span class="line">p25=sympy.prime(<span class="number">1077872</span>)</span><br><span class="line">p30=sympy.prime(<span class="number">105097566</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">n = gmpy2.mpz(</span><br><span class="line">    <span class="number">131158523227880830085100826212925738665356578827561846263073537503153187073136528966506785633847097997799377037969243883439723340886038624250936927221630287086602285835045356221763554989140952262353930420392663280482277832613695689454662506372252641564106136178637816827646124189347219273164844809807934422046441</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">p1=[]</span><br><span class="line"><span class="keyword">while</span> p25&lt;<span class="number">2</span>**<span class="number">25</span>:</span><br><span class="line">    p1.append(p25)</span><br><span class="line">    p25=sympy.nextprime(p25)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">100000000</span>)):</span><br><span class="line">    p1.append(p30)</span><br><span class="line">    p30=sympy.nextprime(p30)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ar = p1</span><br><span class="line">random.shuffle(ar)</span><br><span class="line"></span><br><span class="line">a = gmpy2.mpz(<span class="number">4</span>)</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> tqdm(ar):</span><br><span class="line">    a = gmpy2.powmod(a, p, n)</span><br><span class="line">    g = gmpy2.gcd(a - <span class="number">1</span>, n)</span><br><span class="line">    <span class="keyword">if</span> <span class="number">1</span> &lt; g &lt; n:</span><br><span class="line">        <span class="built_in">print</span>(g)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>后面就求个离散对数就行，因为p-1光滑ph计算离散对数比较简单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="number">131158523227880830085100826212925738665356578827561846263073537503153187073136528966506785633847097997799377037969243883439723340886038624250936927221630287086602285835045356221763554989140952262353930420392663280482277832613695689454662506372252641564106136178637816827646124189347219273164844809807934422046441</span></span><br><span class="line">p= <span class="number">12980311456459934558628309999285260982188754011593109633858685687007370476504059552729490523256867881534711749584157463076269599380216374688443704196597025947</span></span><br><span class="line">q=n//p</span><br><span class="line">G=GF(p)</span><br><span class="line">y=<span class="number">91561944814950778736488535643520052714900101756544637483800925876319855838327993556442983654484996766433049736153189800056457912285338408230393372558184963346036063617106521919740962726456954911219888157214487326900658606650604294547947205051640436119495039170478782141363198165616660075024383933961325219072058</span></span><br><span class="line">g=<span class="number">0x10001</span></span><br><span class="line">m=discrete_log(y,G(g))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>(m)[<span class="number">2</span>:]))</span><br></pre></td></tr></table></figure>
+
+<h3 id="Babyecc"><a href="#Babyecc" class="headerlink" title="Babyecc"></a>Babyecc</h3><p>关键在于利用椭圆曲线的表达式拼出一个关于m的高次多项式</p>
+<p>一开始自己手动推的那个式子有点阴间，后面利用椭圆曲线的Division Polynomial比较简洁地表示了kG的坐标和G坐标的关系，这东西在复分析里有所体现有时间去学一手证明</p>
+<p>利用这个关系最后得到7个12次的关于m的多项式，crt组一下</p>
+<p>最后N在7000bits量级，12次的话利用coppersmith method就能算m</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">ecc=[[<span class="number">172294871449219734798107561390050953188521804048922822821089133469311203282838373380377875439026704763161795744755842077098168865000919622849058673563093367982208461406754463061486548381031910500664522644112851433538900220678158500614358889303283424512500613989230182706150280378108198120547975067586971516137</span>,<span class="number">96364198848848705158285537079110423277195642567952259110364340716064235491391751428297894031158531380770390132279773351908864500464136898214435682124920058680787844361038830281655403525413688733800204992965035715298006768830075744486662160034641936095862260725417156381782604284050422013822430528431227361197</span>,<span class="number">159671991296677830056301471254363341009296510275785264872785778012113694456980363802313449256308519721141732376201460773400245993593482589976204166133901861729668851862460623196007194950257183079347864250025089670843915918257755173390253034175544519724905752818035812997127673241875836037243219829705927834235</span>,<span class="number">12488950718303582218034044014469231718831962762275496002247643231013156969740771432142283441219754679322796472657777272189002660471344265360278317729760143808888761286079001687689905847842340334026140684913862478238950679283842053262939984135114755914484999538131508882930756717834516619580846526035684240079</span>],</span><br><span class="line">[<span class="number">68223999778327454147340278776103578457271553299042143933393545815264609973076698756926443268448068478170652356574414692081569784751387548589991131379073395697581788909441130777261041802381911726085217610218552072019955091687392945670505312431379412346500975722411035854097380678429943612541679085918327184211</span>,<span class="number">17770738203348676394013528065573927253738684355484382993047842078725009503696773096846474265836623641852326745278003624730438619552362071702422399552544609521188676816688215350418290389310564969049643786010837155281593524360805215661135722530433990410365868360692605842180028752038342347560333735922237369889</span>,<span class="number">51098779961961751158122915158869440252746637314825788279336277128573162559246638101764647720433607480890890353266404408862366250798238531789338353122957455620883022785518154730850781795813200407904530871476660815008994170944440212300679621717029986782069464962522083711578039350861054405841275173019925642093</span>,<span class="number">66166716533207612504484627791108393201158937155973610986551130733271280578971089095120371889664007733286220189256643852916722857958108530989447774212301117302384387307543583321894175828438280849870887046734108846642477438172082973113653660108354098554353657568190553303062608249271483295596847725316287446947</span>],</span><br><span class="line">[<span class="number">69746411945288680494756625186262685100915769718266292828317232438356233082561457717802913380129463210508761458218383450347346543878887508111863823958801568318184343480949172473544777648327814945820830887234292193752526478863127665281603760310028685488010810374501002997654985226277837410385612336235789850487</span>,<span class="number">35863433752003593718423506765770617029528142232119703360783695175632253222988642577448933602236360173888236658825392990787632391883856639629797550839027484460834276938254229716767734096212580735483050576113358898294845949901713373921320977266743302353193505619551975822052525104591593619094885194563759053232</span>,<span class="number">61506888586914853748952584136999168853842713393989804770066310267385965404827751126077340386083884094392293257188958096424196079983180753698925334131753282172406136172626322186930421581433234090454842658630759776836012464473239198489670974246600345527623012180678219362862337775047849600595500703273175382703</span>,<span class="number">23074173610330067975119318094549104916729459916683840171011959880097244030586124074672098644510552431454003148712810460842866906744010629559390690271268680358736511730336715376566599109974114862237643003353529058235474898207867615210853332379567542323247567216796697852808056755511484166810776261406177054777</span>],</span><br><span class="line">[<span class="number">141780415980139617437215295846801567101402173619252056827987183835073254193657239443065408850513736462591151306400635298582358011825422183971334048391966413113755453698068836508230018713283240471925059428429812726435729369274579669831159812818547912726106821393226089324568082296082476059592963374588189677903</span>,<span class="number">138746424736113892630456472492513519297466193136237748713651792342224061188757613931171106142936354280921317637536324608330692729231708881940151586955111567707002290198592160272885704125491274615556183787626484145861344784010051348839767532854926101536139055358860932766313079790639566311374298333660022416019</span>,<span class="number">51726115599556454603920201657250521837735902629404616832316825062102322966835183071269936236690928753491837133603376577256803231041384630057026503126306733001505942744679790303330123718230247169888465167921020819210505089269412155033260560735554086852090518639465729269946494965164436190741639956526409236643</span>,<span class="number">109654409762022740069514851260972908347716034747536569205325610944369939818174396230317316392277341065510361034050535743153611162427943916414124861678979771914963184421776448698855312979564147449272690263825911213298037101520123605413049352651130798112394668303713018564867048267647962314886530354112656660927</span>],</span><br><span class="line">[<span class="number">134695529317631291539146989750080778456288116909537330643076226015019499585100645219201149819193483942761047608937632376000045678037096949063251694636264176978864350498001325274216745015187611426633155307352514688833306265311483797036137536737138146820693626589997367590775993967122039778179174477656098285151</span>,<span class="number">5739321199968321627369946084893217618156071099515645889496757563432120794798492968096997315087609783917559636235489259519655394193193715753364023338741839200775528051686566670968651457520145892918236829346679247967821973265175306801170339421046331421835781903320059400232340368113764816537593043564619129091</span>,<span class="number">19673160600783884558420797494268753813890359647736289572838063131711269874000492472573124412257756881986515876284947639879236228461164246881762817017531477201318279812271247605969526804283198993102225186731231831294213792057134691470071907311239898997202853181993775441584378767147396666275272938837258357423</span>,<span class="number">16897173108120076789922861933836017988034034913979337434078332952051799507194042012051980050429727113676699771772883294665409080790164523153924333774353032403848045609407735317482100956730663470698029136912240237112767052198706217408124644467054727063902614284435035076029952831418531957452256906889271788660</span>],</span><br><span class="line">[<span class="number">108631997335203066432695467871764765359535346338288176017618709868611883736328359105943651466896885704753893021031355220198313022607240746637026558990572053372001779938093596718948899761553876823305187704800253652009189892280549587130446638129290899670752310731109594745013563422110453795138476510927065537819</span>,<span class="number">53186625650395498513439276601148324935331371411190607911833993964075202667438243234505710009859940105805328184291501428682891944699728069011511208448749132382024172290085402121472873185791975075398049469908097240414598661986593060452061227701643807521128142747260925759613091495839896971643248717676885197644</span>,<span class="number">52709509084184104167650277788945043330126097533959255658173397630643774367938336071212214281041856314502929120225540280940224731284318314188334401609349175298441766962844025460361899368481713758076026229654035313132750449381123295594073954550981806651354410007449428669257683889916088487170632832744327614463</span>,<span class="number">100260604505216418319923489428146996468156773172005794829064325549637959539041791314163531463726947409321908377241081956519122122262033227578640846072409813184989637914837945813897560451295053865278594114754492413312832734981399784589146893658856979887630033309457853967429746353718137461785133619446282493126</span>],</span><br><span class="line">[<span class="number">107338361645955025621587108367500347348984102219339572552748381028739611029946302714920823684765311935547487453509535204574142858361737866739285841603885839441733030101476343149903190982542554096941815202891147725076023628145124709929620451309674856615713933442851718371615889591966077523086598769484929332367</span>,<span class="number">100872379615239890056528793994805290254429184626178615179949021889055871474237228059318594996850343091819482928969268211528584474928620075395005093777657472616646086984808630643337673511907312828907027299569420774094158785966357193601409625830742669863851550399504009908003166662860318527135193218238780676800</span>,<span class="number">52637469044026090728662077516653409825725186092147185410215323273449329656983845536711234923756687817513771235055035977388966611329613167758082577958758423429648769821507972676781188078791048118663252233256924489724994317727922287107822238963194994782575166160292521918653409858431855957865223409101119244152</span>,<span class="number">57971958593516466763891620734062821771076712450708456876484562483981622035231519724366540336500884101001407519929342324257929081898526022577405465205118192907601214300359691638071300661277784420068767639904239138656962018735555155063349452232501292852176876546222413194770858197241287367089881969293760207489</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">coeff=[]</span><br><span class="line">N=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ecc)):</span><br><span class="line">    n,a,b,y=ecc[i]</span><br><span class="line">    N.append(n)</span><br><span class="line">    E=EllipticCurve(Zmod(n),[a,b])</span><br><span class="line">    PR.&lt;x&gt;=PolynomialRing(Zmod(n))</span><br><span class="line">    w2=(E.division_polynomial_0(<span class="number">4</span>)//<span class="number">2</span>)^<span class="number">2</span></span><br><span class="line">    f2=<span class="number">64</span>*y^<span class="number">2</span>*(x^<span class="number">3</span>+a*x+b)^<span class="number">3</span></span><br><span class="line">    f=f2-w2</span><br><span class="line">    coeff.append(<span class="built_in">list</span>(f))</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">final=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">13</span>):</span><br><span class="line">    tmp=[]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>):</span><br><span class="line">        tmp.append(<span class="built_in">int</span>(coeff[j][i]))</span><br><span class="line">    final.append(crt(tmp,N))</span><br><span class="line">    </span><br><span class="line"><span class="comment">#print(final)</span></span><br><span class="line">NN=prod(N)</span><br><span class="line">PR.&lt;x&gt;=PolynomialRing(Zmod(NN))</span><br><span class="line">f=PR(final).monic()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(f.small_roots(X=<span class="number">2</span>^<span class="number">350</span>,beta=<span class="number">1</span>,epsilon=<span class="number">0.03</span>))</span><br></pre></td></tr></table></figure>
+
+<p>总的来说n1虽然卡在了考试周，但是密码就三题，两天的比赛实际也就打了一天，还空出一个下午预习了一下没听课的概率论（￣▽￣）</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://hash-hash.github.io/2022/11/09/N1CTF-2022-Crypto/">https://hash-hash.github.io/2022/11/09/N1CTF-2022-Crypto/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/wp/"># wp</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/09/30/A-Decade-of-Lattice-Cryptography/">A Decade of Lattice Cryptography</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
