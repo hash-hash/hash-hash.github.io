@@ -308,7 +308,8 @@
 <p>dec</p>
 <p>通过将输出与私钥s点乘若为整数则输出1否则输出0</p>
 <p>基于HHP所以从公钥pk推出私钥s是困难的</p>
-<h3 id="NTRU"><a href="#NTRU" class="headerlink" title="NTRU"></a><em><strong>NTRU</strong></em></h3><p>NTRU的quotient ring一开始是选的$x^n-1$后面改成了分圆多项式$x^n+1$，但是$x^n+1$有比较好的代数结构，所以最终出了个NTRU Prime，调整了NTRU的相关结构使得它更加安全，一个改动就是quotient ring改成了$x^n-x+1$</p>
+<p><em><strong>NTRU</strong></em></p>
+<p>NTRU的quotient ring一开始是选的$x^n-1$后面改成了分圆多项式$x^n+1$，但是$x^n+1$有比较好的代数结构，所以最终出了个NTRU Prime，调整了NTRU的相关结构使得它更加安全，一个改动就是quotient ring改成了$x^n-x+1$</p>
 <blockquote>
 <p>using large Galois groups instead of cyclotomics</p>
 </blockquote>
@@ -316,7 +317,8 @@
 <p>另外一个就是关于NTRU的格构造，实际上NTRU格是较为难解的格了，由于私钥的循环均是短向量，导致可出现大量较短的线性组合</p>
 <p>而我们知道想要LLL的算法成功实施是希望我们要的短向量与次短向量出现较大的gap，而这里大量线性组合出的较短向量都在LLL的规约范围内，这就导致了我们所规约出的并不是密钥或等效密钥</p>
 <p>实验的时候发现似乎q较小或者格子维数过高时都无法得到理想的规约结果</p>
-<h3 id="GGH"><a href="#GGH" class="headerlink" title="GGH"></a><em><strong>GGH</strong></em></h3><p>基于CVP的一个比较简单的加密方案</p>
+<p><em><strong>GGH</strong></em></p>
+<p>基于CVP的一个比较简单的加密方案</p>
 <p>embeded technique也是一种有效的攻击方式，可以将CVP转化为高一个维度的SVP</p>
 <p>具体参考这篇<a target="_blank" rel="noopener" href="https://hxp.io/blog/26/VolgaCTF-2016-Quals-crypto300-XXY-writeup/">文章</a></p>
 <h2 id="Modern-Foundations"><a href="#Modern-Foundations" class="headerlink" title="Modern Foundations"></a>Modern Foundations</h2><p><em><strong>SIS</strong></em></p>
