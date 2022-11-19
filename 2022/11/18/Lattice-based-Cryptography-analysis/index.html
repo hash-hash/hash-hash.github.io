@@ -265,35 +265,33 @@
 <p>if $||\vec{v}||&lt;\frac{N}{\sqrt{n+1}}$ then we have $F(x_0)&#x3D;0$</p>
 </blockquote>
 <p><img src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/image-20221111230807687.png" alt="image-20221111230807687"></p>
-<p>coppersmith method的想法是寻找一个共根的小系数多项式，从而达到换环的效果也就是$f(x_0)&#x3D;0(mod~N)→g(x_0)&#x3D;0$ over Z</p>
+<p><code>coppersmith_method</code>的想法是寻找一个共根的小系数多项式，从而达到换环的效果也就是$f(x_0)&#x3D;0(mod~N)→g(x_0)&#x3D;0$ over Z</p>
 <p>我们考虑下述多项式，δ是f的度数</p>
 <p>$g_{i,j}(x)&#x3D;x^jN^if^{m-i}(x)$   for $i&#x3D;0,…,m-1;j&#x3D;0,…,δ-1$</p>
 <p>$h_i(x)&#x3D;x^if^m(x)$   for $i&#x3D;0,…,t-1$</p>
 <p>对$L&#x3D;\left[\begin{matrix}g_{i,j}(X)\\…\\h_i(X)\end{matrix}\right]$做LLL得到的约化基就是我们最后需要构造的多项式的系数</p>
-<p>其中对于不同形式的多项式构造矩阵时会有不同形式的优化，具体如何构造可以参考相关攻击的论文。对于单变元的coppersmith method，sagemath提供了比较完善的<code>small_roots</code>函数这里就不过多赘述</p>
-<p>多元coppersmith method和单元基本类似，同样也是根据Howgrave定理导出多组共根独立的多项式，最基本的构造如下</p>
+<p>其中对于不同形式的多项式构造矩阵时会有不同形式的优化，具体如何构造可以参考相关攻击的论文。对于单变元的<code>coppersmith_method</code>，sagemath提供了比较完善的<code>small_roots</code>函数这里就不过多赘述</p>
+<p>多元<code>coppersmith_method</code>和单元基本类似，同样也是根据Howgrave定理导出多组共根独立的多项式，最基本的构造如下</p>
 <p>$\left[\begin{matrix}S&amp;*\\MI_{k^2}&amp;0\\0&amp;MI_{w}\end{matrix}\right]$</p>
 <p>S为通过shift技术生成的多项式，$I_w$为单位阵</p>
 <p>$S_{a,b}(x,y)&#x3D;x^ay^bF(x,y)$ for 0≤a,b&lt;k</p>
-<p>之后通过求该组多项式理想的gröbner basis即可求得共根</p>
-<p>个人感觉coppersmith method是一种思想，很多攻击方案最后都可以划到解方程，而且随着侧信道之类的攻击方式出现，我们需要解决的是在已知部分信息的情况下的私钥恢复，很多lattice attack中格的构造方案实际上都只是在最初的coppersmith的方案上加以修改</p>
-<p>这里简单提一下<code>Gröbner_basis</code>的定义，因为利用coppersimth method导出来的多项式的共根一般可以采用<code>Gröbner_basis</code>求出</p>
+<p>之后通过求该组多项式理想的<code>gröbner_basis</code>即可求得共根</p>
+<p>个人感觉<code>coppersmith_method</code>是一种思想，很多攻击方案最后都可以划到解方程，而且随着侧信道之类的攻击方式出现,我们需要解决的是在已知部分信息的情况下的私钥恢复，很多<code>lattice_attack</code>中格的构造方案实际上都只是在最初的coppersmith的方案上加以修改</p>
+<p>这里简单提一下<code>Gröbner_basis</code>的定义，因为利用<code>coppersimth_method</code>导出来的多项式的共根一般可以采用<code>Gröbner_basis</code>求出</p>
 <blockquote>
 <p>Fix a monomial order on the polynomial ring $k[x_1,…,x_n]$. A finite subset G&#x3D;{$g_1,…,g_t$} of an ideal $I⊆k[x_1,…,x_n]$ different from {0} is said to be a Gröbner basis of I, </p>
 <p>if satisfy $&lt;LT(g_1),…,LT(g_t)&gt;&#x3D;&lt;LT(I)&gt;$</p>
 </blockquote>
 <p>同时有定理证明了对于不为{0}的任意理想都存在<code>Gröbner_basis</code></p>
-<p>由于我们希望找到一个小根的多项式的分析在很大程度上依赖于多项式中出现的单项，所以每一个新的多项式都必须重新分析，也就是说大多数的攻击都不能直接套最普遍形式的多元coppersmith的板子。并且在三元及以上的小根求解最后约化所得到的多项式不一定代数独立，故在三元及以上的coppersmith method是启发性方案</p>
-<p>总的来说多元coppersmith的核心在于寻找与原始多项式独立的共根多项式，并且该共根多项式具有在ZZ下的目标小根，我个人对这里的理解是最后一步求解gröbner basis所需要</p>
-<p>一般原始多项式我们都会选在放在Zmod(R)上，当然这个具体还得根据论文打，而且我发现大多数三元以上的还是选择在ZZ上求解，这里我原来一直没太理解不是很懂为什么在ZZ上解小根不直接求，当然没法整啊，又不能枚举，一般都是构造其他的共根多项式求gröbner basis，但是这个不同于在Zmod(R)上的多项式我们缺失了一些在构造格的时候的相关项，例如$Rf(x_1,…,x_n)^{d-1},R^3f(x_1,…,x_n)^{d-3},R^dx_1^{i_1}…x_n^{i_n}$之类的，这样的话仅通过shift技术生成的格子找出来的都是原始多项式的线性结果，这样通过gröbner basis是找不出共根的，所以这里我们通过小根的界构造相应的模数R，转换为Zmod(R)上的情况类似求解</p>
-<p><em><strong>[Reference]</strong></em></p>
-<p><a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/A-Strategy-for-Finding-Roots-of-Multivariate-with-Jochemsz-May/c00a6b120e4291b208ae5ae976580db895a02709">A Strategy for Finding Roots of Multivariate Polynomials</a></p>
-<p><em><strong>[challenge]</strong></em></p>
-<ol>
+<p>由于我们希望找到一个小根的多项式的分析在很大程度上依赖于多项式中出现的单项，所以每一个新的多项式都必须重新分析，也就是说大多数的攻击都不能直接套最普遍形式的多元coppersmith的板子。并且在三元及以上的小根求解最后约化所得到的多项式不一定代数独立，故在三元及以上的<code>coppersmith_method</code>是启发示方案</p>
+<p>总的来说多元coppersmith的核心在于寻找与原始多项式独立的共根多项式，并且该共根多项式具有在ZZ下的目标小根，我个人对这里的理解是最后一步求解<code>gröbner_basis</code>所需要</p>
+<p>一般原始多项式我们都会选在放在Zmod(R)上，当然这个具体还得根据论文打，而且我发现大多数三元以上的还是选择在ZZ上求解，这里我原来一直没太理解不是很懂为什么在ZZ上解小根不直接求，当然没法整啊，又不能枚举，一般都是构造其他的共根多项式求<code>gröbner_basis</code>，但是这个不同于在Zmod(R)上的多项式我们缺失了一些在构造格的时候的相关项，例如$Rf(x_1,…,x_n)^{d-1},R^3f(x_1,…,x_n)^{d-3},R^dx_1^{i_1}…x_n^{i_n}$之类的，这样的话仅通过shift技术生成的格子找出来的都是原始多项式的线性结果，这样通过<code>gröbner_basis</code>是找不出共根的，所以这里我们通过小根的界构造相应的模数R，转换为Zmod(R)上的情况类似求解</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="[Reference]"></a><strong>[Reference]</strong></h3><p><a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/A-Strategy-for-Finding-Roots-of-Multivariate-with-Jochemsz-May/c00a6b120e4291b208ae5ae976580db895a02709">A Strategy for Finding Roots of Multivariate Polynomials</a></p>
+<h3 id="challenge"><a href="#challenge" class="headerlink" title="[challenge]"></a><strong>[challenge]</strong></h3><ol>
 <li>[2021 MRCTF-Strange_CRT]</li>
 </ol>
 <ul>
-<li><a href>wp</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/blob/main/%E9%A2%98%E8%A7%A3/Strange_CRT.md">wp</a></li>
 </ul>
 <ol start="2">
 <li>[2022 TQLCTF-hardRSA]</li>
@@ -314,10 +312,8 @@
 <p>$L&#x3D;\left[\begin{matrix}g×b_{1,1}&amp;g×b_{1,2}&amp;…&amp;g×b_{1,n}\\g×b_{2,1}&amp;g×b_{2,2}&amp;…&amp;g×b_{2,n}\\&amp;&amp;…&amp;\\g×b_{k,1}&amp;g×b_{k,2}&amp;…&amp;g×b_{k,n}\\1&amp;&amp;&amp;&amp;\\&amp;1&amp;&amp;&amp;\\&amp;&amp;…&amp;\\&amp;&amp;&amp;1\end{matrix}\right]$</p>
 <p>这里g为界的控制系数，不用估计得特别细，稍微给大点就行，对列向量进行LLL约化，约化基中的每个向量为$(b_1,b_2,…,b_n)$的正交格中的向量</p>
 <p>这部分具体攻击的实现其实不算太难，其实说白了就是格子的构造比较简单也不太需要调参，主要还是一个技巧性的手段，如何利用正交格去解决问题才是需要去思考的</p>
-<p><em><strong>[Reference]</strong></em></p>
-<p><a target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-030-56880-1_1">A Polynomial-Time Algorithm for Solving the Hidden Subset Sum Problem</a></p>
-<p><em><strong>[challenge]</strong></em></p>
-<ol>
+<h3 id="Reference-1"><a href="#Reference-1" class="headerlink" title="[Reference]"></a><strong>[Reference]</strong></h3><p><a target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-030-56880-1_1">A Polynomial-Time Algorithm for Solving the Hidden Subset Sum Problem</a></p>
+<h3 id="challenge-1"><a href="#challenge-1" class="headerlink" title="[challenge]"></a><strong>[challenge]</strong></h3><ol>
 <li>[2022 D^3CTF-equivalent]</li>
 </ol>
 <ul>
