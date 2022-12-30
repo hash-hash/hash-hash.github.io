@@ -1,367 +1,766 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="hash hash">
-
-
-
-
-
-<title>N1CTF 2022 Crypto | hash hash的博客</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="hash_hash">
     
-    <link rel="stylesheet" href="/css/style.css">
+    <title>
+        
+            N1CTF 2022 Crypto |
+        
+        hash_hash&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
     
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-    <!-- scripts list from _config.yml -->
+    <link rel="shortcut icon" href="/images/logo.svg">
     
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
 
+    
+<link rel="stylesheet" href="/css/brands.min.css">
 
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
 
     
     
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
     
+    
+<link rel="stylesheet" href="/css/css2.css">
 
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"hash-hash.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Hash_Hash's blog"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.4"};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
 
-<meta name="generator" content="Hexo 6.1.0"></head>
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
 
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">hash hash&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/friend">Friends</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">hash hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/friend">Friends</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
     
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6;    // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
 
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function () {
-            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function () {
-        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
-    });
-
-    function expandToc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
+<main class="page-container">
 
     
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">N1CTF 2022 Crypto</h1>
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">hash hash</a>
-                    
+            <a class="logo-title" href="/">
+                hash_hash&#39;s blog
+            </a>
+        </div>
 
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
                     
-                        <span class="post-time">
-                        Date: <a href="#">November 9, 2022&nbsp;&nbsp;12:08:54</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
                             
-                                <a href="/categories/Writeup/">Writeup</a>
-                            
-                        </span>
+                        </li>
                     
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/categories" >
+                                
+                                    
+                                        <i class="fa-regular fa-bookmark"></i>
+                                    
+                                    CATEGORIES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/about" >
+                                
+                                    
+                                        <i class="fa-regular fa-user"></i>
+                                    
+                                    ABOUT
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/links" >
+                                
+                                    
+                                        <i class="fa-regular fa-link"></i>
+                                    
+                                    FRIENDS
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/categories" >
+                         
+                            
+                                <i class="fa-regular fa-bookmark"></i>
+                            
+                            CATEGORIES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/about" >
+                         
+                            
+                                <i class="fa-regular fa-user"></i>
+                            
+                            ABOUT
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/links" >
+                         
+                            
+                                <i class="fa-regular fa-link"></i>
+                            
+                            FRIENDS
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">N1CTF 2022 Crypto</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">hash_hash</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-11-09 12:08:54</span>
+        <span class="mobile">2022-11-09 12:08</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Writeup/">Writeup</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/wp/">wp</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
                 </div>
             
-        </header>
 
-        <div class="post-content">
-            <p>今年n1ctf密码方向相比其他几个方向来说比较简单，没有离谱的论文题，都是些简单有趣的trick，想起来也挺久没写blog了，太摆了太摆了！</p>
+            <div class="article-content markdown-body">
+                <p>今年n1ctf密码方向相比其他几个方向来说比较简单，没有离谱的论文题，都是些简单有趣的trick，想起来也挺久没写blog了，太摆了太摆了！</p>
 <p>这里就把比赛时候大致思路写一下</p>
 <h3 id="Brand-new-checkin"><a href="#Brand-new-checkin" class="headerlink" title="Brand_new_checkin"></a>Brand_new_checkin</h3><p>题目思路其实很简单，只是在梅森伪随机数的状态旋转时需要做一定的分析简化爆破量</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">m, k</span>):</span><br><span class="line">    s, t, n = k</span><br><span class="line">    r = getrandbits(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> m * <span class="built_in">pow</span>(r, s, n) % n, m * <span class="built_in">pow</span>(r, t, n) % n</span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">m, k</span>):</span><br><span class="line">    s, t, n = k</span><br><span class="line">    r = getrandbits(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> m * <span class="built_in">pow</span>(r, s, n) % n, m * <span class="built_in">pow</span>(r, t, n) % n</span><br></pre></td></tr></table></figure></div>
 <p>由于s，t给了并且m是单字节，从0-255爆破一下就行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">m_enc=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="built_in">len</span>(c))):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">        m1=c[i][<span class="number">0</span>]*inverse(j,n)%n</span><br><span class="line">        m2=c[i][<span class="number">1</span>]*inverse(j,n)%n</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">pow</span>(m1,t,n)==<span class="built_in">pow</span>(m2,s,n):</span><br><span class="line">            m_enc.append(j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(m_enc)</span><br></pre></td></tr></table></figure>
-
-<p>m解出后利用扩展欧几里得组一下指数把r(mod n)计算出来，注意到$r&lt;2^{1024},2^{1022}&lt;n&lt;2^{1023}$</p>
-<p>我们可以计算一下$r+kn&lt;2^{1024}$的k的上限</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>我取的最后20组，2的分布较少，爆破量是$2^{15}3^5$</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">m_enc=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="built_in">len</span>(c))):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">        m1=c[i][<span class="number">0</span>]*inverse(j,n)%n</span><br><span class="line">        m2=c[i][<span class="number">1</span>]*inverse(j,n)%n</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">pow</span>(m1,t,n)==<span class="built_in">pow</span>(m2,s,n):</span><br><span class="line">            m_enc.append(j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(m_enc)</span><br></pre></td></tr></table></figure></div>
+<p>m解出后利用扩展欧几里得组一下指数把r(mod n)计算出来，注意到<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="25.991ex" height="2.343ex" role="img" focusable="false" viewbox="0 -841.7 11488 1035.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(728.8,0)"><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"/></g><g data-mml-node="msup" transform="translate(1784.6,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(1000,0)"/><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(1500,0)"/></g></g></g><g data-mml-node="mo" transform="translate(3781.8,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="msup" transform="translate(4226.4,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(1000,0)"/><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(1500,0)"/></g></g></g><g data-mml-node="mo" transform="translate(6501.4,0)"><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"/></g><g data-mml-node="mi" transform="translate(7557.2,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(8435,0)"><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"/></g><g data-mml-node="msup" transform="translate(9490.8,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(1000,0)"/><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" transform="translate(1500,0)"/></g></g></g></g></g></svg></mjx-container></p>
+<p>我们可以计算一下<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="13.858ex" height="2.09ex" role="img" focusable="false" viewbox="0 -841.7 6125.2 923.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(673.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"/></g><g data-mml-node="mi" transform="translate(1673.4,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"/></g><g data-mml-node="mi" transform="translate(2194.4,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(3072.2,0)"><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"/></g><g data-mml-node="msup" transform="translate(4128,0)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(1000,0)"/><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(1500,0)"/></g></g></g></g></g></svg></mjx-container>的k的上限</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure></div>
+<p>我取的最后20组，2的分布较少，爆破量是<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="5.038ex" height="1.937ex" role="img" focusable="false" viewbox="0 -833.9 2226.7 855.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(500,0)"/></g></g></g><g data-mml-node="msup" transform="translate(1290.1,0)"><g data-mml-node="mn"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"/></g><g data-mml-node="mn" transform="translate(533,363) scale(0.707)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"/></g></g></g></g></svg></mjx-container></p>
 <p>拟合我选择的是向前8位拟合，最后筛出了24组，再向前20位拟合得到正确的随机数状态回到最开始把a算出来，最后直接解密就行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">partS = recover_state(rn)</span><br><span class="line">state = backtrace([<span class="number">0</span>] * <span class="number">32</span>*<span class="number">62</span> + partS)[:<span class="number">624</span>]</span><br><span class="line"><span class="comment"># print(state)</span></span><br><span class="line">prng = Random()</span><br><span class="line">prng.setstate((<span class="number">3</span>, <span class="built_in">tuple</span>(state + [<span class="number">0</span>]), <span class="literal">None</span>))</span><br><span class="line">a = [prng.getrandbits(<span class="number">1024</span>) <span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">62</span>)]</span><br><span class="line">a=a[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">M=<span class="built_in">bytes</span>(m_enc)</span><br><span class="line">phi= <span class="built_in">abs</span>(a*s-t*(a-<span class="number">1</span>))</span><br><span class="line">d=inverse(<span class="number">0x10001</span>,phi)</span><br><span class="line">m=<span class="built_in">pow</span>(bytes_to_long(M),d,n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
-
-<h3 id="Ezdlp"><a href="#Ezdlp" class="headerlink" title="Ezdlp"></a>Ezdlp</h3><p>拿到了47组方程$65537^{x_i}&#x3D;y_i(mod~n)$，已知x，y求n</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">partS = recover_state(rn)</span><br><span class="line">state = backtrace([<span class="number">0</span>] * <span class="number">32</span>*<span class="number">62</span> + partS)[:<span class="number">624</span>]</span><br><span class="line"><span class="comment"># print(state)</span></span><br><span class="line">prng = Random()</span><br><span class="line">prng.setstate((<span class="number">3</span>, <span class="built_in">tuple</span>(state + [<span class="number">0</span>]), <span class="literal">None</span>))</span><br><span class="line">a = [prng.getrandbits(<span class="number">1024</span>) <span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">62</span>)]</span><br><span class="line">a=a[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">M=<span class="built_in">bytes</span>(m_enc)</span><br><span class="line">phi= <span class="built_in">abs</span>(a*s-t*(a-<span class="number">1</span>))</span><br><span class="line">d=inverse(<span class="number">0x10001</span>,phi)</span><br><span class="line">m=<span class="built_in">pow</span>(bytes_to_long(M),d,n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure></div>
+<h3 id="Ezdlp"><a href="#Ezdlp" class="headerlink" title="Ezdlp"></a>Ezdlp</h3><p>拿到了47组方程<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="20.091ex" height="2.262ex" role="img" focusable="false" viewbox="0 -750 8880.2 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z"/><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(500,0)"/><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(1000,0)"/><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" transform="translate(1500,0)"/><path data-c="37" d="M55 458Q56 460 72 567L88 674Q88 676 108 676H128V672Q128 662 143 655T195 646T364 644H485V605L417 512Q408 500 387 472T360 435T339 403T319 367T305 330T292 284T284 230T278 162T275 80Q275 66 275 52T274 28V19Q270 2 255 -10T221 -22Q210 -22 200 -19T179 0T168 40Q168 198 265 368Q285 400 349 489L395 552H302Q128 552 119 546Q113 543 108 522T98 479L95 458V455H55V458Z" transform="translate(2000,0)"/></g><g data-mml-node="TeXAtom" transform="translate(2533,403.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"/></g><g data-mml-node="mi" transform="translate(605,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g></g></g><g data-mml-node="mo" transform="translate(3496.4,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="msub" transform="translate(4552.2,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(523,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g><g data-mml-node="mo" transform="translate(5369.2,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(5758.2,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(6636.2,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"/></g><g data-mml-node="mi" transform="translate(7121.2,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"/></g><g data-mml-node="mtext" transform="translate(7641.2,0)"><path data-c="A0" d=""/></g><g data-mml-node="mi" transform="translate(7891.2,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(8491.2,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g></g></g></svg></mjx-container>，已知x，y求n</p>
 <p>由于在未知模数的情况下不能进行太大的幂次计算，所以利用一下LLL</p>
 <p>造个格求x的线性组合的较小值，同时线性系数尽可能小</p>
-<p>$\left[\begin{matrix}1&amp;&amp;&amp;&amp;&amp;x_0\\&amp;1&amp;&amp;&amp;&amp;x_1\\&amp;&amp;&amp;…\\&amp;&amp;&amp;&amp;1&amp;x_{46}\end{matrix}\right]$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mes=[]</span><br><span class="line"></span><br><span class="line">A=Matrix(ZZ,<span class="number">47</span>,<span class="number">48</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">47</span>):</span><br><span class="line">    A[i,i]=<span class="number">1</span></span><br><span class="line">    A[i,<span class="number">47</span>]=mes[i]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(A.LLL()[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
-
+<p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -5.317ex;" xmlns="http://www.w3.org/2000/svg" width="23.457ex" height="11.765ex" role="img" focusable="false" viewbox="0 -2850 10368.1 5200"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mrow"><g data-mml-node="mo"><path data-c="23A1" d="M319 -645V1154H666V1070H403V-645H319Z" transform="translate(0,1696)"/><path data-c="23A3" d="M319 -644V1155H403V-560H666V-644H319Z" transform="translate(0,-1706)"/><svg width="667" height="1802" y="-651" x="0" viewbox="0 450.5 667 1802"><path data-c="23A2" d="M319 0V602H403V0H319Z" transform="scale(1,4.49)"/></svg></g><g data-mml-node="mtable" transform="translate(667,0)"><g data-mml-node="mtr" transform="translate(0,2100)"><g data-mml-node="mtd"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g><g data-mml-node="mtd" transform="translate(1750,0)"/><g data-mml-node="mtd" transform="translate(3000,0)"/><g data-mml-node="mtd" transform="translate(4586,0)"/><g data-mml-node="mtd" transform="translate(6422,0)"/><g data-mml-node="mtd" transform="translate(7848.8,0)"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"/></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"/></g></g></g></g><g data-mml-node="mtr" transform="translate(0,700)"><g data-mml-node="mtd" transform="translate(250,0)"/><g data-mml-node="mtd" transform="translate(1500,0)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g><g data-mml-node="mtd" transform="translate(3000,0)"/><g data-mml-node="mtd" transform="translate(4586,0)"/><g data-mml-node="mtd" transform="translate(6422,0)"/><g data-mml-node="mtd" transform="translate(7848.8,0)"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"/></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g></g><g data-mml-node="mtr" transform="translate(0,-700)"><g data-mml-node="mtd" transform="translate(250,0)"/><g data-mml-node="mtd" transform="translate(1750,0)"/><g data-mml-node="mtd" transform="translate(3000,0)"/><g data-mml-node="mtd" transform="translate(4000,0)"><g data-mml-node="mo"><path data-c="2026" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60ZM525 60Q525 84 542 102T585 120Q609 120 627 104T646 61Q646 36 629 18T586 0T543 17T525 60ZM972 60Q972 84 989 102T1032 120Q1056 120 1074 104T1093 61Q1093 36 1076 18T1033 0T990 17T972 60Z"/></g></g></g><g data-mml-node="mtr" transform="translate(0,-2100)"><g data-mml-node="mtd" transform="translate(250,0)"/><g data-mml-node="mtd" transform="translate(1750,0)"/><g data-mml-node="mtd" transform="translate(3000,0)"/><g data-mml-node="mtd" transform="translate(4586,0)"/><g data-mml-node="mtd" transform="translate(6172,0)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g><g data-mml-node="mtd" transform="translate(7672,0)"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"/></g><g data-mml-node="TeXAtom" transform="translate(605,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"/><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" transform="translate(500,0)"/></g></g></g></g></g></g><g data-mml-node="mo" transform="translate(9701.1,0)"><path data-c="23A4" d="M0 1070V1154H347V-645H263V1070H0Z" transform="translate(0,1696)"/><path data-c="23A6" d="M263 -560V1155H347V-644H0V-560H263Z" transform="translate(0,-1706)"/><svg width="667" height="1802" y="-651" x="0" viewbox="0 450.5 667 1802"><path data-c="23A5" d="M263 0V602H347V0H263Z" transform="scale(1,4.49)"/></svg></g></g></g></g></svg></mjx-container> </p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mes=[]</span><br><span class="line"></span><br><span class="line">A=Matrix(ZZ,<span class="number">47</span>,<span class="number">48</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">47</span>):</span><br><span class="line">    A[i,i]=<span class="number">1</span></span><br><span class="line">    A[i,<span class="number">47</span>]=mes[i]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(A.LLL()[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure></div>
 <p>按照约化出的结果组一下，求gcd，最后丢factordb把靠近n的比特的值取了</p>
 <p>到这里基本是秒出思路的，结果pollard p-1那卡了我好几个小时，我还寻思这量级pc应该跑不出才对啊，最后pollard p-1的基础上改改丢服务器上也就一个半小时，还行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"></span><br><span class="line">p25=sympy.prime(<span class="number">1077872</span>)</span><br><span class="line">p30=sympy.prime(<span class="number">105097566</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">n = gmpy2.mpz(</span><br><span class="line">    <span class="number">131158523227880830085100826212925738665356578827561846263073537503153187073136528966506785633847097997799377037969243883439723340886038624250936927221630287086602285835045356221763554989140952262353930420392663280482277832613695689454662506372252641564106136178637816827646124189347219273164844809807934422046441</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">p1=[]</span><br><span class="line"><span class="keyword">while</span> p25&lt;<span class="number">2</span>**<span class="number">25</span>:</span><br><span class="line">    p1.append(p25)</span><br><span class="line">    p25=sympy.nextprime(p25)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">100000000</span>)):</span><br><span class="line">    p1.append(p30)</span><br><span class="line">    p30=sympy.nextprime(p30)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ar = p1</span><br><span class="line">random.shuffle(ar)</span><br><span class="line"></span><br><span class="line">a = gmpy2.mpz(<span class="number">4</span>)</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> tqdm(ar):</span><br><span class="line">    a = gmpy2.powmod(a, p, n)</span><br><span class="line">    g = gmpy2.gcd(a - <span class="number">1</span>, n)</span><br><span class="line">    <span class="keyword">if</span> <span class="number">1</span> &lt; g &lt; n:</span><br><span class="line">        <span class="built_in">print</span>(g)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy</span><br><span class="line"></span><br><span class="line">p25=sympy.prime(<span class="number">1077872</span>)</span><br><span class="line">p30=sympy.prime(<span class="number">105097566</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">n = gmpy2.mpz(</span><br><span class="line">    <span class="number">131158523227880830085100826212925738665356578827561846263073537503153187073136528966506785633847097997799377037969243883439723340886038624250936927221630287086602285835045356221763554989140952262353930420392663280482277832613695689454662506372252641564106136178637816827646124189347219273164844809807934422046441</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">p1=[]</span><br><span class="line"><span class="keyword">while</span> p25&lt;<span class="number">2</span>**<span class="number">25</span>:</span><br><span class="line">    p1.append(p25)</span><br><span class="line">    p25=sympy.nextprime(p25)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">100000000</span>)):</span><br><span class="line">    p1.append(p30)</span><br><span class="line">    p30=sympy.nextprime(p30)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ar = p1</span><br><span class="line">random.shuffle(ar)</span><br><span class="line"></span><br><span class="line">a = gmpy2.mpz(<span class="number">4</span>)</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> tqdm(ar):</span><br><span class="line">    a = gmpy2.powmod(a, p, n)</span><br><span class="line">    g = gmpy2.gcd(a - <span class="number">1</span>, n)</span><br><span class="line">    <span class="keyword">if</span> <span class="number">1</span> &lt; g &lt; n:</span><br><span class="line">        <span class="built_in">print</span>(g)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure></div>
 <p>后面就求个离散对数，因为p-1光滑ph计算离散对数比较简单</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="number">131158523227880830085100826212925738665356578827561846263073537503153187073136528966506785633847097997799377037969243883439723340886038624250936927221630287086602285835045356221763554989140952262353930420392663280482277832613695689454662506372252641564106136178637816827646124189347219273164844809807934422046441</span></span><br><span class="line">p= <span class="number">12980311456459934558628309999285260982188754011593109633858685687007370476504059552729490523256867881534711749584157463076269599380216374688443704196597025947</span></span><br><span class="line">q=n//p</span><br><span class="line">G=GF(p)</span><br><span class="line">y=<span class="number">91561944814950778736488535643520052714900101756544637483800925876319855838327993556442983654484996766433049736153189800056457912285338408230393372558184963346036063617106521919740962726456954911219888157214487326900658606650604294547947205051640436119495039170478782141363198165616660075024383933961325219072058</span></span><br><span class="line">g=<span class="number">0x10001</span></span><br><span class="line">m=discrete_log(y,G(g))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>(m)[<span class="number">2</span>:]))</span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="number">131158523227880830085100826212925738665356578827561846263073537503153187073136528966506785633847097997799377037969243883439723340886038624250936927221630287086602285835045356221763554989140952262353930420392663280482277832613695689454662506372252641564106136178637816827646124189347219273164844809807934422046441</span></span><br><span class="line">p= <span class="number">12980311456459934558628309999285260982188754011593109633858685687007370476504059552729490523256867881534711749584157463076269599380216374688443704196597025947</span></span><br><span class="line">q=n//p</span><br><span class="line">G=GF(p)</span><br><span class="line">y=<span class="number">91561944814950778736488535643520052714900101756544637483800925876319855838327993556442983654484996766433049736153189800056457912285338408230393372558184963346036063617106521919740962726456954911219888157214487326900658606650604294547947205051640436119495039170478782141363198165616660075024383933961325219072058</span></span><br><span class="line">g=<span class="number">0x10001</span></span><br><span class="line">m=discrete_log(y,G(g))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>(m)[<span class="number">2</span>:]))</span><br></pre></td></tr></table></figure></div>
 <h3 id="Babyecc"><a href="#Babyecc" class="headerlink" title="Babyecc"></a>Babyecc</h3><p>关键在于利用椭圆曲线的表达式拼出一个关于m的高次多项式</p>
 <p>一开始自己手动推的那个式子有点阴间，后面利用椭圆曲线的Division Polynomial比较简洁地表示了kG的坐标和G坐标的关系，这东西在复分析里有所体现有时间去学一手证明</p>
 <p>利用这个关系最后得到7个12次的关于m的多项式，crt组一下</p>
 <p>最后N在7000bits量级，12次的话利用coppersmith method就能算m</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">ecc=[[<span class="number">172294871449219734798107561390050953188521804048922822821089133469311203282838373380377875439026704763161795744755842077098168865000919622849058673563093367982208461406754463061486548381031910500664522644112851433538900220678158500614358889303283424512500613989230182706150280378108198120547975067586971516137</span>,<span class="number">96364198848848705158285537079110423277195642567952259110364340716064235491391751428297894031158531380770390132279773351908864500464136898214435682124920058680787844361038830281655403525413688733800204992965035715298006768830075744486662160034641936095862260725417156381782604284050422013822430528431227361197</span>,<span class="number">159671991296677830056301471254363341009296510275785264872785778012113694456980363802313449256308519721141732376201460773400245993593482589976204166133901861729668851862460623196007194950257183079347864250025089670843915918257755173390253034175544519724905752818035812997127673241875836037243219829705927834235</span>,<span class="number">12488950718303582218034044014469231718831962762275496002247643231013156969740771432142283441219754679322796472657777272189002660471344265360278317729760143808888761286079001687689905847842340334026140684913862478238950679283842053262939984135114755914484999538131508882930756717834516619580846526035684240079</span>],</span><br><span class="line">[<span class="number">68223999778327454147340278776103578457271553299042143933393545815264609973076698756926443268448068478170652356574414692081569784751387548589991131379073395697581788909441130777261041802381911726085217610218552072019955091687392945670505312431379412346500975722411035854097380678429943612541679085918327184211</span>,<span class="number">17770738203348676394013528065573927253738684355484382993047842078725009503696773096846474265836623641852326745278003624730438619552362071702422399552544609521188676816688215350418290389310564969049643786010837155281593524360805215661135722530433990410365868360692605842180028752038342347560333735922237369889</span>,<span class="number">51098779961961751158122915158869440252746637314825788279336277128573162559246638101764647720433607480890890353266404408862366250798238531789338353122957455620883022785518154730850781795813200407904530871476660815008994170944440212300679621717029986782069464962522083711578039350861054405841275173019925642093</span>,<span class="number">66166716533207612504484627791108393201158937155973610986551130733271280578971089095120371889664007733286220189256643852916722857958108530989447774212301117302384387307543583321894175828438280849870887046734108846642477438172082973113653660108354098554353657568190553303062608249271483295596847725316287446947</span>],</span><br><span class="line">[<span class="number">69746411945288680494756625186262685100915769718266292828317232438356233082561457717802913380129463210508761458218383450347346543878887508111863823958801568318184343480949172473544777648327814945820830887234292193752526478863127665281603760310028685488010810374501002997654985226277837410385612336235789850487</span>,<span class="number">35863433752003593718423506765770617029528142232119703360783695175632253222988642577448933602236360173888236658825392990787632391883856639629797550839027484460834276938254229716767734096212580735483050576113358898294845949901713373921320977266743302353193505619551975822052525104591593619094885194563759053232</span>,<span class="number">61506888586914853748952584136999168853842713393989804770066310267385965404827751126077340386083884094392293257188958096424196079983180753698925334131753282172406136172626322186930421581433234090454842658630759776836012464473239198489670974246600345527623012180678219362862337775047849600595500703273175382703</span>,<span class="number">23074173610330067975119318094549104916729459916683840171011959880097244030586124074672098644510552431454003148712810460842866906744010629559390690271268680358736511730336715376566599109974114862237643003353529058235474898207867615210853332379567542323247567216796697852808056755511484166810776261406177054777</span>],</span><br><span class="line">[<span class="number">141780415980139617437215295846801567101402173619252056827987183835073254193657239443065408850513736462591151306400635298582358011825422183971334048391966413113755453698068836508230018713283240471925059428429812726435729369274579669831159812818547912726106821393226089324568082296082476059592963374588189677903</span>,<span class="number">138746424736113892630456472492513519297466193136237748713651792342224061188757613931171106142936354280921317637536324608330692729231708881940151586955111567707002290198592160272885704125491274615556183787626484145861344784010051348839767532854926101536139055358860932766313079790639566311374298333660022416019</span>,<span class="number">51726115599556454603920201657250521837735902629404616832316825062102322966835183071269936236690928753491837133603376577256803231041384630057026503126306733001505942744679790303330123718230247169888465167921020819210505089269412155033260560735554086852090518639465729269946494965164436190741639956526409236643</span>,<span class="number">109654409762022740069514851260972908347716034747536569205325610944369939818174396230317316392277341065510361034050535743153611162427943916414124861678979771914963184421776448698855312979564147449272690263825911213298037101520123605413049352651130798112394668303713018564867048267647962314886530354112656660927</span>],</span><br><span class="line">[<span class="number">134695529317631291539146989750080778456288116909537330643076226015019499585100645219201149819193483942761047608937632376000045678037096949063251694636264176978864350498001325274216745015187611426633155307352514688833306265311483797036137536737138146820693626589997367590775993967122039778179174477656098285151</span>,<span class="number">5739321199968321627369946084893217618156071099515645889496757563432120794798492968096997315087609783917559636235489259519655394193193715753364023338741839200775528051686566670968651457520145892918236829346679247967821973265175306801170339421046331421835781903320059400232340368113764816537593043564619129091</span>,<span class="number">19673160600783884558420797494268753813890359647736289572838063131711269874000492472573124412257756881986515876284947639879236228461164246881762817017531477201318279812271247605969526804283198993102225186731231831294213792057134691470071907311239898997202853181993775441584378767147396666275272938837258357423</span>,<span class="number">16897173108120076789922861933836017988034034913979337434078332952051799507194042012051980050429727113676699771772883294665409080790164523153924333774353032403848045609407735317482100956730663470698029136912240237112767052198706217408124644467054727063902614284435035076029952831418531957452256906889271788660</span>],</span><br><span class="line">[<span class="number">108631997335203066432695467871764765359535346338288176017618709868611883736328359105943651466896885704753893021031355220198313022607240746637026558990572053372001779938093596718948899761553876823305187704800253652009189892280549587130446638129290899670752310731109594745013563422110453795138476510927065537819</span>,<span class="number">53186625650395498513439276601148324935331371411190607911833993964075202667438243234505710009859940105805328184291501428682891944699728069011511208448749132382024172290085402121472873185791975075398049469908097240414598661986593060452061227701643807521128142747260925759613091495839896971643248717676885197644</span>,<span class="number">52709509084184104167650277788945043330126097533959255658173397630643774367938336071212214281041856314502929120225540280940224731284318314188334401609349175298441766962844025460361899368481713758076026229654035313132750449381123295594073954550981806651354410007449428669257683889916088487170632832744327614463</span>,<span class="number">100260604505216418319923489428146996468156773172005794829064325549637959539041791314163531463726947409321908377241081956519122122262033227578640846072409813184989637914837945813897560451295053865278594114754492413312832734981399784589146893658856979887630033309457853967429746353718137461785133619446282493126</span>],</span><br><span class="line">[<span class="number">107338361645955025621587108367500347348984102219339572552748381028739611029946302714920823684765311935547487453509535204574142858361737866739285841603885839441733030101476343149903190982542554096941815202891147725076023628145124709929620451309674856615713933442851718371615889591966077523086598769484929332367</span>,<span class="number">100872379615239890056528793994805290254429184626178615179949021889055871474237228059318594996850343091819482928969268211528584474928620075395005093777657472616646086984808630643337673511907312828907027299569420774094158785966357193601409625830742669863851550399504009908003166662860318527135193218238780676800</span>,<span class="number">52637469044026090728662077516653409825725186092147185410215323273449329656983845536711234923756687817513771235055035977388966611329613167758082577958758423429648769821507972676781188078791048118663252233256924489724994317727922287107822238963194994782575166160292521918653409858431855957865223409101119244152</span>,<span class="number">57971958593516466763891620734062821771076712450708456876484562483981622035231519724366540336500884101001407519929342324257929081898526022577405465205118192907601214300359691638071300661277784420068767639904239138656962018735555155063349452232501292852176876546222413194770858197241287367089881969293760207489</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">coeff=[]</span><br><span class="line">N=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ecc)):</span><br><span class="line">    n,a,b,y=ecc[i]</span><br><span class="line">    N.append(n)</span><br><span class="line">    E=EllipticCurve(Zmod(n),[a,b])</span><br><span class="line">    PR.&lt;x&gt;=PolynomialRing(Zmod(n))</span><br><span class="line">    w2=(E.division_polynomial_0(<span class="number">4</span>)//<span class="number">2</span>)^<span class="number">2</span></span><br><span class="line">    f2=<span class="number">64</span>*y^<span class="number">2</span>*(x^<span class="number">3</span>+a*x+b)^<span class="number">3</span></span><br><span class="line">    f=f2-w2</span><br><span class="line">    coeff.append(<span class="built_in">list</span>(f))</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">final=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">13</span>):</span><br><span class="line">    tmp=[]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>):</span><br><span class="line">        tmp.append(<span class="built_in">int</span>(coeff[j][i]))</span><br><span class="line">    final.append(crt(tmp,N))</span><br><span class="line">    </span><br><span class="line"><span class="comment">#print(final)</span></span><br><span class="line">NN=prod(N)</span><br><span class="line">PR.&lt;x&gt;=PolynomialRing(Zmod(NN))</span><br><span class="line">f=PR(final).monic()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(f.small_roots(X=<span class="number">2</span>^<span class="number">350</span>,beta=<span class="number">1</span>,epsilon=<span class="number">0.03</span>))</span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">ecc=[[<span class="number">172294871449219734798107561390050953188521804048922822821089133469311203282838373380377875439026704763161795744755842077098168865000919622849058673563093367982208461406754463061486548381031910500664522644112851433538900220678158500614358889303283424512500613989230182706150280378108198120547975067586971516137</span>,<span class="number">96364198848848705158285537079110423277195642567952259110364340716064235491391751428297894031158531380770390132279773351908864500464136898214435682124920058680787844361038830281655403525413688733800204992965035715298006768830075744486662160034641936095862260725417156381782604284050422013822430528431227361197</span>,<span class="number">159671991296677830056301471254363341009296510275785264872785778012113694456980363802313449256308519721141732376201460773400245993593482589976204166133901861729668851862460623196007194950257183079347864250025089670843915918257755173390253034175544519724905752818035812997127673241875836037243219829705927834235</span>,<span class="number">12488950718303582218034044014469231718831962762275496002247643231013156969740771432142283441219754679322796472657777272189002660471344265360278317729760143808888761286079001687689905847842340334026140684913862478238950679283842053262939984135114755914484999538131508882930756717834516619580846526035684240079</span>],</span><br><span class="line">[<span class="number">68223999778327454147340278776103578457271553299042143933393545815264609973076698756926443268448068478170652356574414692081569784751387548589991131379073395697581788909441130777261041802381911726085217610218552072019955091687392945670505312431379412346500975722411035854097380678429943612541679085918327184211</span>,<span class="number">17770738203348676394013528065573927253738684355484382993047842078725009503696773096846474265836623641852326745278003624730438619552362071702422399552544609521188676816688215350418290389310564969049643786010837155281593524360805215661135722530433990410365868360692605842180028752038342347560333735922237369889</span>,<span class="number">51098779961961751158122915158869440252746637314825788279336277128573162559246638101764647720433607480890890353266404408862366250798238531789338353122957455620883022785518154730850781795813200407904530871476660815008994170944440212300679621717029986782069464962522083711578039350861054405841275173019925642093</span>,<span class="number">66166716533207612504484627791108393201158937155973610986551130733271280578971089095120371889664007733286220189256643852916722857958108530989447774212301117302384387307543583321894175828438280849870887046734108846642477438172082973113653660108354098554353657568190553303062608249271483295596847725316287446947</span>],</span><br><span class="line">[<span class="number">69746411945288680494756625186262685100915769718266292828317232438356233082561457717802913380129463210508761458218383450347346543878887508111863823958801568318184343480949172473544777648327814945820830887234292193752526478863127665281603760310028685488010810374501002997654985226277837410385612336235789850487</span>,<span class="number">35863433752003593718423506765770617029528142232119703360783695175632253222988642577448933602236360173888236658825392990787632391883856639629797550839027484460834276938254229716767734096212580735483050576113358898294845949901713373921320977266743302353193505619551975822052525104591593619094885194563759053232</span>,<span class="number">61506888586914853748952584136999168853842713393989804770066310267385965404827751126077340386083884094392293257188958096424196079983180753698925334131753282172406136172626322186930421581433234090454842658630759776836012464473239198489670974246600345527623012180678219362862337775047849600595500703273175382703</span>,<span class="number">23074173610330067975119318094549104916729459916683840171011959880097244030586124074672098644510552431454003148712810460842866906744010629559390690271268680358736511730336715376566599109974114862237643003353529058235474898207867615210853332379567542323247567216796697852808056755511484166810776261406177054777</span>],</span><br><span class="line">[<span class="number">141780415980139617437215295846801567101402173619252056827987183835073254193657239443065408850513736462591151306400635298582358011825422183971334048391966413113755453698068836508230018713283240471925059428429812726435729369274579669831159812818547912726106821393226089324568082296082476059592963374588189677903</span>,<span class="number">138746424736113892630456472492513519297466193136237748713651792342224061188757613931171106142936354280921317637536324608330692729231708881940151586955111567707002290198592160272885704125491274615556183787626484145861344784010051348839767532854926101536139055358860932766313079790639566311374298333660022416019</span>,<span class="number">51726115599556454603920201657250521837735902629404616832316825062102322966835183071269936236690928753491837133603376577256803231041384630057026503126306733001505942744679790303330123718230247169888465167921020819210505089269412155033260560735554086852090518639465729269946494965164436190741639956526409236643</span>,<span class="number">109654409762022740069514851260972908347716034747536569205325610944369939818174396230317316392277341065510361034050535743153611162427943916414124861678979771914963184421776448698855312979564147449272690263825911213298037101520123605413049352651130798112394668303713018564867048267647962314886530354112656660927</span>],</span><br><span class="line">[<span class="number">134695529317631291539146989750080778456288116909537330643076226015019499585100645219201149819193483942761047608937632376000045678037096949063251694636264176978864350498001325274216745015187611426633155307352514688833306265311483797036137536737138146820693626589997367590775993967122039778179174477656098285151</span>,<span class="number">5739321199968321627369946084893217618156071099515645889496757563432120794798492968096997315087609783917559636235489259519655394193193715753364023338741839200775528051686566670968651457520145892918236829346679247967821973265175306801170339421046331421835781903320059400232340368113764816537593043564619129091</span>,<span class="number">19673160600783884558420797494268753813890359647736289572838063131711269874000492472573124412257756881986515876284947639879236228461164246881762817017531477201318279812271247605969526804283198993102225186731231831294213792057134691470071907311239898997202853181993775441584378767147396666275272938837258357423</span>,<span class="number">16897173108120076789922861933836017988034034913979337434078332952051799507194042012051980050429727113676699771772883294665409080790164523153924333774353032403848045609407735317482100956730663470698029136912240237112767052198706217408124644467054727063902614284435035076029952831418531957452256906889271788660</span>],</span><br><span class="line">[<span class="number">108631997335203066432695467871764765359535346338288176017618709868611883736328359105943651466896885704753893021031355220198313022607240746637026558990572053372001779938093596718948899761553876823305187704800253652009189892280549587130446638129290899670752310731109594745013563422110453795138476510927065537819</span>,<span class="number">53186625650395498513439276601148324935331371411190607911833993964075202667438243234505710009859940105805328184291501428682891944699728069011511208448749132382024172290085402121472873185791975075398049469908097240414598661986593060452061227701643807521128142747260925759613091495839896971643248717676885197644</span>,<span class="number">52709509084184104167650277788945043330126097533959255658173397630643774367938336071212214281041856314502929120225540280940224731284318314188334401609349175298441766962844025460361899368481713758076026229654035313132750449381123295594073954550981806651354410007449428669257683889916088487170632832744327614463</span>,<span class="number">100260604505216418319923489428146996468156773172005794829064325549637959539041791314163531463726947409321908377241081956519122122262033227578640846072409813184989637914837945813897560451295053865278594114754492413312832734981399784589146893658856979887630033309457853967429746353718137461785133619446282493126</span>],</span><br><span class="line">[<span class="number">107338361645955025621587108367500347348984102219339572552748381028739611029946302714920823684765311935547487453509535204574142858361737866739285841603885839441733030101476343149903190982542554096941815202891147725076023628145124709929620451309674856615713933442851718371615889591966077523086598769484929332367</span>,<span class="number">100872379615239890056528793994805290254429184626178615179949021889055871474237228059318594996850343091819482928969268211528584474928620075395005093777657472616646086984808630643337673511907312828907027299569420774094158785966357193601409625830742669863851550399504009908003166662860318527135193218238780676800</span>,<span class="number">52637469044026090728662077516653409825725186092147185410215323273449329656983845536711234923756687817513771235055035977388966611329613167758082577958758423429648769821507972676781188078791048118663252233256924489724994317727922287107822238963194994782575166160292521918653409858431855957865223409101119244152</span>,<span class="number">57971958593516466763891620734062821771076712450708456876484562483981622035231519724366540336500884101001407519929342324257929081898526022577405465205118192907601214300359691638071300661277784420068767639904239138656962018735555155063349452232501292852176876546222413194770858197241287367089881969293760207489</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">coeff=[]</span><br><span class="line">N=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ecc)):</span><br><span class="line">    n,a,b,y=ecc[i]</span><br><span class="line">    N.append(n)</span><br><span class="line">    E=EllipticCurve(Zmod(n),[a,b])</span><br><span class="line">    PR.&lt;x&gt;=PolynomialRing(Zmod(n))</span><br><span class="line">    w2=(E.division_polynomial_0(<span class="number">4</span>)//<span class="number">2</span>)^<span class="number">2</span></span><br><span class="line">    f2=<span class="number">64</span>*y^<span class="number">2</span>*(x^<span class="number">3</span>+a*x+b)^<span class="number">3</span></span><br><span class="line">    f=f2-w2</span><br><span class="line">    coeff.append(<span class="built_in">list</span>(f))</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">final=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">13</span>):</span><br><span class="line">    tmp=[]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>):</span><br><span class="line">        tmp.append(<span class="built_in">int</span>(coeff[j][i]))</span><br><span class="line">    final.append(crt(tmp,N))</span><br><span class="line">    </span><br><span class="line"><span class="comment">#print(final)</span></span><br><span class="line">NN=prod(N)</span><br><span class="line">PR.&lt;x&gt;=PolynomialRing(Zmod(NN))</span><br><span class="line">f=PR(final).monic()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(f.small_roots(X=<span class="number">2</span>^<span class="number">350</span>,beta=<span class="number">1</span>,epsilon=<span class="number">0.03</span>))</span><br></pre></td></tr></table></figure></div>
 <p>总的来说n1虽然卡在了考试周，但是密码就三题，两天的比赛实际也就打了一天，还空出一个下午预习了一下没听课的概率论，挺好（￣▽￣）</p>
 
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：N1CTF 2022 Crypto</li>
+        <li>Post author：hash_hash</li>
+        <li>Create time：2022-11-09 12:08:54</li>
+        <li>
+            Post link：https://hash-hash.github.io/2022/11/09/N1CTF-2022-Crypto/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/wp/">#wp</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2022/11/13/SECCON2022-Crypto/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">SECCON2022 Crypto</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2022/09/30/A-Decade-of-Lattice-Cryptography/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">A Decade of Lattice Cryptography</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
         </div>
 
         
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>hash hash</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://hash-hash.github.io/2022/11/09/N1CTF-2022-Crypto/">https://hash-hash.github.io/2022/11/09/N1CTF-2022-Crypto/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Brand-new-checkin"><span class="nav-text">Brand_new_checkin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ezdlp"><span class="nav-text">Ezdlp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Babyecc"><span class="nav-text">Babyecc</span></a></li></ol>
+    </div>
+</div>
+            </div>
         
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/wp/"># wp</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/11/13/SECCON2022-Crypto/">SECCON2022 Crypto</a>
-            
-            
-            <a class="next" rel="next" href="/2022/09/30/A-Decade-of-Lattice-Cryptography/">A Decade of Lattice Cryptography</a>
-            
-        </section>
-
-
-    </article>
+    </div>
 </div>
 
+
+                
+
             </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© hash hash | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.4</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
 </footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
 
     </div>
-</body>
 
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/runtime.js"></script>
+
+    
+<script src="/js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
 </html>

@@ -1,366 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="hash hash">
-
-
-
-
-
-<title>maplectf 2022 | hash hash的博客</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="hash_hash">
     
-    <link rel="stylesheet" href="/css/style.css">
+    <title>
+        
+            maplectf 2022 |
+        
+        hash_hash&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
     
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-    <!-- scripts list from _config.yml -->
+    <link rel="shortcut icon" href="/images/logo.svg">
     
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
 
+    
+<link rel="stylesheet" href="/css/brands.min.css">
 
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
 
     
     
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
     
+    
+<link rel="stylesheet" href="/css/css2.css">
 
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"hash-hash.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Hash_Hash's blog"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.4"};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
 
-<meta name="generator" content="Hexo 6.1.0"></head>
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
 
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">hash hash&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/friend">Friends</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">hash hash&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/friend">Friends</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
     
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6;    // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
 
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function () {
-            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function () {
-        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
-    });
-
-    function expandToc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
+<main class="page-container">
 
     
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">maplectf 2022</h1>
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">hash hash</a>
-                    
+            <a class="logo-title" href="/">
+                hash_hash&#39;s blog
+            </a>
+        </div>
 
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
                     
-                        <span class="post-time">
-                        Date: <a href="#">September 1, 2022&nbsp;&nbsp;11:08:10</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
                             
-                                <a href="/categories/Writeup/">Writeup</a>
-                            
-                        </span>
+                        </li>
                     
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/categories" >
+                                
+                                    
+                                        <i class="fa-regular fa-bookmark"></i>
+                                    
+                                    CATEGORIES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/about" >
+                                
+                                    
+                                        <i class="fa-regular fa-user"></i>
+                                    
+                                    ABOUT
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/links" >
+                                
+                                    
+                                        <i class="fa-regular fa-link"></i>
+                                    
+                                    FRIENDS
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/categories" >
+                         
+                            
+                                <i class="fa-regular fa-bookmark"></i>
+                            
+                            CATEGORIES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/about" >
+                         
+                            
+                                <i class="fa-regular fa-user"></i>
+                            
+                            ABOUT
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/links" >
+                         
+                            
+                                <i class="fa-regular fa-link"></i>
+                            
+                            FRIENDS
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">maplectf 2022</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">hash_hash</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-09-01 11:08:10</span>
+        <span class="mobile">2022-09-01 11:08</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Writeup/">Writeup</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/wp/">wp</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
                 </div>
             
-        </header>
 
-        <div class="post-content">
-            <p>An interesting game learned a lot</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/mapleCTF">attachment</a></p>
+            <div class="article-content markdown-body">
+                <p>An interesting game learned a lot</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/hash-hash/crypto/tree/main/mapleCTF">attachment<i class="fa-solid fa-up-right-from-square"></i></a></p>
 <h2 id="jwt"><a href="#jwt" class="headerlink" title="jwt"></a>jwt</h2><p>using flask frame, generate signature by own JWT</p>
 <p>JWT using ES256, but replace random k with sk</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_sign</span>(<span class="params">self, msg</span>):</span><br><span class="line">    z = sha256(msg.encode()).digest()</span><br><span class="line">    k = self.private</span><br><span class="line"></span><br><span class="line">    z = bl(z)</span><br><span class="line"></span><br><span class="line">    r = (k * self.G).x</span><br><span class="line">    s = inverse(k, self.order) * (z + r * self.private) % self.order</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r, s</span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_sign</span>(<span class="params">self, msg</span>):</span><br><span class="line">    z = sha256(msg.encode()).digest()</span><br><span class="line">    k = self.private</span><br><span class="line"></span><br><span class="line">    z = bl(z)</span><br><span class="line"></span><br><span class="line">    r = (k * self.G).x</span><br><span class="line">    s = inverse(k, self.order) * (z + r * self.private) % self.order</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r, s</span><br></pre></td></tr></table></figure></div>
 <p>It has an obvious weakness. If we get a message m and it’s signature, we can calculate sk. Then forging the signature of  “admin”. Finally, changing the cookie.</p>
-<p>$s&#x3D;sk^{-1}(h(m)+r*sk)(mod~q)$</p>
-<p>$&#x3D;&gt;sk&#x3D;h(m)*(s-r)^{-1}(mod~q)$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long <span class="keyword">as</span> bl, inverse</span><br><span class="line"><span class="keyword">from</span> fastecdsa.curve <span class="keyword">import</span> secp256k1</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode, urlsafe_b64decode, urlsafe_b64encode</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">from</span> json <span class="keyword">import</span> loads, dumps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b64decode</span>(<span class="params">msg: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(msg) % <span class="number">4</span> != <span class="number">0</span>:</span><br><span class="line">        msg += <span class="string">&quot;=&quot;</span> * (<span class="number">4</span> - <span class="built_in">len</span>(msg) % <span class="number">4</span>)</span><br><span class="line">    <span class="keyword">return</span> urlsafe_b64decode(msg.encode())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b64encode</span>(<span class="params">msg: <span class="built_in">bytes</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> urlsafe_b64encode(msg).decode().rstrip(<span class="string">&quot;=&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ES256</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,sk</span>):</span><br><span class="line">        self.G = secp256k1.G</span><br><span class="line">        self.order = secp256k1.q</span><br><span class="line">        self.private = sk</span><br><span class="line">        self.public = self.G * self.private</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_sign</span>(<span class="params">self, msg</span>):</span><br><span class="line">        z = sha256(msg.encode()).digest()</span><br><span class="line">        k = self.private</span><br><span class="line"></span><br><span class="line">        z = bl(z)</span><br><span class="line"></span><br><span class="line">        r = (k * self.G).x</span><br><span class="line">        s = inverse(k, self.order) * (z + r * self.private) % self.order</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> r, s</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_verify</span>(<span class="params">self, r, s, msg</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> (<span class="number">1</span> &lt;= r &lt; self.order <span class="keyword">and</span> <span class="number">1</span> &lt;= s &lt; self.order):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        z = sha256(msg.encode()).digest()</span><br><span class="line">        z = bl(z)</span><br><span class="line"></span><br><span class="line">        u1 = z * inverse(s, self.order) % self.order</span><br><span class="line">        u2 = r * inverse(s, self.order) % self.order</span><br><span class="line"></span><br><span class="line">        p = u1 * self.G + u2 * self.public</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> r == p.x</span><br><span class="line"></span><br><span class="line">    <span class="comment"># return true if the token signature matches the data</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">verify</span>(<span class="params">self, data, signature</span>):</span><br><span class="line">        r = <span class="built_in">int</span>.from_bytes(signature[:<span class="number">32</span>], <span class="string">&quot;little&quot;</span>)</span><br><span class="line">        s = <span class="built_in">int</span>.from_bytes(signature[<span class="number">32</span>:], <span class="string">&quot;little&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self._verify(r, s, data)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># return the signed message and update private/public</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sign</span>(<span class="params">self, data</span>):</span><br><span class="line">        header = b64encode(</span><br><span class="line">            dumps(&#123;<span class="string">&quot;alg&quot;</span>: <span class="string">&quot;ES256&quot;</span>, <span class="string">&quot;typ&quot;</span>: <span class="string">&quot;JWT&quot;</span>&#125;).replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>).encode()</span><br><span class="line">        )</span><br><span class="line">        data = b64encode(dumps(data).replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>).encode())</span><br><span class="line"></span><br><span class="line">        r, s = self._sign(header + <span class="string">&quot;.&quot;</span> + data)</span><br><span class="line">        signature = r.to_bytes(<span class="number">32</span>, <span class="string">&quot;little&quot;</span>) + s.to_bytes(<span class="number">32</span>, <span class="string">&quot;little&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> header + <span class="string">&quot;.&quot;</span> + data + <span class="string">&quot;.&quot;</span> + b64encode(signature)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># return the decoded token as a JSON object</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decode</span>(<span class="params">self, token</span>):</span><br><span class="line">        _header, _data, _signature = token.split(<span class="string">&quot;.&quot;</span>)</span><br><span class="line">        header = loads(b64decode(_header))</span><br><span class="line">        data = loads(b64decode(_data))</span><br><span class="line">        signature = b64decode(_signature)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> header[<span class="string">&quot;alg&quot;</span>] != <span class="string">&quot;ES256&quot;</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Algorithm not supported!&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.verify(_header + <span class="string">&quot;.&quot;</span> + _data, signature):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Invalid signature&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;user&quot;</span>: data[<span class="string">&quot;user&quot;</span>]&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">ord</span>=secp256k1.q</span><br><span class="line">msg=<span class="string">&#x27;eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGFzaGhhc2gifQ&#x27;</span></span><br><span class="line">z = sha256(msg.encode()).digest()</span><br><span class="line">h=bl(z)</span><br><span class="line">r=<span class="number">21636293118727726977265635476279874794445349002012576260859056953209657266927</span></span><br><span class="line">s=<span class="number">102819800697865321507042085336309258398691558010316143016587408887929967868299</span></span><br><span class="line">sk=(inverse(s-r,<span class="built_in">ord</span>)*h%<span class="built_in">ord</span>)</span><br><span class="line">jwt = ES256(sk)</span><br><span class="line"><span class="built_in">print</span>(jwt.sign(&#123;<span class="string">&quot;user&quot;</span>: <span class="string">&#x27;admin&#x27;</span>&#125;))</span><br></pre></td></tr></table></figure>
-
+<p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="31.15ex" height="2.452ex" role="img" focusable="false" viewbox="0 -833.9 13768.1 1083.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="mo" transform="translate(746.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mi" transform="translate(1802.6,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="msup" transform="translate(2271.6,0)"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"/></g><g data-mml-node="TeXAtom" transform="translate(554,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mn" transform="translate(778,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g><g data-mml-node="mo" transform="translate(3779.2,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(4168.2,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"/></g><g data-mml-node="mo" transform="translate(4744.2,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(5133.2,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(6011.2,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g><g data-mml-node="mo" transform="translate(6622.5,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"/></g><g data-mml-node="mi" transform="translate(7622.7,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(8295.9,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"/></g><g data-mml-node="mi" transform="translate(9018.1,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="mi" transform="translate(9487.1,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"/></g><g data-mml-node="mo" transform="translate(10008.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g><g data-mml-node="mo" transform="translate(10397.1,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(10786.1,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(11664.1,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"/></g><g data-mml-node="mi" transform="translate(12149.1,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"/></g><g data-mml-node="mtext" transform="translate(12669.1,0)"><path data-c="A0" d=""/></g><g data-mml-node="mi" transform="translate(12919.1,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"/></g><g data-mml-node="mo" transform="translate(13379.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g></g></g></svg></mjx-container></p>
+<p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="33.059ex" height="2.452ex" role="img" focusable="false" viewbox="0 -833.9 14611.9 1083.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><g data-mml-node="text"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="text" transform="translate(778,0)"><path data-c="3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"/></g></g><g data-mml-node="mi" transform="translate(1833.8,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="mi" transform="translate(2302.8,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"/></g><g data-mml-node="mo" transform="translate(3101.6,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mi" transform="translate(4157.3,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"/></g><g data-mml-node="mo" transform="translate(4733.3,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(5122.3,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(6000.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g><g data-mml-node="mo" transform="translate(6611.6,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"/></g><g data-mml-node="mo" transform="translate(7333.8,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(7722.8,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="mo" transform="translate(8414,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mi" transform="translate(9414.2,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="msup" transform="translate(9865.2,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g><g data-mml-node="TeXAtom" transform="translate(422,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mn" transform="translate(778,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g><g data-mml-node="mo" transform="translate(11240.9,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(11629.9,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(12507.9,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"/></g><g data-mml-node="mi" transform="translate(12992.9,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"/></g><g data-mml-node="mtext" transform="translate(13512.9,0)"><path data-c="A0" d=""/></g><g data-mml-node="mi" transform="translate(13762.9,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"/></g><g data-mml-node="mo" transform="translate(14222.9,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g></g></g></svg></mjx-container></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long <span class="keyword">as</span> bl, inverse</span><br><span class="line"><span class="keyword">from</span> fastecdsa.curve <span class="keyword">import</span> secp256k1</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode, urlsafe_b64decode, urlsafe_b64encode</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">from</span> json <span class="keyword">import</span> loads, dumps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b64decode</span>(<span class="params">msg: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(msg) % <span class="number">4</span> != <span class="number">0</span>:</span><br><span class="line">        msg += <span class="string">"="</span> * (<span class="number">4</span> - <span class="built_in">len</span>(msg) % <span class="number">4</span>)</span><br><span class="line">    <span class="keyword">return</span> urlsafe_b64decode(msg.encode())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b64encode</span>(<span class="params">msg: <span class="built_in">bytes</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> urlsafe_b64encode(msg).decode().rstrip(<span class="string">"="</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ES256</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,sk</span>):</span><br><span class="line">        self.G = secp256k1.G</span><br><span class="line">        self.order = secp256k1.q</span><br><span class="line">        self.private = sk</span><br><span class="line">        self.public = self.G * self.private</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_sign</span>(<span class="params">self, msg</span>):</span><br><span class="line">        z = sha256(msg.encode()).digest()</span><br><span class="line">        k = self.private</span><br><span class="line"></span><br><span class="line">        z = bl(z)</span><br><span class="line"></span><br><span class="line">        r = (k * self.G).x</span><br><span class="line">        s = inverse(k, self.order) * (z + r * self.private) % self.order</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> r, s</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_verify</span>(<span class="params">self, r, s, msg</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> (<span class="number">1</span> &lt;= r &lt; self.order <span class="keyword">and</span> <span class="number">1</span> &lt;= s &lt; self.order):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        z = sha256(msg.encode()).digest()</span><br><span class="line">        z = bl(z)</span><br><span class="line"></span><br><span class="line">        u1 = z * inverse(s, self.order) % self.order</span><br><span class="line">        u2 = r * inverse(s, self.order) % self.order</span><br><span class="line"></span><br><span class="line">        p = u1 * self.G + u2 * self.public</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> r == p.x</span><br><span class="line"></span><br><span class="line">    <span class="comment"># return true if the token signature matches the data</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">verify</span>(<span class="params">self, data, signature</span>):</span><br><span class="line">        r = <span class="built_in">int</span>.from_bytes(signature[:<span class="number">32</span>], <span class="string">"little"</span>)</span><br><span class="line">        s = <span class="built_in">int</span>.from_bytes(signature[<span class="number">32</span>:], <span class="string">"little"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self._verify(r, s, data)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># return the signed message and update private/public</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sign</span>(<span class="params">self, data</span>):</span><br><span class="line">        header = b64encode(</span><br><span class="line">            dumps({<span class="string">"alg"</span>: <span class="string">"ES256"</span>, <span class="string">"typ"</span>: <span class="string">"JWT"</span>}).replace(<span class="string">" "</span>, <span class="string">""</span>).encode()</span><br><span class="line">        )</span><br><span class="line">        data = b64encode(dumps(data).replace(<span class="string">" "</span>, <span class="string">""</span>).encode())</span><br><span class="line"></span><br><span class="line">        r, s = self._sign(header + <span class="string">"."</span> + data)</span><br><span class="line">        signature = r.to_bytes(<span class="number">32</span>, <span class="string">"little"</span>) + s.to_bytes(<span class="number">32</span>, <span class="string">"little"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> header + <span class="string">"."</span> + data + <span class="string">"."</span> + b64encode(signature)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># return the decoded token as a JSON object</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decode</span>(<span class="params">self, token</span>):</span><br><span class="line">        _header, _data, _signature = token.split(<span class="string">"."</span>)</span><br><span class="line">        header = loads(b64decode(_header))</span><br><span class="line">        data = loads(b64decode(_data))</span><br><span class="line">        signature = b64decode(_signature)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> header[<span class="string">"alg"</span>] != <span class="string">"ES256"</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"Algorithm not supported!"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.verify(_header + <span class="string">"."</span> + _data, signature):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"Invalid signature"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> {<span class="string">"user"</span>: data[<span class="string">"user"</span>]}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">ord</span>=secp256k1.q</span><br><span class="line">msg=<span class="string">'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGFzaGhhc2gifQ'</span></span><br><span class="line">z = sha256(msg.encode()).digest()</span><br><span class="line">h=bl(z)</span><br><span class="line">r=<span class="number">21636293118727726977265635476279874794445349002012576260859056953209657266927</span></span><br><span class="line">s=<span class="number">102819800697865321507042085336309258398691558010316143016587408887929967868299</span></span><br><span class="line">sk=(inverse(s-r,<span class="built_in">ord</span>)*h%<span class="built_in">ord</span>)</span><br><span class="line">jwt = ES256(sk)</span><br><span class="line"><span class="built_in">print</span>(jwt.sign({<span class="string">"user"</span>: <span class="string">'admin'</span>}))</span><br></pre></td></tr></table></figure></div>
 <h2 id="e000p"><a href="#e000p" class="headerlink" title="e000p"></a>e000p</h2><p>Just need to make Twist Edwards curve map onto Elliptic curve, and using sagemath to  calculate</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line">a=<span class="number">1</span></span><br><span class="line">d = <span class="number">3617</span></span><br><span class="line">p = <span class="number">2</span> ** <span class="number">414</span> - <span class="number">17</span></span><br><span class="line">order = <span class="number">2</span> ** <span class="number">411</span> - <span class="number">33364140863755142520810177694098385178984727200411208589594759</span></span><br><span class="line">hint = <span class="number">323811241263249292936728039512527915123919581362694022248295847200852329370976362254362732891461683020125008591836401372097</span></span><br><span class="line">K=<span class="number">4</span>*gmpy2.invert(a-d,p)%p</span><br><span class="line">J=<span class="number">2</span>*(a+d)*gmpy2.invert(a-d,p)%p</span><br><span class="line">PR.&lt;x&gt;=PolynomialRing(Zmod(p))</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">f=x^2-K</span></span><br><span class="line"><span class="string">print(f.roots())</span></span><br><span class="line"><span class="string">[(27048615771530228195825691602482238683620666057252797780378874564865444234468244072234247813233978088098098091776612500289230, 1), (15258966231045682137096888111615107865397233652461200253838648332696526404655682060577861654907800142147739477824882431183137, 1)]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">k=<span class="number">15258966231045682137096888111615107865397233652461200253838648332696526404655682060577861654907800142147739477824882431183137</span></span><br><span class="line">x,y = (<span class="number">17319886477121189177719202498822615443556957307604340815256226171904769976866975908866528699294134494857887698432266169206165</span>, <span class="number">34</span>)</span><br><span class="line">s=(<span class="number">1</span>+y)*gmpy2.invert(<span class="number">1</span>-y,p)%p</span><br><span class="line">t=s*gmpy2.invert(x,p)*k%p</span><br><span class="line">E=EllipticCurve(GF(p),[<span class="number">0</span>,J,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">G=E((s,t))</span><br><span class="line">x1,y1= (<span class="number">29389900956614406804195679733048238721927197300216785144586024378999988819550861039522005309555174206184334563744077143526515</span>, <span class="number">35393890305755889860162885313105764163711685229222879079392595581125504924571957049674311023316022028491019878405896203357959</span>)</span><br><span class="line">s1=(<span class="number">1</span>+y1)*gmpy2.invert(<span class="number">1</span>-y1,p)%p</span><br><span class="line">t1=s1*gmpy2.invert(x1,p)*k%p</span><br><span class="line">enc=E((s1,t1))</span><br><span class="line">enc=enc-hint*G</span><br><span class="line">G1=<span class="number">2</span>^<span class="number">313</span>*G</span><br><span class="line">dic=&#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>^<span class="number">22</span>)): </span><br><span class="line">    enc=enc-G1</span><br><span class="line">    dic[enc]=i</span><br><span class="line">G2=<span class="number">2</span>^<span class="number">13</span>*G</span><br><span class="line">g=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>^<span class="number">22</span>)): </span><br><span class="line">    g=g+G2</span><br><span class="line">    <span class="keyword">if</span> g <span class="keyword">in</span> dic.keys(): </span><br><span class="line">        <span class="built_in">print</span>(i) </span><br><span class="line">        <span class="built_in">print</span>(dic[g])</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">i=<span class="number">577508</span></span><br><span class="line">j=<span class="number">1927017</span></span><br><span class="line">hint=<span class="number">323811241263249292936728039512527915123919581362694022248295847200852329370976362254362732891461683020125008591836401372097</span></span><br><span class="line">order = <span class="number">2</span> ** <span class="number">411</span> - <span class="number">33364140863755142520810177694098385178984727200411208589594759</span></span><br><span class="line">m=j*<span class="number">2</span>**<span class="number">313</span>+i*<span class="number">2</span>**<span class="number">13</span>+hint</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(inverse(m,order)))</span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line">a=<span class="number">1</span></span><br><span class="line">d = <span class="number">3617</span></span><br><span class="line">p = <span class="number">2</span> ** <span class="number">414</span> - <span class="number">17</span></span><br><span class="line">order = <span class="number">2</span> ** <span class="number">411</span> - <span class="number">33364140863755142520810177694098385178984727200411208589594759</span></span><br><span class="line">hint = <span class="number">323811241263249292936728039512527915123919581362694022248295847200852329370976362254362732891461683020125008591836401372097</span></span><br><span class="line">K=<span class="number">4</span>*gmpy2.invert(a-d,p)%p</span><br><span class="line">J=<span class="number">2</span>*(a+d)*gmpy2.invert(a-d,p)%p</span><br><span class="line">PR.&lt;x&gt;=PolynomialRing(Zmod(p))</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">f=x^2-K</span></span><br><span class="line"><span class="string">print(f.roots())</span></span><br><span class="line"><span class="string">[(27048615771530228195825691602482238683620666057252797780378874564865444234468244072234247813233978088098098091776612500289230, 1), (15258966231045682137096888111615107865397233652461200253838648332696526404655682060577861654907800142147739477824882431183137, 1)]</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">k=<span class="number">15258966231045682137096888111615107865397233652461200253838648332696526404655682060577861654907800142147739477824882431183137</span></span><br><span class="line">x,y = (<span class="number">17319886477121189177719202498822615443556957307604340815256226171904769976866975908866528699294134494857887698432266169206165</span>, <span class="number">34</span>)</span><br><span class="line">s=(<span class="number">1</span>+y)*gmpy2.invert(<span class="number">1</span>-y,p)%p</span><br><span class="line">t=s*gmpy2.invert(x,p)*k%p</span><br><span class="line">E=EllipticCurve(GF(p),[<span class="number">0</span>,J,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">G=E((s,t))</span><br><span class="line">x1,y1= (<span class="number">29389900956614406804195679733048238721927197300216785144586024378999988819550861039522005309555174206184334563744077143526515</span>, <span class="number">35393890305755889860162885313105764163711685229222879079392595581125504924571957049674311023316022028491019878405896203357959</span>)</span><br><span class="line">s1=(<span class="number">1</span>+y1)*gmpy2.invert(<span class="number">1</span>-y1,p)%p</span><br><span class="line">t1=s1*gmpy2.invert(x1,p)*k%p</span><br><span class="line">enc=E((s1,t1))</span><br><span class="line">enc=enc-hint*G</span><br><span class="line">G1=<span class="number">2</span>^<span class="number">313</span>*G</span><br><span class="line">dic={}</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>^<span class="number">22</span>)): </span><br><span class="line">    enc=enc-G1</span><br><span class="line">    dic[enc]=i</span><br><span class="line">G2=<span class="number">2</span>^<span class="number">13</span>*G</span><br><span class="line">g=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>^<span class="number">22</span>)): </span><br><span class="line">    g=g+G2</span><br><span class="line">    <span class="keyword">if</span> g <span class="keyword">in</span> dic.keys(): </span><br><span class="line">        <span class="built_in">print</span>(i) </span><br><span class="line">        <span class="built_in">print</span>(dic[g])</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">i=<span class="number">577508</span></span><br><span class="line">j=<span class="number">1927017</span></span><br><span class="line">hint=<span class="number">323811241263249292936728039512527915123919581362694022248295847200852329370976362254362732891461683020125008591836401372097</span></span><br><span class="line">order = <span class="number">2</span> ** <span class="number">411</span> - <span class="number">33364140863755142520810177694098385178984727200411208589594759</span></span><br><span class="line">m=j*<span class="number">2</span>**<span class="number">313</span>+i*<span class="number">2</span>**<span class="number">13</span>+hint</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(inverse(m,order)))</span><br></pre></td></tr></table></figure></div>
 <h2 id="qotp-real"><a href="#qotp-real" class="headerlink" title="qotp-real"></a>qotp-real</h2><p>An OTP system, the key generate is strange. </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Qstate</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x: <span class="built_in">float</span>, y: <span class="built_in">float</span></span>):</span><br><span class="line">        <span class="keyword">assert</span>(<span class="built_in">abs</span>(x * x + y * y - <span class="number">1.0</span>) &lt; EPS)</span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__mul__</span>(<span class="params">self, other</span>):</span><br><span class="line">        <span class="keyword">return</span> self.x * other.x + self.y * other.y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, q1: Qstate, q2: Qstate</span>):</span><br><span class="line">        <span class="keyword">assert</span>(<span class="built_in">abs</span>(q1 * q2) &lt; EPS)</span><br><span class="line">        self.q1 = q1</span><br><span class="line">        self.q2 = q2</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">measure</span>(<span class="params">self, q: Qstate</span>):</span><br><span class="line">        alpha = (self.q1 * q)**<span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(uniform(<span class="number">0</span>, <span class="number">1</span>) &gt;= alpha)</span><br></pre></td></tr></table></figure>
-
-<p>It looks like make ‘01’ sequence become the vector of random base in $Z^2$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_random_bases</span>(<span class="params">n: <span class="built_in">int</span></span>):</span><br><span class="line">    angles = [pi / <span class="number">4</span> * uniform(-pi, pi) + pi / <span class="number">4</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    bases = [Base(Qstate(cos(angle), sin(angle)), Qstate(-sin(angle), cos(angle))) <span class="keyword">for</span> angle <span class="keyword">in</span> angles]</span><br><span class="line">    <span class="keyword">return</span> bases</span><br></pre></td></tr></table></figure>
-
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Qstate</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x: <span class="built_in">float</span>, y: <span class="built_in">float</span></span>):</span><br><span class="line">        <span class="keyword">assert</span>(<span class="built_in">abs</span>(x * x + y * y - <span class="number">1.0</span>) &lt; EPS)</span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__mul__</span>(<span class="params">self, other</span>):</span><br><span class="line">        <span class="keyword">return</span> self.x * other.x + self.y * other.y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, q1: Qstate, q2: Qstate</span>):</span><br><span class="line">        <span class="keyword">assert</span>(<span class="built_in">abs</span>(q1 * q2) &lt; EPS)</span><br><span class="line">        self.q1 = q1</span><br><span class="line">        self.q2 = q2</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">measure</span>(<span class="params">self, q: Qstate</span>):</span><br><span class="line">        alpha = (self.q1 * q)**<span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(uniform(<span class="number">0</span>, <span class="number">1</span>) &gt;= alpha)</span><br></pre></td></tr></table></figure></div>
+<p>It looks like make ‘01’ sequence become the vector of random base in <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.741ex" height="1.887ex" role="img" focusable="false" viewbox="0 -833.9 1211.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D44D" d="M58 8Q58 23 64 35Q64 36 329 334T596 635L586 637Q575 637 512 637H500H476Q442 637 420 635T365 624T311 598T266 548T228 469Q227 466 226 463T224 458T223 453T222 450L221 448Q218 443 202 443Q185 443 182 453L214 561Q228 606 241 651Q249 679 253 681Q256 683 487 683H718Q723 678 723 675Q723 673 717 649Q189 54 188 52L185 49H274Q369 50 377 51Q452 60 500 100T579 247Q587 272 590 277T603 282H607Q628 282 628 271Q547 5 541 2Q538 0 300 0H124Q58 0 58 8Z"/></g><g data-mml-node="mn" transform="translate(808,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g></g></g></g></svg></mjx-container></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_random_bases</span>(<span class="params">n: <span class="built_in">int</span></span>):</span><br><span class="line">    angles = [pi / <span class="number">4</span> * uniform(-pi, pi) + pi / <span class="number">4</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    bases = [Base(Qstate(cos(angle), sin(angle)), Qstate(-sin(angle), cos(angle))) <span class="keyword">for</span> angle <span class="keyword">in</span> angles]</span><br><span class="line">    <span class="keyword">return</span> bases</span><br></pre></td></tr></table></figure></div>
 <p>We can know 0 means the vector which angle is smaller</p>
-<img src="/2022/09/01/maplectf-2022/pic1.png" class>
-
+<img lazyload src="/images/loading.svg" data-src="/2022/09/01/maplectf-2022/pic1.png" class>
 <p>green is ‘0’ vector area, blue is ‘1’ vector area</p>
 <p> if we choose the angle of purple to decrypt, we will more likely to get 0 if the bit is ‘1’</p>
 <p>So we just need to decrypt the result of same message enough times, to record The number of corresponding 0 or 1</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sin, cos, tan, pi</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">x=x=pi/<span class="number">4</span>*(pi)+pi/<span class="number">2</span></span><br><span class="line">a=cos(x)</span><br><span class="line">b=sin(x)</span><br><span class="line">c=cos(x+pi/<span class="number">2</span>)</span><br><span class="line">d=sin(x+pi/<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">time=<span class="number">20</span></span><br><span class="line">t0=<span class="number">0</span></span><br><span class="line">t1=<span class="number">0</span></span><br><span class="line">m=[<span class="number">0</span>]*<span class="number">352</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">10</span>)):</span><br><span class="line">  p=remote(<span class="string">&#x27;qotp.ctf.maplebacon.org&#x27;</span>,<span class="number">1337</span>)</span><br><span class="line">  <span class="comment">#p=process(&#x27;./otp.py&#x27;)</span></span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> (<span class="built_in">range</span>(time)):</span><br><span class="line">   p.sendlineafter(<span class="string">&#x27;Enter choice: &#x27;</span>,<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line">   p.sendlineafter(<span class="string">&#x27;q1.x: &#x27;</span>,<span class="built_in">str</span>(a))</span><br><span class="line">   p.sendlineafter(<span class="string">&#x27;q1.y: &#x27;</span>,<span class="built_in">str</span>(b))</span><br><span class="line">   p.sendlineafter(<span class="string">&#x27;q2.x: &#x27;</span>,<span class="built_in">str</span>(c))</span><br><span class="line">   p.sendlineafter(<span class="string">&#x27;q2.y: &#x27;</span>,<span class="built_in">str</span>(d))</span><br><span class="line">   re=<span class="built_in">str</span>(p.recvline()[:-<span class="number">1</span>])[<span class="number">2</span>:-<span class="number">1</span>]</span><br><span class="line">   <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(re)):</span><br><span class="line">    sign=<span class="built_in">int</span>(re[k])</span><br><span class="line">    <span class="keyword">if</span> sign:</span><br><span class="line">     m[k]-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">     m[k]+=<span class="number">1</span></span><br><span class="line">  p.close()</span><br><span class="line">  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)):</span><br><span class="line"> <span class="keyword">if</span> m[i]&gt;<span class="number">0</span>:</span><br><span class="line">  m[i]=<span class="string">&#x27;1&#x27;</span></span><br><span class="line"> <span class="keyword">else</span>:</span><br><span class="line">  m[i]=<span class="string">&#x27;0&#x27;</span></span><br><span class="line">  </span><br><span class="line">m=<span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join(m),<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
-
-<h2 id="Spiral-baby-amp-Spiral"><a href="#Spiral-baby-amp-Spiral" class="headerlink" title="Spiral-baby&amp;Spiral"></a>Spiral-baby&amp;Spiral</h2><p>It is my first time to learn the attack on block cipher</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sin, cos, tan, pi</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">x=x=pi/<span class="number">4</span>*(pi)+pi/<span class="number">2</span></span><br><span class="line">a=cos(x)</span><br><span class="line">b=sin(x)</span><br><span class="line">c=cos(x+pi/<span class="number">2</span>)</span><br><span class="line">d=sin(x+pi/<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">time=<span class="number">20</span></span><br><span class="line">t0=<span class="number">0</span></span><br><span class="line">t1=<span class="number">0</span></span><br><span class="line">m=[<span class="number">0</span>]*<span class="number">352</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">10</span>)):</span><br><span class="line">  p=remote(<span class="string">'qotp.ctf.maplebacon.org'</span>,<span class="number">1337</span>)</span><br><span class="line">  <span class="comment">#p=process('./otp.py')</span></span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> (<span class="built_in">range</span>(time)):</span><br><span class="line">   p.sendlineafter(<span class="string">'Enter choice: '</span>,<span class="string">'3'</span>)</span><br><span class="line">   p.sendlineafter(<span class="string">'q1.x: '</span>,<span class="built_in">str</span>(a))</span><br><span class="line">   p.sendlineafter(<span class="string">'q1.y: '</span>,<span class="built_in">str</span>(b))</span><br><span class="line">   p.sendlineafter(<span class="string">'q2.x: '</span>,<span class="built_in">str</span>(c))</span><br><span class="line">   p.sendlineafter(<span class="string">'q2.y: '</span>,<span class="built_in">str</span>(d))</span><br><span class="line">   re=<span class="built_in">str</span>(p.recvline()[:-<span class="number">1</span>])[<span class="number">2</span>:-<span class="number">1</span>]</span><br><span class="line">   <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(re)):</span><br><span class="line">    sign=<span class="built_in">int</span>(re[k])</span><br><span class="line">    <span class="keyword">if</span> sign:</span><br><span class="line">     m[k]-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">     m[k]+=<span class="number">1</span></span><br><span class="line">  p.close()</span><br><span class="line">  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)):</span><br><span class="line"> <span class="keyword">if</span> m[i]&gt;<span class="number">0</span>:</span><br><span class="line">  m[i]=<span class="string">'1'</span></span><br><span class="line"> <span class="keyword">else</span>:</span><br><span class="line">  m[i]=<span class="string">'0'</span></span><br><span class="line">  </span><br><span class="line">m=<span class="built_in">int</span>(<span class="string">''</span>.join(m),<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure></div>
+<h2 id="Spiral-baby-amp-Spiral"><a href="#Spiral-baby-amp-Spiral" class="headerlink" title="Spiral-baby&Spiral"></a>Spiral-baby&amp;Spiral</h2><p>It is my first time to learn the attack on block cipher</p>
 <p>I use differential attack to solve baby-spiral, but did not find the good method to solve spiral in time.</p>
 <p>After the game, I find the attack is similar to 4rouds-AES attack(Square attack)</p>
-<p> <a target="_blank" rel="noopener" href="https://www.davidwong.fr/blockbreakers/square.html">procedure</a></p>
+<p> <a class="link" target="_blank" rel="noopener" href="https://www.davidwong.fr/blockbreakers/square.html">procedure<i class="fa-solid fa-up-right-from-square"></i></a></p>
 <p>Square attack is check the key probability byte by byte, using encyption’s  wondeful structure</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=remote(<span class="string">&#x27;spiral-baby.ctf.maplebacon.org&#x27;</span>,<span class="number">1337</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rev_add_key</span>(<span class="params">state,idx</span>):</span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">   state[i][j] = (state[i][j] - keys[idx][i][j]) % <span class="number">255</span></span><br><span class="line"> <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rev_substitute</span>(<span class="params">state</span>):</span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">   state[i][j] = SBOX.index(state[i][j])</span><br><span class="line"> <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rotate</span>(<span class="params">state</span>):</span><br><span class="line"> state = spiralRight(state)</span><br><span class="line"> <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spiralRight</span>(<span class="params">matrix</span>):</span><br><span class="line"> right = []</span><br><span class="line"> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">   right.append(matrix[i][j])</span><br><span class="line"> <span class="keyword">return</span> bytes2matrix(right)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spiralLeft</span>(<span class="params">matrix</span>):</span><br><span class="line"> left = []</span><br><span class="line"> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">   left.append(matrix[i][j])</span><br><span class="line"> <span class="keyword">return</span> bytes2matrix(left)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bytes2matrix</span>(<span class="params"><span class="built_in">bytes</span></span>):</span><br><span class="line"> <span class="keyword">return</span> [<span class="built_in">list</span>(<span class="built_in">bytes</span>[i : i + <span class="number">4</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(<span class="built_in">bytes</span>), <span class="number">4</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">matrix2bytes</span>(<span class="params">matrix</span>):</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">bytes</span>(<span class="built_in">sum</span>(matrix, []))</span><br><span class="line"></span><br><span class="line">SBOX = [<span class="number">184</span>, <span class="number">79</span>, <span class="number">76</span>, <span class="number">49</span>, <span class="number">237</span>, <span class="number">28</span>, <span class="number">54</span>, <span class="number">183</span>, <span class="number">106</span>, <span class="number">24</span>, <span class="number">192</span>, <span class="number">7</span>, <span class="number">43</span>, <span class="number">111</span>, <span class="number">175</span>, <span class="number">44</span>, <span class="number">46</span>, <span class="number">199</span>, <span class="number">182</span>, <span class="number">115</span>, <span class="number">83</span>, <span class="number">227</span>, <span class="number">61</span>, <span class="number">230</span>, <span class="number">6</span>, <span class="number">57</span>, <span class="number">165</span>, <span class="number">137</span>, <span class="number">58</span>, <span class="number">14</span>, <span class="number">94</span>, <span class="number">217</span>, <span class="number">66</span>, <span class="number">120</span>, <span class="number">53</span>, <span class="number">142</span>, <span class="number">29</span>, <span class="number">150</span>, <span class="number">103</span>, <span class="number">75</span>, <span class="number">186</span>, <span class="number">39</span>, <span class="number">31</span>, <span class="number">196</span>, <span class="number">18</span>, <span class="number">207</span>, <span class="number">244</span>, <span class="number">16</span>, <span class="number">213</span>, <span class="number">243</span>, <span class="number">114</span>, <span class="number">251</span>, <span class="number">96</span>, <span class="number">4</span>, <span class="number">138</span>, <span class="number">197</span>, <span class="number">10</span>, <span class="number">176</span>, <span class="number">157</span>, <span class="number">91</span>, <span class="number">238</span>, <span class="number">155</span>, <span class="number">254</span>, <span class="number">71</span>, <span class="number">86</span>, <span class="number">37</span>, <span class="number">130</span>, <span class="number">12</span>, <span class="number">52</span>, <span class="number">162</span>, <span class="number">220</span>, <span class="number">56</span>, <span class="number">88</span>, <span class="number">188</span>, <span class="number">27</span>, <span class="number">208</span>, <span class="number">25</span>, <span class="number">51</span>, <span class="number">172</span>, <span class="number">141</span>, <span class="number">168</span>, <span class="number">253</span>, <span class="number">85</span>, <span class="number">193</span>, <span class="number">90</span>, <span class="number">35</span>, <span class="number">95</span>, <span class="number">105</span>, <span class="number">200</span>, <span class="number">127</span>, <span class="number">247</span>, <span class="number">21</span>, <span class="number">93</span>, <span class="number">67</span>, <span class="number">13</span>, <span class="number">235</span>, <span class="number">84</span>, <span class="number">190</span>, <span class="number">225</span>, <span class="number">119</span>, <span class="number">189</span>, <span class="number">81</span>, <span class="number">250</span>, <span class="number">117</span>, <span class="number">231</span>, <span class="number">50</span>, <span class="number">179</span>, <span class="number">22</span>, <span class="number">223</span>, <span class="number">26</span>, <span class="number">228</span>, <span class="number">132</span>, <span class="number">139</span>, <span class="number">166</span>, <span class="number">210</span>, <span class="number">23</span>, <span class="number">64</span>, <span class="number">108</span>, <span class="number">212</span>, <span class="number">201</span>, <span class="number">99</span>, <span class="number">218</span>, <span class="number">160</span>, <span class="number">240</span>, <span class="number">129</span>, <span class="number">224</span>, <span class="number">233</span>, <span class="number">242</span>, <span class="number">159</span>, <span class="number">47</span>, <span class="number">126</span>, <span class="number">125</span>, <span class="number">146</span>, <span class="number">229</span>, <span class="number">0</span>, <span class="number">252</span>, <span class="number">161</span>, <span class="number">98</span>, <span class="number">30</span>, <span class="number">63</span>, <span class="number">239</span>, <span class="number">164</span>, <span class="number">36</span>, <span class="number">80</span>, <span class="number">151</span>, <span class="number">245</span>, <span class="number">38</span>, <span class="number">107</span>, <span class="number">3</span>, <span class="number">65</span>, <span class="number">73</span>, <span class="number">204</span>, <span class="number">8</span>, <span class="number">205</span>, <span class="number">82</span>, <span class="number">78</span>, <span class="number">173</span>, <span class="number">112</span>, <span class="number">219</span>, <span class="number">136</span>, <span class="number">123</span>, <span class="number">149</span>, <span class="number">118</span>, <span class="number">32</span>, <span class="number">215</span>, <span class="number">163</span>, <span class="number">74</span>, <span class="number">134</span>, <span class="number">248</span>, <span class="number">68</span>, <span class="number">110</span>, <span class="number">45</span>, <span class="number">59</span>, <span class="number">145</span>, <span class="number">178</span>, <span class="number">156</span>, <span class="number">100</span>, <span class="number">177</span>, <span class="number">221</span>, <span class="number">2</span>, <span class="number">92</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">144</span>, <span class="number">101</span>, <span class="number">140</span>, <span class="number">169</span>, <span class="number">116</span>, <span class="number">143</span>, <span class="number">202</span>, <span class="number">1</span>, <span class="number">113</span>, <span class="number">209</span>, <span class="number">104</span>, <span class="number">133</span>, <span class="number">128</span>, <span class="number">70</span>, <span class="number">89</span>, <span class="number">216</span>, <span class="number">147</span>, <span class="number">122</span>, <span class="number">131</span>, <span class="number">9</span>, <span class="number">249</span>, <span class="number">121</span>, <span class="number">109</span>, <span class="number">191</span>, <span class="number">77</span>, <span class="number">124</span>, <span class="number">246</span>, <span class="number">55</span>, <span class="number">198</span>, <span class="number">187</span>, <span class="number">185</span>, <span class="number">17</span>, <span class="number">60</span>, <span class="number">180</span>, <span class="number">203</span>, <span class="number">19</span>, <span class="number">158</span>, <span class="number">97</span>, <span class="number">206</span>, <span class="number">148</span>, <span class="number">5</span>, <span class="number">87</span>, <span class="number">170</span>, <span class="number">236</span>, <span class="number">222</span>, <span class="number">194</span>, <span class="number">15</span>, <span class="number">214</span>, <span class="number">241</span>, <span class="number">211</span>, <span class="number">234</span>, <span class="number">42</span>, <span class="number">41</span>, <span class="number">153</span>, <span class="number">62</span>, <span class="number">102</span>, <span class="number">152</span>, <span class="number">69</span>, <span class="number">181</span>, <span class="number">34</span>, <span class="number">48</span>, <span class="number">226</span>, <span class="number">11</span>, <span class="number">195</span>, <span class="number">154</span>, <span class="number">174</span>, <span class="number">167</span>, <span class="number">135</span>, <span class="number">232</span>, <span class="number">72</span>, <span class="number">171</span>, <span class="number">33</span>]</span><br><span class="line"></span><br><span class="line">SPIRAL = [</span><br><span class="line">    [<span class="number">1</span>, <span class="number">19</span>, <span class="number">22</span>, <span class="number">23</span>],</span><br><span class="line">    [<span class="number">166</span>, <span class="number">169</span>, <span class="number">173</span>, <span class="number">31</span>],</span><br><span class="line">    [<span class="number">149</span>, <span class="number">212</span>, <span class="number">176</span>, <span class="number">38</span>],</span><br><span class="line">    [<span class="number">134</span>, <span class="number">94</span>, <span class="number">59</span>, <span class="number">47</span>],</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">diff_attack</span>(<span class="params">S,a,b,m</span>):</span><br><span class="line"> z=[]</span><br><span class="line"> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(S)):</span><br><span class="line">  <span class="keyword">if</span> (S[x]-S[(x+a)%<span class="number">255</span>])%<span class="number">255</span>==b:</span><br><span class="line">   z.append((x-m)%<span class="number">255</span>)</span><br><span class="line"> <span class="keyword">return</span> z</span><br><span class="line"></span><br><span class="line">key=[<span class="number">0</span>]*<span class="number">16</span></span><br><span class="line">diff=<span class="number">0x34</span></span><br><span class="line"></span><br><span class="line">idx=<span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"> sign=<span class="number">0</span></span><br><span class="line"> tmp=[]</span><br><span class="line"> x=<span class="number">1</span></span><br><span class="line"> <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  se=<span class="built_in">hex</span>(x)[<span class="number">2</span>:].rjust(<span class="number">2</span>,<span class="string">&#x27;0&#x27;</span>)*<span class="number">16</span></span><br><span class="line">  p.sendlineafter(<span class="string">&#x27;&gt;&gt;&gt; &#x27;</span>,<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">  sleep(<span class="number">0.01</span>)</span><br><span class="line">  p.sendline(se)</span><br><span class="line">  re=<span class="built_in">int</span>(p.recvline()[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">  cipher1=bytes2matrix(long_to_bytes(re))</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">   cipher1=rotate(cipher1)</span><br><span class="line">  xx=(x+diff)%<span class="number">255</span></span><br><span class="line">  se=<span class="built_in">hex</span>(xx)[<span class="number">2</span>:].rjust(<span class="number">2</span>,<span class="string">&#x27;0&#x27;</span>)*<span class="number">16</span></span><br><span class="line">  p.sendlineafter(<span class="string">&#x27;&gt;&gt;&gt; &#x27;</span>,<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">  sleep(<span class="number">0.01</span>)</span><br><span class="line">  p.sendline(se)</span><br><span class="line">  re=<span class="built_in">int</span>(p.recvline()[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">  cipher2=bytes2matrix(long_to_bytes(re))</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">   cipher2=rotate(cipher2)</span><br><span class="line">  beta=(cipher1[idx//<span class="number">4</span>][idx%<span class="number">4</span>]-cipher2[idx//<span class="number">4</span>][idx%<span class="number">4</span>])%<span class="number">255</span></span><br><span class="line">  <span class="built_in">print</span>(diff_attack(SBOX,diff,beta,x))</span><br><span class="line">  <span class="keyword">if</span> sign==<span class="number">0</span>:</span><br><span class="line">   tmp.extend(diff_attack(SBOX,diff,beta,x))</span><br><span class="line">  sign+=<span class="number">1</span></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">len</span>(tmp)==<span class="number">1</span>:</span><br><span class="line">   key[idx]=tmp[<span class="number">0</span>]</span><br><span class="line">   idx+=<span class="number">1</span></span><br><span class="line">   <span class="keyword">break</span></span><br><span class="line">  tmp=<span class="built_in">list</span>(<span class="built_in">set</span>(tmp).intersection(diff_attack(SBOX,diff,beta,x)))</span><br><span class="line">  x+=<span class="number">1</span></span><br><span class="line"> <span class="keyword">if</span> key[<span class="built_in">len</span>(key)-<span class="number">1</span>]!=<span class="number">0</span>:</span><br><span class="line">  <span class="keyword">break</span></span><br><span class="line"> <span class="built_in">print</span>(key)</span><br><span class="line"></span><br><span class="line">key=<span class="built_in">bytes</span>(key)</span><br><span class="line">keys=[bytes2matrix(key)]</span><br><span class="line">keys.append(spiralLeft(keys[-<span class="number">1</span>]))</span><br><span class="line">p.sendlineafter(<span class="string">&#x27;&gt;&gt;&gt; &#x27;</span>,<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">re=p.recvline()[:-<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(re),<span class="number">32</span>):</span><br><span class="line"> tmp=<span class="built_in">int</span>(re[i:i+<span class="number">32</span>],<span class="number">16</span>)</span><br><span class="line"> c=bytes2matrix(long_to_bytes(tmp))</span><br><span class="line"> c=rev_add_key(c,<span class="number">1</span>)</span><br><span class="line"> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">  c=rotate(c)</span><br><span class="line"> c=rev_substitute(c)</span><br><span class="line"> m=rev_add_key(c,<span class="number">0</span>)</span><br><span class="line"> <span class="built_in">print</span>(matrix2bytes(m))</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=remote(<span class="string">'spiral-baby.ctf.maplebacon.org'</span>,<span class="number">1337</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rev_add_key</span>(<span class="params">state,idx</span>):</span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">   state[i][j] = (state[i][j] - keys[idx][i][j]) % <span class="number">255</span></span><br><span class="line"> <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rev_substitute</span>(<span class="params">state</span>):</span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">   state[i][j] = SBOX.index(state[i][j])</span><br><span class="line"> <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rotate</span>(<span class="params">state</span>):</span><br><span class="line"> state = spiralRight(state)</span><br><span class="line"> <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spiralRight</span>(<span class="params">matrix</span>):</span><br><span class="line"> right = []</span><br><span class="line"> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">   right.append(matrix[i][j])</span><br><span class="line"> <span class="keyword">return</span> bytes2matrix(right)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spiralLeft</span>(<span class="params">matrix</span>):</span><br><span class="line"> left = []</span><br><span class="line"> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">   left.append(matrix[i][j])</span><br><span class="line"> <span class="keyword">return</span> bytes2matrix(left)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bytes2matrix</span>(<span class="params"><span class="built_in">bytes</span></span>):</span><br><span class="line"> <span class="keyword">return</span> [<span class="built_in">list</span>(<span class="built_in">bytes</span>[i : i + <span class="number">4</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(<span class="built_in">bytes</span>), <span class="number">4</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">matrix2bytes</span>(<span class="params">matrix</span>):</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">bytes</span>(<span class="built_in">sum</span>(matrix, []))</span><br><span class="line"></span><br><span class="line">SBOX = [<span class="number">184</span>, <span class="number">79</span>, <span class="number">76</span>, <span class="number">49</span>, <span class="number">237</span>, <span class="number">28</span>, <span class="number">54</span>, <span class="number">183</span>, <span class="number">106</span>, <span class="number">24</span>, <span class="number">192</span>, <span class="number">7</span>, <span class="number">43</span>, <span class="number">111</span>, <span class="number">175</span>, <span class="number">44</span>, <span class="number">46</span>, <span class="number">199</span>, <span class="number">182</span>, <span class="number">115</span>, <span class="number">83</span>, <span class="number">227</span>, <span class="number">61</span>, <span class="number">230</span>, <span class="number">6</span>, <span class="number">57</span>, <span class="number">165</span>, <span class="number">137</span>, <span class="number">58</span>, <span class="number">14</span>, <span class="number">94</span>, <span class="number">217</span>, <span class="number">66</span>, <span class="number">120</span>, <span class="number">53</span>, <span class="number">142</span>, <span class="number">29</span>, <span class="number">150</span>, <span class="number">103</span>, <span class="number">75</span>, <span class="number">186</span>, <span class="number">39</span>, <span class="number">31</span>, <span class="number">196</span>, <span class="number">18</span>, <span class="number">207</span>, <span class="number">244</span>, <span class="number">16</span>, <span class="number">213</span>, <span class="number">243</span>, <span class="number">114</span>, <span class="number">251</span>, <span class="number">96</span>, <span class="number">4</span>, <span class="number">138</span>, <span class="number">197</span>, <span class="number">10</span>, <span class="number">176</span>, <span class="number">157</span>, <span class="number">91</span>, <span class="number">238</span>, <span class="number">155</span>, <span class="number">254</span>, <span class="number">71</span>, <span class="number">86</span>, <span class="number">37</span>, <span class="number">130</span>, <span class="number">12</span>, <span class="number">52</span>, <span class="number">162</span>, <span class="number">220</span>, <span class="number">56</span>, <span class="number">88</span>, <span class="number">188</span>, <span class="number">27</span>, <span class="number">208</span>, <span class="number">25</span>, <span class="number">51</span>, <span class="number">172</span>, <span class="number">141</span>, <span class="number">168</span>, <span class="number">253</span>, <span class="number">85</span>, <span class="number">193</span>, <span class="number">90</span>, <span class="number">35</span>, <span class="number">95</span>, <span class="number">105</span>, <span class="number">200</span>, <span class="number">127</span>, <span class="number">247</span>, <span class="number">21</span>, <span class="number">93</span>, <span class="number">67</span>, <span class="number">13</span>, <span class="number">235</span>, <span class="number">84</span>, <span class="number">190</span>, <span class="number">225</span>, <span class="number">119</span>, <span class="number">189</span>, <span class="number">81</span>, <span class="number">250</span>, <span class="number">117</span>, <span class="number">231</span>, <span class="number">50</span>, <span class="number">179</span>, <span class="number">22</span>, <span class="number">223</span>, <span class="number">26</span>, <span class="number">228</span>, <span class="number">132</span>, <span class="number">139</span>, <span class="number">166</span>, <span class="number">210</span>, <span class="number">23</span>, <span class="number">64</span>, <span class="number">108</span>, <span class="number">212</span>, <span class="number">201</span>, <span class="number">99</span>, <span class="number">218</span>, <span class="number">160</span>, <span class="number">240</span>, <span class="number">129</span>, <span class="number">224</span>, <span class="number">233</span>, <span class="number">242</span>, <span class="number">159</span>, <span class="number">47</span>, <span class="number">126</span>, <span class="number">125</span>, <span class="number">146</span>, <span class="number">229</span>, <span class="number">0</span>, <span class="number">252</span>, <span class="number">161</span>, <span class="number">98</span>, <span class="number">30</span>, <span class="number">63</span>, <span class="number">239</span>, <span class="number">164</span>, <span class="number">36</span>, <span class="number">80</span>, <span class="number">151</span>, <span class="number">245</span>, <span class="number">38</span>, <span class="number">107</span>, <span class="number">3</span>, <span class="number">65</span>, <span class="number">73</span>, <span class="number">204</span>, <span class="number">8</span>, <span class="number">205</span>, <span class="number">82</span>, <span class="number">78</span>, <span class="number">173</span>, <span class="number">112</span>, <span class="number">219</span>, <span class="number">136</span>, <span class="number">123</span>, <span class="number">149</span>, <span class="number">118</span>, <span class="number">32</span>, <span class="number">215</span>, <span class="number">163</span>, <span class="number">74</span>, <span class="number">134</span>, <span class="number">248</span>, <span class="number">68</span>, <span class="number">110</span>, <span class="number">45</span>, <span class="number">59</span>, <span class="number">145</span>, <span class="number">178</span>, <span class="number">156</span>, <span class="number">100</span>, <span class="number">177</span>, <span class="number">221</span>, <span class="number">2</span>, <span class="number">92</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">144</span>, <span class="number">101</span>, <span class="number">140</span>, <span class="number">169</span>, <span class="number">116</span>, <span class="number">143</span>, <span class="number">202</span>, <span class="number">1</span>, <span class="number">113</span>, <span class="number">209</span>, <span class="number">104</span>, <span class="number">133</span>, <span class="number">128</span>, <span class="number">70</span>, <span class="number">89</span>, <span class="number">216</span>, <span class="number">147</span>, <span class="number">122</span>, <span class="number">131</span>, <span class="number">9</span>, <span class="number">249</span>, <span class="number">121</span>, <span class="number">109</span>, <span class="number">191</span>, <span class="number">77</span>, <span class="number">124</span>, <span class="number">246</span>, <span class="number">55</span>, <span class="number">198</span>, <span class="number">187</span>, <span class="number">185</span>, <span class="number">17</span>, <span class="number">60</span>, <span class="number">180</span>, <span class="number">203</span>, <span class="number">19</span>, <span class="number">158</span>, <span class="number">97</span>, <span class="number">206</span>, <span class="number">148</span>, <span class="number">5</span>, <span class="number">87</span>, <span class="number">170</span>, <span class="number">236</span>, <span class="number">222</span>, <span class="number">194</span>, <span class="number">15</span>, <span class="number">214</span>, <span class="number">241</span>, <span class="number">211</span>, <span class="number">234</span>, <span class="number">42</span>, <span class="number">41</span>, <span class="number">153</span>, <span class="number">62</span>, <span class="number">102</span>, <span class="number">152</span>, <span class="number">69</span>, <span class="number">181</span>, <span class="number">34</span>, <span class="number">48</span>, <span class="number">226</span>, <span class="number">11</span>, <span class="number">195</span>, <span class="number">154</span>, <span class="number">174</span>, <span class="number">167</span>, <span class="number">135</span>, <span class="number">232</span>, <span class="number">72</span>, <span class="number">171</span>, <span class="number">33</span>]</span><br><span class="line"></span><br><span class="line">SPIRAL = [</span><br><span class="line">    [<span class="number">1</span>, <span class="number">19</span>, <span class="number">22</span>, <span class="number">23</span>],</span><br><span class="line">    [<span class="number">166</span>, <span class="number">169</span>, <span class="number">173</span>, <span class="number">31</span>],</span><br><span class="line">    [<span class="number">149</span>, <span class="number">212</span>, <span class="number">176</span>, <span class="number">38</span>],</span><br><span class="line">    [<span class="number">134</span>, <span class="number">94</span>, <span class="number">59</span>, <span class="number">47</span>],</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">diff_attack</span>(<span class="params">S,a,b,m</span>):</span><br><span class="line"> z=[]</span><br><span class="line"> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(S)):</span><br><span class="line">  <span class="keyword">if</span> (S[x]-S[(x+a)%<span class="number">255</span>])%<span class="number">255</span>==b:</span><br><span class="line">   z.append((x-m)%<span class="number">255</span>)</span><br><span class="line"> <span class="keyword">return</span> z</span><br><span class="line"></span><br><span class="line">key=[<span class="number">0</span>]*<span class="number">16</span></span><br><span class="line">diff=<span class="number">0x34</span></span><br><span class="line"></span><br><span class="line">idx=<span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"> sign=<span class="number">0</span></span><br><span class="line"> tmp=[]</span><br><span class="line"> x=<span class="number">1</span></span><br><span class="line"> <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  se=<span class="built_in">hex</span>(x)[<span class="number">2</span>:].rjust(<span class="number">2</span>,<span class="string">'0'</span>)*<span class="number">16</span></span><br><span class="line">  p.sendlineafter(<span class="string">'&gt;&gt;&gt; '</span>,<span class="string">'2'</span>)</span><br><span class="line">  sleep(<span class="number">0.01</span>)</span><br><span class="line">  p.sendline(se)</span><br><span class="line">  re=<span class="built_in">int</span>(p.recvline()[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">  cipher1=bytes2matrix(long_to_bytes(re))</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">   cipher1=rotate(cipher1)</span><br><span class="line">  xx=(x+diff)%<span class="number">255</span></span><br><span class="line">  se=<span class="built_in">hex</span>(xx)[<span class="number">2</span>:].rjust(<span class="number">2</span>,<span class="string">'0'</span>)*<span class="number">16</span></span><br><span class="line">  p.sendlineafter(<span class="string">'&gt;&gt;&gt; '</span>,<span class="string">'2'</span>)</span><br><span class="line">  sleep(<span class="number">0.01</span>)</span><br><span class="line">  p.sendline(se)</span><br><span class="line">  re=<span class="built_in">int</span>(p.recvline()[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">  cipher2=bytes2matrix(long_to_bytes(re))</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">   cipher2=rotate(cipher2)</span><br><span class="line">  beta=(cipher1[idx//<span class="number">4</span>][idx%<span class="number">4</span>]-cipher2[idx//<span class="number">4</span>][idx%<span class="number">4</span>])%<span class="number">255</span></span><br><span class="line">  <span class="built_in">print</span>(diff_attack(SBOX,diff,beta,x))</span><br><span class="line">  <span class="keyword">if</span> sign==<span class="number">0</span>:</span><br><span class="line">   tmp.extend(diff_attack(SBOX,diff,beta,x))</span><br><span class="line">  sign+=<span class="number">1</span></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">len</span>(tmp)==<span class="number">1</span>:</span><br><span class="line">   key[idx]=tmp[<span class="number">0</span>]</span><br><span class="line">   idx+=<span class="number">1</span></span><br><span class="line">   <span class="keyword">break</span></span><br><span class="line">  tmp=<span class="built_in">list</span>(<span class="built_in">set</span>(tmp).intersection(diff_attack(SBOX,diff,beta,x)))</span><br><span class="line">  x+=<span class="number">1</span></span><br><span class="line"> <span class="keyword">if</span> key[<span class="built_in">len</span>(key)-<span class="number">1</span>]!=<span class="number">0</span>:</span><br><span class="line">  <span class="keyword">break</span></span><br><span class="line"> <span class="built_in">print</span>(key)</span><br><span class="line"></span><br><span class="line">key=<span class="built_in">bytes</span>(key)</span><br><span class="line">keys=[bytes2matrix(key)]</span><br><span class="line">keys.append(spiralLeft(keys[-<span class="number">1</span>]))</span><br><span class="line">p.sendlineafter(<span class="string">'&gt;&gt;&gt; '</span>,<span class="string">'1'</span>)</span><br><span class="line">re=p.recvline()[:-<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(re),<span class="number">32</span>):</span><br><span class="line"> tmp=<span class="built_in">int</span>(re[i:i+<span class="number">32</span>],<span class="number">16</span>)</span><br><span class="line"> c=bytes2matrix(long_to_bytes(tmp))</span><br><span class="line"> c=rev_add_key(c,<span class="number">1</span>)</span><br><span class="line"> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">  c=rotate(c)</span><br><span class="line"> c=rev_substitute(c)</span><br><span class="line"> m=rev_add_key(c,<span class="number">0</span>)</span><br><span class="line"> <span class="built_in">print</span>(matrix2bytes(m))</span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：maplectf 2022</li>
+        <li>Post author：hash_hash</li>
+        <li>Create time：2022-09-01 11:08:10</li>
+        <li>
+            Post link：https://hash-hash.github.io/2022/09/01/maplectf-2022/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/wp/">#wp</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2022/09/30/A-Decade-of-Lattice-Cryptography/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">A Decade of Lattice Cryptography</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2022/08/06/Crypto-summer-record/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Crypto summer record</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jwt"><span class="nav-text">jwt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e000p"><span class="nav-text">e000p</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qotp-real"><span class="nav-text">qotp-real</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spiral-baby-amp-Spiral"><span class="nav-text">Spiral-baby&amp;Spiral</span></a></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
 
 
         </div>
 
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+        </div>
         
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>hash hash</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://hash-hash.github.io/2022/09/01/maplectf-2022/">https://hash-hash.github.io/2022/09/01/maplectf-2022/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.4</a>
+        </div>
         
-        <section class="post-tags">
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
             <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/wp/"># wp</a>
-                    
-                        
-                </span>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
             </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/09/30/A-Decade-of-Lattice-Cryptography/">A Decade of Lattice Cryptography</a>
-            
-            
-            <a class="next" rel="next" href="/2022/08/06/Crypto-summer-record/">Crypto summer record</a>
-            
-        </section>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
 
-    </article>
+        <!-- go comment -->
+        
+    </ul>
 </div>
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© hash hash | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
 
     </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/runtime.js"></script>
+
+    
+<script src="/js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
 </body>
-
 </html>
