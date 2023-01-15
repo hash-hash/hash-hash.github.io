@@ -381,6 +381,166 @@ mjx-container[display="true"] + br {
                 
 
                 <h3 class="home-article-title">
+                    <a href="/2023/01/14/VM-Pwn%E8%AE%B0%E5%BD%95/">
+                        VM Pwn记录
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        之前有听说，最近的hws见过一次，感觉比较有意思，花时间学一学
+vmpwn的题目会比一般的pwn题逆向量上大不少，稳定发挥的话直观上可以有个一两千行的伪代码吧，虽然while循环占据了一大半，但是工作量还是比较大的
+我的做法都是先猜，根据局部的虚拟指...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="Sat Jan 14 2023 21:11:11 GMT+0800">2023-01-14</span></span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Pwn/">Pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/vmpwn/">vmpwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/01/14/VM-Pwn%E8%AE%B0%E5%BD%95/">Read more&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/01/11/DASCTF-X-CBCTF-2022-Pwn/">
+                        DASCTF X CBCTF 2022 Pwn
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        太太太久没做过pwn题了，buu上找了点题做了做，感觉这期dasctf的难度比较友好，而且还学到了不少有趣的东西，同时也把之前忘记的一些利用熟悉一下
+cyberprinter利用printf泄露栈上的残留指针拿到libc地址，后面打libc的got
+...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="Wed Jan 11 2023 23:07:26 GMT+0800">2023-01-11</span></span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Pwn/">Pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/wp/">wp</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/01/11/DASCTF-X-CBCTF-2022-Pwn/">Read more&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2023/01/09/Largebin-attack/">
+                        Largebin attack
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        之前花了点时间把简单的IO链看了一遍，实际上在题目里面都不是裸的IO链，还需要结合一些堆的常见打法构造任意地址写，任意地址读的机会。而且利用malloc_assert触发io需要打top_chunk的size，一般就考虑堆溢出，分配堆块到top_ch...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="Mon Jan 09 2023 10:42:43 GMT+0800">2023-01-09</span></span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Pwn/">Pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Largebin-attack/">Largebin attack</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/01/09/Largebin-attack/">Read more&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
                     <a href="/2022/12/29/Algebraic-Number-Theory/">
                         Algebraic Number Theory
                     </a>
@@ -436,7 +596,7 @@ mjx-container[display="true"] + br {
 
                 <h3 class="home-article-title">
                     <a href="/2022/12/12/RCTF-2022/">
-                        RCTF 2022
+                        RCTF 2022 Crypto
                     </a>
                 </h3>
 
@@ -545,7 +705,7 @@ super_gue...
 
                 <h3 class="home-article-title">
                     <a href="/2022/11/27/HITCON2022-Crypto/">
-                        HITCON2022 Crypto
+                        HITCON 2022 Crypto
                     </a>
                 </h3>
 
@@ -654,7 +814,7 @@ Howgrave...
 
                 <h3 class="home-article-title">
                     <a href="/2022/11/13/SECCON2022-Crypto/">
-                        SECCON2022 Crypto
+                        SECCON 2022 Crypto
                     </a>
                 </h3>
 
@@ -756,170 +916,6 @@ Brand_new_checkin题目思路其实很简单，只是在梅森伪随机数的状
 
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2022/09/30/A-Decade-of-Lattice-Cryptography/">
-                        A Decade of Lattice Cryptography
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        Here's something encrypted, password is required to continue reading.
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="Fri Sep 30 2022 10:05:23 GMT+0800">2022-09-30</span></span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Cryptography/">Cryptography</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/lattice/">lattice</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/30/A-Decade-of-Lattice-Cryptography/">Read more&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2022/09/01/maplectf-2022/">
-                        maplectf 2022
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        An interesting game learned a lot
-attachment
-jwtusing flask frame, generate signature by own JWT
-JWT using ES256, but replace...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="Thu Sep 01 2022 11:08:10 GMT+0800">2022-09-01</span></span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Writeup/">Writeup</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/wp/">wp</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/01/maplectf-2022/">Read more&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2022/08/06/Crypto-summer-record/">
-                        Crypto summer record
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        主要记录一下暑假的一些困惑，包括之前d3没复现的题目以及这次强网杯的两题还有一些论文的学习记录之类的
-Equivalent key attack
-equivalent可以参考dbt的blog，写的很详尽了
-
-Orthogonal lattice
-Th...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="Sat Aug 06 2022 16:49:39 GMT+0800">2022-08-06</span></span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Cryptography/">Cryptography</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/lattice/">lattice</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/08/06/Crypto-summer-record/">Read more&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
     </ul>
 
     <div class="home-paginator">
@@ -954,7 +950,7 @@ Th...
               <span>2022</span>
               -
             
-            2022&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
         </div>
         
         <div class="theme-info info-item">

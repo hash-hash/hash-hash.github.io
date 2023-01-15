@@ -461,7 +461,7 @@
 <p><strong>House Of Orange</strong></p>
 <p>在没有free的题目里，首先通过堆溢出改小<code>top_chunk</code>的size，申请超过此时<code>top_chunk</code>的size的堆块，触发系统调用，让堆以<code>brk</code>形式拓展，之后原有的<code>top_chunk</code>被置于<code>unsorted_bin</code>中。之后再次利用堆溢出改<code>unsorted_bin</code>中堆块的<code>bk</code>指针为<code>_IO_list_all</code>的地址，利用<code>unsorted_bin attack</code>写<code>main_arena+88/96</code>，在<code>_IO_File_plus</code>结构体中<code>_chain</code>偏移0x68为<code>small_bin</code>的第五个chunk位，于是我们只要控制<code>small_bin</code>中的对应位置的chunk的内容打<code>FSOP</code></p>
 <p><strong>House Of Roman</strong></p>
-<p>题目里没show函数，<code>PIE</code>不改变后三位，将某区域同时链入<code>fast_bin</code>和<code>unsorted_bin</code>，<code>unsorted_bin attack</code>会将<code>main_arena+88/96</code>写入bk，然后可以利用<code>partial_write</code>改写最后四位16进制，这里需要爆破$\frac{1}{16}$的可能，将<code>main_arena+88/96</code>改成<code>__malloc_hook</code>或<code>one_gadget</code></p>
+<p>题目里没show函数，<code>PIE</code>不改变后三位，将某区域同时链入<code>fast_bin</code>和<code>unsorted_bin</code>，<code>unsorted_bin attack</code>会将<code>main_arena+88/96</code>写入bk，然后可以利用<code>partial_write</code>改写最后四位16进制，这里需要爆破1/16的可能，将<code>main_arena+88/96</code>改成<code>__malloc_hook</code>或<code>one_gadget</code></p>
 <p>或者可以选择打<code>IO_File</code>的<code>stdout</code>泄露libc</p>
 
             </div>
@@ -566,7 +566,7 @@
               <span>2022</span>
               -
             
-            2022&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
         </div>
         
         <div class="theme-info info-item">

